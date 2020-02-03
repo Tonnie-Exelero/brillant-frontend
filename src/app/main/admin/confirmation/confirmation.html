@@ -1,0 +1,189 @@
+<div id="confirmation" class="page-layout carded fullwidth" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="space-between center">
+      <div class="white-fg" layout="column" layout-align="start start">
+        <div class="h1" layout="row" layout-align="start center">
+          <md-icon md-font-icon="icon-checkbox-marked"></md-icon>
+          <span>Transaction confirmation</span>
+        </div>
+        <div class="order-count secondary-text">
+          <span>Check and confirm payments status</span>
+        </div>
+      </div>
+
+      <md-button ng-click="vm.refreshData()" class="md-icon-button"
+                 aria-label="Refresh">
+        <md-icon md-font-icon="icon-reload" class="white-fg"></md-icon>
+        <md-tooltip><span>Refresh transactions</span></md-tooltip>
+      </md-button>
+
+      <div class="search" layout="row" layout-align="start center" ng-show="vm.searchActive" flex>
+        <md-icon md-font-icon="icon-magnify" class="white-text icon search-icon"></md-icon>
+        <input id="e-commerce-products-search" class="search-input" type="text" placeholder="Search"
+               ng-model="vm.searchQuery" ng-model-options="{ debounce: 1500 }" flex>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <div class="form-confirmation md-padding">
+        <form name="confirmationForm" ng-submit="vm.getTransaction()" novalidate>
+          <div class="md-inline-form">
+            <div layout="row" layout-gt-xs="row" flex>
+              <div layout="column" flex="100" flex-gt-xs="50">
+                <md-input-container>
+                  <input name="confirmationCode" ng-model="vm.confirmation.code"
+                         placeholder="Enter confirmation code/account number to search" required>
+                  <div ng-messages="confirmationForm.confirmationCode.$error"
+                       ng-show="confirmationForm.confirmationCode.$touched"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Enter transaction confirmation code/account number</span>
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="column">
+                <md-button class="md-accent md-raised" type="submit" aria-label="Submit Confirmation">
+                  Submit Code
+                </md-button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content fullpage-datatable" layout="column" flex>
+
+        <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance" dtTrigger="vm.dtTrigger"
+               dt-options="vm.dtOptions">
+          <thead>
+          <tr>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">ID</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Payer</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Receiver</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Number</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Option</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Service</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Amount</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Status</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Date</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Actions</span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <div ng-if="vm.payments.content">
+            <tr ng-repeat="transaction in ::vm.payments.content" ng-if="transaction.status === 'PENDING'">
+              <td>{{transaction.id}}</td>
+              <td>
+                <span ng-if="transaction.customer.fullName && !transaction.customer.email">{{transaction.customer.fullName}}</span>
+                <span ng-if="transaction.customer.fullName && transaction.customer.email">{{transaction.customer.email}}</span>
+                <span ng-if="!transaction.customer.fullName && transaction.customer.email">{{transaction.customer.email}}</span>
+              </td>
+              <td>{{transaction.payee.firstName}}</td>
+              <td>{{transaction.customer.phoneNumber}}</td>
+              <td>
+                <span ng-if="transaction.transactionOption === 'MOBILEMONEY'">Mobile Money</span>
+                <span ng-if="transaction.transactionOption === 'BANKTRANSFER'">Bank Transfer</span>
+              </td>
+              <td>
+                <span ng-if="transaction.transactionService === 'MPESA'">M-Pesa</span>
+                <span ng-if="transaction.transactionService === 'AIRTELMONEY'">Airtel Money</span>
+                <span ng-if="transaction.transactionService === 'EQUITEL'">Equitel</span>
+                <span ng-if="transaction.transactionOption === 'BANKTRANSFER'">Bank Wire</span>
+              </td>
+              <td>{{transaction.currency}} {{transaction.amount}}</td>
+              <td>{{transaction.status}}</td>
+              <td class="date">{{transaction.createdDate | date:'dd-MMM-yy HH:mm:ss'}}</td>
+              <td>
+              <span ng-if="transaction.status === 'PENDING'">
+                <md-menu class="select-menu">
+                  <md-button class="edit-button md-icon-button"
+                             ng-click="$mdOpenMenu($event)"
+                             aria-label="Actions">
+                   <md-icon md-font-icon="icon-dots-horizontal" class="s16"></md-icon>
+                  </md-button>
+                  <md-menu-content>
+                    <md-menu-item>
+                      <md-button ng-click="vm.paymentApprove($event, transaction)" aria-label="Payment Approve">
+                        Approve
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button ng-click="vm.paymentDispute($event, transaction)" aria-label="Payment Dispute">
+                        Dispute
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </span>
+              </td>
+            </tr>
+          </div>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

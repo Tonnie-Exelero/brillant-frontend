@@ -1,0 +1,86 @@
+<md-dialog class="task-dialog" aria-label="New Country">
+  <form name="countryForm" class="md-inline-form" novalidate>
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title">{{vm.title}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-sm>
+          <label translate="TODO.COUNTRY">Country Name</label>
+          <input name="title" ng-model="vm.country.title" required md-autofocus>
+          <div ng-messages="countryForm.title.$error" ng-show="countryForm.title.$touched" role="alert">
+            <div ng-message="required">
+              <span translate="TODO.ERRORS.TITLE_REQUIRED">Country name field is required</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-sm>
+          <label>Abbreviation</label>
+          <input type="text" flex ng-model="vm.country.abbreviation" md-placeholder="Abbreviation" required>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-sm>
+          <label>Country Code</label>
+          <input type="text" flex ng-model="vm.country.country_code" md-placeholder="Country Code" required>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-sm>
+          <label>Time Zone</label>
+          <input type="text" flex ng-model="vm.country.time_zone" md-placeholder="Time Zone" required>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-sm>
+          <label>Currency</label>
+          <input type="text" flex ng-model="vm.country.currency" md-placeholder="Currency" required>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-sm>
+          <label>Currency ISO Code</label>
+          <input type="text" flex ng-model="vm.country.currency_code" md-placeholder="Currency Code" required>
+        </md-input-container>
+      </div>
+
+      <div class="notes">
+        <label translate="TODO.NOTES">Notes</label>
+        <text-angular ng-model="vm.country.notes"></text-angular>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.newCountry" ng-click="vm.saveCountry()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="countryForm.$invalid || countryForm.$pristine"
+                   aria-label="SAVE" translate="TODO.SAVE" translate-attr-aria-label="TODO.SAVE">
+          SAVE
+        </md-button>
+
+        <md-button type="submit" ng-if="vm.newCountry" ng-click="vm.addNewCountry()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="countryForm.$invalid || countryForm.$pristine"
+                   aria-label="Add Country" translate="TODO.ADD_COUNTRY" translate-attr-aria-label="TODO.ADD_COUNTRY">
+          ADD COUNTRY
+        </md-button>
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" ng-click="vm.deleteCountry($event)" aria-label="Delete" translate
+                   translate-attr-aria-label="TODO.DELETE">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="TODO.DELETE">DELETE</span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

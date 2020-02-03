@@ -1,0 +1,36 @@
+<div id="confirm-registration" class="flex-scrollable" layout="column" ms-scroll>
+  <div id="confirm-registration-form-wrapper" layout="column" layout-align="center center">
+    <div id="confirm-registration-form" class="md-whiteframe-8dp">
+
+      <md-icon md-font-icon="icon-alert red-fg" class="s86"></md-icon>
+
+      <div class="title" translate="RESEND.TITLE">
+        Account is not activated
+      </div>
+
+      <div class="description" translate="RESEND.DESC">
+        Enter email address below to resend activation link
+      </div>
+
+      <form name="resendEmailForm" ng-submit="vm.submitConfirmation()" novalidate>
+        <md-input-container class="md-block" md-no-float>
+          <label>Email</label>
+          <input type="email" name="email" ng-model="vm.form.email" ng-pattern="/^.+@.+\..+$/" required>
+          <div ng-messages="registerForm.email.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>Email is required</span>
+            </div>
+            <div ng-message="pattern">
+              <span>Email must be a valid e-mail address</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-button type="submit" class="md-raised md-accent submit-button" aria-label="Resend activation link"
+                   ng-disabled="registerForm.$invalid || registerForm.$pristine">
+          Resend activation link
+        </md-button>
+      </form>
+    </div>
+  </div>
+</div>

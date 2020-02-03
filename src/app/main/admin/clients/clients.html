@@ -1,0 +1,112 @@
+<div id="brillantpay-clients" class="page-layout carded fullwidth" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="space-between center">
+      <div class="white-fg" layout="column" layout-align="start start">
+        <div class="h1" layout="row" layout-align="start center">
+          <md-icon md-font-icon="icon-account-multiple"></md-icon>
+          <span>Clients</span>
+        </div>
+        <div class="order-count secondary-text">
+          <span>Total clients:</span>
+          <span>{{vm.clients.length}}</span>
+        </div>
+      </div>
+
+      <div class="search" layout="row" layout-align="start center" flex>
+        <md-icon md-font-icon="icon-magnify" class="white-text icon search-icon"></md-icon>
+        <input id="e-commerce-products-search" class="search-input" type="text" placeholder="Search"
+               translate translate-attr-placeholder="EC.SEARCH" flex>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- CONTENT -->
+      <div class="content fullpage-datatable" layout="column" flex>
+        <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance"
+               dt-options="vm.dtOptions">
+          <thead>
+          <tr>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">ID</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Name</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Email</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Location</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Accounts</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">APIs</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Status</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Date Created</span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="client in ::vm.clients"
+              ng-class="{'current-client': vm.currentClient === client}">
+            <td>
+              <a href=""
+                   ng-click="vm.openClient(client.id)" style="text-decoration: none">
+                {{client.id}}
+              </a>
+            </td>
+            <td>{{client.name}}</td>
+            <td>{{client.email}}</td>
+            <td>{{client.location}}</td>
+            <td>{{client.accounts}}</td>
+            <td>{{client.api}}</td>
+            <td>{{client.status}}</td>
+            <td class="date">{{client.date}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,46 @@
+<!-- SIDENAV HEADER -->
+<div class="header" layout="column" layout-align="space-between">
+
+  <div class="logo" layout="row" layout-align="start center">
+        <span class="logo-icon">
+            <md-icon md-font-icon="icon-cog" class="s24"></md-icon>
+        </span>
+    <span class="logo-text" translate="TODO.SYSTEM_ADMIN">Admin</span>
+  </div>
+
+  <div>System Global Settings</div>
+
+</div>
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<md-content class="content" flex ms-scroll>
+
+  <div class="navigation-simple" layout="column">
+    <md-button class="item" translate translate-attr-aria-label="TODO.COUNTRIES"
+               ng-click="vm.filterChange('countries')"
+               ng-class="{'selected':vm.listType ==='countries'}">
+      <span class="title" translate="TODO.COUNTRIES">Countries</span>
+    </md-button>
+
+    <md-button class="item" translate translate-attr-aria-label="TODO.EXCHANGE"
+               ng-click="vm.filterChange('exchange_rate')"
+               ng-class="{'selected':vm.listType ==='exchange_rate'}">
+      <span class="title" translate="TODO.EXCHANGE">Exchange Rate</span>
+    </md-button>
+
+    <md-button class="item" translate translate-attr-aria-label="TODO.TAXES"
+               ng-click="vm.filterChange('taxes')"
+               ng-class="{'selected':vm.listType ==='taxes'}">
+      <span class="title" translate="TODO.TAXES">Taxes</span>
+    </md-button>
+
+    <md-button class="item" translate translate-attr-aria-label="TODO.COMMISSION"
+               ng-click="vm.filterChange('commission')"
+               ng-class="{'selected':vm.listType ==='commission'}">
+      <span class="title" translate="TODO.COMMISSION">Commission</span>
+    </md-button>
+  </div>
+
+</md-content>
+<!-- / SIDENAV CONTENT -->

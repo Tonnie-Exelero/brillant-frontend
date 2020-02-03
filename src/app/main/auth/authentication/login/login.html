@@ -1,0 +1,83 @@
+<div id="login" layout="row" layout-align="start">
+  <div id="login-intro" flex hide show-gt-sm>
+    <div class="title-background">
+      <div class="logo md-accent-bg">
+        <span>
+          <img src="/assets/images/backgrounds/logo.png" width="100%" height="100%">
+        </span>
+      </div>
+      <div class="title" translate="LOGIN.INTRO_TITLE">
+        Welcome back!
+      </div>
+      <div class="description" translate="LOGIN.INTRO_DESCRIPTION">
+        BrillantPay brings a unique set of payments and transactions tools and capabilities
+        with state-of-the-art security and convenience standards for forward thinking businesses
+        and individuals. With our global solution-set, we have you covered.
+      </div>
+    </div>
+  </div>
+
+  <div id="login-form-wrapper" class="flex-scrollable md-whiteframe-8dp" ms-scroll>
+    <div id="login-form">
+      <div class="logo md-accent-bg" hide-gt-sm>
+        <span>
+          <img src="/assets/images/backgrounds/logo.png" width="100%" height="100%">
+        </span>
+      </div>
+
+      <div class="title" translate="LOGIN.TITLE">Log in to your account</div>
+      <div class="description" translate="LOGIN.DESCRIPTION">Welcome back. We believe you enjoy the experience.</div>
+
+      <form name="loginForm" ng-submit="vm.clientLogin()" novalidate>
+        <md-input-container class="md-block" md-no-float>
+          <label translate="LOGIN.EMAIL">Email</label>
+            <input type="email" name="email" ng-model="vm.email" ng-pattern="/^.+@.+\..+$/" required>
+            <div ng-messages="loginForm.email.$error" role="alert" multiple>
+                <div ng-message="required">
+                    <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Email field is required</span>
+                </div>
+                <div ng-message="pattern">
+                    <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">Email must be a valid e-mail address</span>
+                </div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" md-no-float>
+          <label translate="LOGIN.PASSWORD">Password</label>
+          <input type="password" name="password" ng-model="vm.password" required>
+          <div ng-messages="loginForm.password.$error" role="alert">
+            <div ng-message="required">
+              <span translate="LOGIN.ERRORS.PASSWORD_REQUIRED">Password field is required</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <div class="remember-forgot-password" layout="row" layout-sm="column"
+             layout-align="space-between center">
+          <md-checkbox class="remember-me" ng-model="data.cb1" aria-label="Remember Me">
+            <span translate="LOGIN.REMEMBER_ME">Remember Me</span>
+          </md-checkbox>
+
+          <a ui-sref="app.auth_forgot-password" class="forgot-password md-accent-color"
+             translate="LOGIN.FORGOT_PASSWORD">Forgot Password?</a>
+        </div>
+
+        <md-button type="submit" class="md-raised md-accent submit-button" aria-label="LOG IN"
+                   ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                   translate="LOGIN.LOG_IN" translate-attr-aria-label="LOGIN.LOG_IN">
+          LOG IN
+        </md-button>
+      </form>
+
+      <div class="separator">
+        <span class="text" translate="LOGIN.OR">OR</span>
+      </div>
+
+      <div class="register" layout="row" layout-sm="column" layout-align="center center">
+        <span class="text" translate="LOGIN.DONT_HAVE_ACCOUNT">Don't have an account?</span>
+        <a class="link" href="" ui-sref="app.auth_register" translate="LOGIN.CREATE_ACCOUNT">Create an
+          account</a>
+      </div>
+    </div>
+  </div>
+</div>

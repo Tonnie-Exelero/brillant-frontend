@@ -1,0 +1,156 @@
+<md-content class="md-padding">
+
+  <div ng-if="vm.listType ==='countries'">
+    <div class="add-task-button" style="margin-bottom: 50px;">
+      <md-button class="md-accent md-raised" ng-click="vm.openCountryDialog($event)" aria-label="Add Country">
+        <md-icon md-font-icon="icon-plus" class="s16"></md-icon>
+        Add Country
+      </md-button>
+    </div>
+
+    <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="white-bg md-whiteframe-4dp">
+          <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance" dt-options="vm.dtOptions">
+            <thead>
+            <tr>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Country</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Abbr.</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Country Code</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Time Zone</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Currency</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Currency Code</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Remove</span>
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="country in ::vm.countries | orderBy:vm.countries.id">
+              <td class="name" ng-click="vm.openCountryDialog($event, country)">
+              <a href="">{{country.title}}
+                <md-tooltip>Click to view more details</md-tooltip>
+              </a>
+            </td>
+              <td>{{country.abbreviation}}</td>
+              <td>{{country.country_code}}</td>
+              <td>{{country.time_zone}}</td>
+              <td>{{country.currency}}</td>
+              <td>{{country.currency_code}}</td>
+              <td class="remove">
+                <md-button class="remove-button md-icon-button"
+                           ng-click="vm.removeCountryConfirm(country, $event)"
+                           aria-label="Actions">
+                  <md-icon md-font-icon="icon-close" class="s16 red-fg md-hue-4"></md-icon>
+                </md-button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- / CONTENT -->
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='exchange_rate'">
+    <div class="add-task-button">
+      <md-button class="md-accent md-raised" ng-click="vm.openExchangeRateDialog($event)" aria-label="Add Exchange Rate">
+        <md-icon md-font-icon="icon-plus" class="s16"></md-icon>
+        Add Exchange Rate
+      </md-button>
+    </div>
+
+    Exchange Rate CRUD comes in here
+  </div>
+
+  <div ng-if="vm.listType ==='taxes'">
+    <div class="add-task-button">
+      <md-button class="md-accent md-raised" ng-click="vm.openTaskDialog($event)" aria-label="Add tax">
+        <md-icon md-font-icon="icon-plus" class="s16"></md-icon>
+        Add Tax
+      </md-button>
+    </div>
+
+    Taxes CRUD comes in here
+  </div>
+
+  <div ng-if="vm.listType ==='commission'">
+    <div class="add-task-button">
+      <md-button class="md-accent md-raised" ng-click="vm.openCommissionDialog($event)" aria-label="Add BrillantPay Commission">
+        <md-icon md-font-icon="icon-plus" class="s16"></md-icon>
+        Add Commission
+      </md-button>
+    </div>
+
+    <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="white-bg md-whiteframe-4dp">
+          <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance" dt-options="vm.dtOptions">
+            <thead>
+            <tr>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Product Type</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Commission Rate</span>
+                </div>
+              </th>
+              <th class="secondary-text">
+                <div class="table-header">
+                  <span class="column-title">Static Charge</span>
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="commission in ::vm.commissions | orderBy:vm.commissions.id">
+              <td class="name" ng-click="vm.openCommissionDialog($event, commission)">
+                <a href="">{{commission.title}}
+                  <md-tooltip>Click to view more details</md-tooltip>
+                </a>
+              </td>
+              <td>{{commission.rate}}%</td>
+              <td>{{commission.charge_currency}} {{commission.static_charge}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- / CONTENT -->
+    </div>
+  </div>
+</md-content>

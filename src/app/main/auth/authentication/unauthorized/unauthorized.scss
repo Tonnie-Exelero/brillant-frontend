@@ -1,0 +1,90 @@
+#unauthorized {
+  height: 100%;
+  background-size: cover;
+  background: url('/assets/images/backgrounds/header-bg.png') no-repeat;
+  background-size: cover;
+
+  #unauthorized-form-wrapper {
+    flex: 1 0 auto;
+    padding: 32px;
+    z-index: 100;
+
+    #unauthorized-form {
+      width: 384px;
+      max-width: 384px;
+      padding: 32px;
+      text-align: center;
+      background: #FFFFFF;
+
+      .logo {
+        width: 128px;
+        height: 128px;
+        line-height: 128px;
+        font-size: 86px;
+        font-weight: 500;
+        margin: 32px auto;
+        color: #FFFFFF;
+        border-radius: 2px;
+      }
+
+      .title {
+        font-size: 21px;
+        color: darkred;
+        margin: 16px 0 32px 0;
+      }
+
+      .description {
+        font-size:17px;
+      }
+
+      form {
+        width: 100%;
+        text-align: left;
+
+        .submit-button {
+          width: 220px;
+          margin: 16px auto;
+          display: block;
+        }
+      }
+
+      .login {
+        margin: 32px auto 24px auto;
+        width: 250px;
+        font-weight: 500;
+
+        .text {
+          margin-right: 8px;
+        }
+
+        .link {
+
+        }
+      }
+    }
+  }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+  #unauthorized {
+
+    #unauthorized-form-wrapper {
+      padding: 16px;
+
+      #unauthorized-form {
+        padding: 24px;
+        width: 100%;
+
+        form {
+
+          .md-button {
+            width: 90%;
+          }
+        }
+      }
+    }
+  }
+
+}

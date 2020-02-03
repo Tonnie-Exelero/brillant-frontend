@@ -1,0 +1,29 @@
+{
+  "REGISTER": {
+    "INTRO_TITLE": "Welcome to BrillantPay!",
+    "INTRO_DESCRIPTION": "BrillantPay brings a unique set of payments and transactions tools and capabilities with state-of-the-art security and convenience standards for forward thinking businesses and individuals. With our global solution-set, we have you covered.",
+    "TITLE": "Create your account",
+    "DESCRIPTION": "You will now be able to transact securely.",
+    "ACC_TYPE": "Account type",
+    "ACC_PERSONAL": "Personal",
+    "ACC_BUSINESS": "Business",
+    "NAME": "Username",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_CONFIRM": "Password (Confirm)",
+    "READ_ACCEPT": "I read and accept",
+    "TERMS_COND": "terms of service",
+    "CREATE_ACCOUNT": "CREATE MY ACCOUNT",
+    "ALREADY_HAVE": "Already have an account?",
+    "LOGIN": "Log in",
+    "ERRORS": {
+      "ACC_TYPE_REQUIRED": "Select an account type",
+      "USERNAME_REQUIRED": "Username field is required",
+      "EMAIL_REQUIRED": "Email field is required",
+      "EMAIL_MUST_VALID": "Email must be a valid e-mail address",
+      "PASSWORD_REQUIRED": "Password field is required",
+      "PASSWORD_CONFIRM_REQUIRED": "Password confirm field is required",
+      "TERMS_REQUIRED": "You must accept terms and conditions before submitting the form"
+    }
+  }
+}

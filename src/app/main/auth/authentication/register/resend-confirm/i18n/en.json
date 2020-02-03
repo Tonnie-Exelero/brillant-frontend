@@ -1,0 +1,7 @@
+{
+  "RESEND": {
+    "TITLE": "Account is not activated",
+    "DESC": "Enter email address below to resend activation link",
+    "SUBMIT": "Resend activation email"
+  }
+}

@@ -1,0 +1,92 @@
+<md-dialog class="commission-dialog" aria-label="New Commission">
+  <form name="commissionForm" class="md-inline-form" novalidate>
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title">{{vm.title}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-sm>
+          <label translate="TODO.TITLE">Title</label>
+          <input name="title" ng-model="vm.commission.title" required md-autofocus>
+          <div ng-messages="commissionForm.title.$error" ng-show="commissionForm.title.$touched" role="alert">
+            <div ng-message="required">
+              <span translate="TODO.ERRORS.TITLE_REQUIRED">Title field is required</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-sm>
+          <label translate="TODO.RATE">Commission Rate</label>
+          <input type="number" name="rate" ng-model="vm.commission.rate" required>
+          <div ng-messages="commissionForm.rate.$error" ng-show="commissionForm.rate.$touched" role="alert">
+            <div ng-message="required">
+              <span>Rate is required</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-sm>
+          <label translate="TODO.CHARGE_CURRENCY">Charge Currency</label>
+          <md-select name="currency" ng-model="vm.commission.charge_currency">
+            <md-option value="KES">KES</md-option>
+            <md-option value="USD">USD</md-option>
+          </md-select>
+          <div ng-messages="commissionForm.currency.$error" ng-show="commissionForm.currency.$touched" role="alert">
+            <div ng-message="required">
+              <span>Charge Currency is required</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-sm>
+          <label translate="TODO.STATIC_CHARGE">Static Charge</label>
+          <input type="number" name="static_charge" ng-model="vm.commission.static_charge">
+          <div ng-messages="commissionForm.static_charge.$error" ng-show="commissionForm.static_charge.$touched" role="alert">
+            <div ng-message="required">
+              <span>Static charge is required</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div class="notes">
+        <label translate="TODO.NOTES">Notes</label>
+        <text-angular ng-model="vm.commission.notes"></text-angular>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.newCommission" ng-click="vm.saveCommission()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="commissionForm.$invalid || commissionForm.$pristine"
+                   aria-label="SAVE" translate="TODO.SAVE" translate-attr-aria-label="TODO.SAVE">
+          SAVE
+        </md-button>
+
+        <md-button type="submit" ng-if="vm.newCommission" ng-click="vm.addNewCommission()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="commissionForm.$invalid || commissionForm.$pristine"
+                   aria-label="Add Commission" translate="TODO.ADD_COMMISSION" translate-attr-aria-label="TODO.ADD_COMMISSION">
+          ADD TASK
+        </md-button>
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" ng-if="vm.newCommission" ng-click="vm.deleteCommission($event)" aria-label="Delete" translate
+                   translate-attr-aria-label="TODO.DELETE">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="TODO.DELETE">DELETE</span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,114 @@
+<div id="e-commerce-orders" class="page-layout carded fullwidth" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="space-between center">
+      <div class="white-fg" layout="column" layout-align="start start">
+        <div class="h1" layout="row" layout-align="start center">
+          <md-icon md-font-icon="icon-cash-multiple"></md-icon>
+          <span>Client Transactions</span>
+        </div>
+        <div class="order-count secondary-text">
+          <span translate="EC.TOTAL_TRANSACTIONS">Total transactions:</span>
+          <span>{{vm.transactions.length}}</span>
+        </div>
+      </div>
+
+      <div class="search" layout="row" layout-align="start center" flex>
+        <md-icon md-font-icon="icon-magnify" class="white-text icon search-icon"></md-icon>
+        <input id="e-commerce-products-search" class="search-input" type="text" placeholder="Search"
+               translate translate-attr-placeholder="EC.SEARCH" flex>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- CONTENT -->
+      <div class="content fullpage-datatable" layout="column" flex>
+
+        <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance"
+               dt-options="vm.dtOptions">
+          <thead>
+          <tr>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">ID</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Reference</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Customer</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Payment</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Number</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Amount</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Status</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Date</span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <div ng-if="vm.transactions">
+            <tr ng-repeat="transaction in ::vm.transactions">
+              <td>{{transaction.id}}</td>
+              <td>{{transaction.reference}}</td>
+              <td>
+                <span ng-if="transaction.name && !transaction.email">{{transaction.name}}</span>
+                <span ng-if="transaction.name && transaction.email">{{transaction.email}}</span>
+                <span ng-if="!transaction.name && transaction.email">{{transaction.email}}</span>
+              </td>
+              <td>{{transaction.payment}}</td>
+              <td>{{transaction.number}}</td>
+              <td>{{transaction.currency}} {{transaction.amount}}</td>
+              <td>{{transaction.status}}</td>
+              <td class="date">{{transaction.date}}</td>
+            </tr>
+          </div>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

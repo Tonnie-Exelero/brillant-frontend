@@ -1,0 +1,75 @@
+<div id="todo" class="page-layout carded left-sidenav" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- LEFT SIDENAV -->
+  <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav"
+              ng-include="'app/main/admin/administration/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
+  </md-sidenav>
+  <!-- / LEFT SIDENAV -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="start center">
+      <div class="search-wrapper md-whiteframe-4dp" flex layout="row" layout-align="start center">
+        <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md
+                   aria-label="Toggle sidenav" translate translate-attr-aria-label="TODO.TOGGLE_SIDENAV">
+          <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+        </md-button>
+
+        <div class="search" flex layout="row" layout-align="start center">
+          <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
+          <input flex ng-model="vm.taskFilters.search" class="search-input" type="text" placeholder="Search for something"
+                 translate translate-attr-placeholder="TODO.SEARCH">
+        </div>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- CONTENT TOOLBAR -->
+      <div class="toolbar" layout="row" layout-align="space-between center">
+
+        <span ng-if="vm.listType ==='countries'" class="sys-admin-titles">
+          Manage Countries
+        </span>
+
+        <span ng-if="vm.listType ==='exchange_rate'" class="sys-admin-titles">
+          Manage Exchange Rate
+        </span>
+
+        <span ng-if="vm.listType ==='taxes'" class="sys-admin-titles">
+          Manage Taxes
+        </span>
+
+        <span ng-if="vm.listType ==='commission'" class="sys-admin-titles">
+          Manage BrillantPay Commissions
+        </span>
+      </div>
+      <!-- / CONTENT TOOLBAR -->
+
+      <!-- CONTENT -->
+      <div class="content" layout="row" flex>
+
+        <!-- Todo list pane -->
+        <md-content class="todo-list-pane" flex
+                    ng-include="'app/main/admin/administration/views/list/list-view.html'" ms-scroll="vm.msScrollOptions">
+        </md-content>
+        <!-- / Todo list pane -->
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARDb-->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>
