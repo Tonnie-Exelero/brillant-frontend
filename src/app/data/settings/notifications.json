@@ -1,0 +1,10 @@
+{
+  "data": {
+    "paymentNotify": true,
+    "transferNotify": true,
+    "withdrawNotify": true,
+    "refundNotify": true,
+    "disputeNotify": true,
+    "includeText": false
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "projects": [
+    {
+      "name": "BrillantPay Admin Acc",
+      "owner": "Tonnie"
+    },
+    {
+      "name": "BrillantPay. Frontend App",
+      "owner": "Tonnie"
+    },
+    {
+      "name": "Brillant",
+      "owner": "Tonnie"
+    },
+    {
+      "name": "Innovations",
+      "owner": "Tonnie"
+    }
+  ],
+  "widget1": {
+    "title": "Users",
+    "data": {
+      "label": "USERS",
+      "count": 2465,
+      "extra": {
+        "label": "New users today",
+        "count": 97
+      }
+    },
+    "detail": "Total number of user accounts."
+  },
+  "widget2": {
+    "title": "Accounts",
+    "data": {
+      "label": "ACCOUNTS",
+      "count": 4326,
+      "extra": {
+        "label": "New accounts today",
+        "count": 201
+      }
+    },
+    "detail": {
+      "live": "Live accounts",
+      "live_count": 3093,
+      "test": "Test accounts",
+      "test_count": 1092
+    }
+  },
+  "widget3": {
+    "title": "Transactions",
+    "data": {
+      "label": "TRANSACTIONS",
+      "count": 234326,
+      "extra": {
+        "label": "New transactions today",
+        "count": 1201
+      }
+    },
+    "detail": {
+      "payments": "Payments",
+      "payments_count": 198263,
+      "transfers": "Transfers",
+      "transfers_count": 17673,
+      "withdrawals": "Withdrawals",
+      "withdrawals_count": 26827
+    }
+  },
+  "widget4": {
+    "title": "Total Volume",
+    "data": {
+      "count": 25487605,
+      "currency": "KES",
+      "extra": {
+        "label": "Volume today",
+        "count": 679720
+      }
+    },
+    "detail": "This is the total volume of funds successfully deposited."
+  },
+  "widget5": {
+    "title": "Acc. Balance",
+    "data": {
+      "count": 4587305,
+      "currency": "KES",
+      "extra": {
+        "label": "Today's net",
+        "count": 102830
+      }
+    },
+    "detail": "This is the deposited amount of funds that BrillantPay holds currently in the account."
+  },
+  "widget6": {
+    "title": "Live APIs",
+    "data": {
+      "count": 3203,
+      "currency": "APIs",
+      "extra": {
+        "label": "New today",
+        "count": 23
+      }
+    },
+    "detail": "These are the LIVE APIs that are currently operating."
+  },
+  "widget7": {
+    "title": "Test APIs",
+    "data": {
+      "count": 1123,
+      "currency": "APIs",
+      "extra": {
+        "label": "New today",
+        "count": 33
+      }
+    },
+    "detail": "These are the TEST APIs that are currently in operation."
+  },
+  "widget55": {
+    "title": "Payments: Amount vs Time ('000)",
+    "totalTransactions": 234326,
+    "bigChart": {
+      "chart": [
+        {
+          "key": "Total Payments",
+          "values": [
+            {"day": 1, "amount": 143},
+            {"day": 2, "amount": 155},
+            {"day": 3, "amount": 175},
+            {"day": 4, "amount": 172},
+            {"day": 5, "amount": 165},
+            {"day": 6, "amount": 301},
+            {"day": 7, "amount": 298},
+            {"day": 8, "amount": 302},
+            {"day": 9, "amount": 248},
+            {"day": 10, "amount": 221},
+            {"day": 11, "amount": 190},
+            {"day": 12, "amount": 165},
+            {"day": 13, "amount": 176},
+            {"day": 14, "amount": 189},
+            {"day": 15, "amount": 200},
+            {"day": 16, "amount": 220},
+            {"day": 17, "amount": 205},
+            {"day": 18, "amount": 192},
+            {"day": 19, "amount": 185},
+            {"day": 20, "amount": 142},
+            {"day": 21, "amount": 132},
+            {"day": 22, "amount": 127},
+            {"day": 23, "amount": 122},
+            {"day": 24, "amount": 126},
+            {"day": 25, "amount": 132},
+            {"day": 26, "amount": 120},
+            {"day": 27, "amount": 118},
+            {"day": 28, "amount": 115},
+            {"day": 29, "amount": 110},
+            {"day": 30, "amount": 117},
+            {"day": 31, "amount": 141},
+            {"day": 32, "amount": 159},
+            {"day": 33, "amount": 167},
+            {"day": 34, "amount": 185},
+            {"day": 35, "amount": 184},
+            {"day": 36, "amount": 195},
+            {"day": 37, "amount": 207},
+            {"day": 38, "amount": 230},
+            {"day": 39, "amount": 239},
+            {"day": 40, "amount": 241},
+            {"day": 41, "amount": 239},
+            {"day": 42, "amount": 260},
+            {"day": 43, "amount": 276},
+            {"day": 44, "amount": 258},
+            {"day": 45, "amount": 250},
+            {"day": 46, "amount": 226},
+            {"day": 47, "amount": 227},
+            {"day": 48, "amount": 218},
+            {"day": 49, "amount": 232},
+            {"day": 50, "amount": 253},
+            {"day": 51, "amount": 235},
+            {"day": 52, "amount": 229},
+            {"day": 53, "amount": 225},
+            {"day": 54, "amount": 189},
+            {"day": 55, "amount": 149},
+            {"day": 56, "amount": 131},
+            {"day": 57, "amount": 135},
+            {"day": 58, "amount": 122},
+            {"day": 59, "amount": 97},
+            {"day": 60, "amount": 113},
+            {"day": 61, "amount": 141},
+            {"day": 62, "amount": 142},
+            {"day": 63, "amount": 139},
+            {"day": 64, "amount": 177},
+            {"day": 65, "amount": 194},
+            {"day": 66, "amount": 209},
+            {"day": 67, "amount": 198},
+            {"day": 68, "amount": 222},
+            {"day": 69, "amount": 234},
+            {"day": 70, "amount": 228},
+            {"day": 71, "amount": 248},
+            {"day": 72, "amount": 270},
+            {"day": 73, "amount": 292},
+            {"day": 74, "amount": 265},
+            {"day": 75, "amount": 237},
+            {"day": 76, "amount": 265},
+            {"day": 77, "amount": 248},
+            {"day": 78, "amount": 278},
+            {"day": 79, "amount": 292},
+            {"day": 80, "amount": 300},
+            {"day": 81, "amount": 326},
+            {"day": 82, "amount": 337},
+            {"day": 83, "amount": 339},
+            {"day": 84, "amount": 346},
+            {"day": 85, "amount": 347},
+            {"day": 86, "amount": 342},
+            {"day": 87, "amount": 333},
+            {"day": 88, "amount": 323},
+            {"day": 89, "amount": 295},
+            {"day": 90, "amount": 251},
+            {"day": 91, "amount": 295},
+            {"day": 92, "amount": 294},
+            {"day": 93, "amount": 295},
+            {"day": 94, "amount": 325},
+            {"day": 95, "amount": 340},
+            {"day": 96, "amount": 345},
+            {"day": 97, "amount": 337},
+            {"day": 98, "amount": 318},
+            {"day": 99, "amount": 317},
+            {"day": 100, "amount": 318},
+            {"day": 101, "amount": 332},
+            {"day": 102, "amount": 337},
+            {"day": 103, "amount": 350},
+            {"day": 104, "amount": 349}
+          ]
+        }
+      ]
+    }
+  },
+  "widget21": {
+    "title": "Payments",
+    "data": {
+      "label": "PAYMENTS",
+      "count": 453672,
+      "extra": {
+        "label": "New payments today",
+        "count": 2672
+      }
+    },
+    "detail": {
+      "success": "Successful",
+      "success_count": 326523,
+      "pending": "Pending",
+      "pending_count": 75632,
+      "rejected": "Rejected",
+      "rejected_count": 57938
+    }
+  },
+  "widget22": {
+    "title": "Transfers",
+    "data": {
+      "label": "TRANSFERS",
+      "count": 36356,
+      "extra": {
+        "label": "New transfers today",
+        "count": 1356
+      }
+    },
+    "detail": {
+      "success": "Successful",
+      "success_count": 32653,
+      "pending": "Pending",
+      "pending_count": 632,
+      "rejected": "Rejected",
+      "rejected_count": 3938
+    }
+  },
+  "widget23": {
+    "title": "Withdrawals",
+    "data": {
+      "label": "WITHDRAWALS",
+      "count": 267367,
+      "extra": {
+        "label": "New withdrawals today",
+        "count": 3726
+      }
+    },
+    "detail": {
+      "success": "Successful",
+      "success_count": 192653,
+      "pending": "Pending",
+      "pending_count": 63227,
+      "rejected": "Rejected",
+      "rejected_count": 17938
+    }
+  },
+  "widget24": {
+    "title": "Disputes",
+    "data": {
+      "label": "DISPUTES",
+      "count": 344,
+      "extra": {
+        "label": "New disputes today",
+        "count": 21
+      }
+    },
+    "detail": {
+      "solved": "Solved",
+      "solved_count": 283,
+      "pending": "Pending",
+      "pending_count": 27,
+      "cancelled": "Cancelled",
+      "cancelled_count": 38
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Ecobank Kenya",
+      "branch": "Westlands",
+      "accountName": "Tonnie Exelero",
+      "accountNumber": "05145455326742563",
+      "bankCode": "03",
+      "branchCode": "052",
+      "swiftBic": "ECOXKENA",
+      "rtnAba": "77665273"
+    },
+    {
+      "id": 2,
+      "name": "Commercial Bank of Africa",
+      "branch": "Upperhill",
+      "accountName": "Tonnie Exelero",
+      "accountNumber": "090284726742563",
+      "bankCode": "12",
+      "branchCode": "037",
+      "swiftBic": "COMKENA",
+      "rtnAba": "4562273"
+    },
+    {
+      "id": 1,
+      "name": "Barclays Bank Kenya",
+      "branch": "Westlands",
+      "accountName": "Tonnie Exelero",
+      "accountNumber": "0342643226742563",
+      "bankCode": "07",
+      "branchCode": "023",
+      "swiftBic": "BARCKENA",
+      "rtnAba": "3562273"
+    }
+  ]
+}

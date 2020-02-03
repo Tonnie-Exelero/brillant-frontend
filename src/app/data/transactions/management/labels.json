@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "disputes",
+            "title": "Dispute",
+            "color": "md-green-600-bg"
+        },
+        {
+            "id": 2,
+            "name": "invoices",
+            "title": "Invoice",
+            "color": "md-blue-grey-500-bg"
+        }
+    ]
+}

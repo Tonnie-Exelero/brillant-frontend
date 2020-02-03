@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Payment successful",
+      "color": "md-green-500-bg"
+    },
+    {
+      "id": 2,
+      "name": "Payment pending",
+      "color": "md-orange-500-bg"
+    },
+    {
+      "id": 3,
+      "name": "Payment error",
+      "color": "md-red-900-bg"
+    },
+    {
+      "id": 4,
+      "name": "Refunded",
+      "color": "md-purple-500-bg"
+    },
+    {
+      "id": 5,
+      "name": "Refund error",
+      "color": "md-red-500-bg"
+    },
+    {
+      "id": 6,
+      "name": "Payment Cancelled",
+      "color": "md-pink-500-bg"
+    }
+  ]
+}

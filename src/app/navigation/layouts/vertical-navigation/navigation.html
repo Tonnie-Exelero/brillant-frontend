@@ -1,0 +1,13 @@
+<md-toolbar class="navigation-header md-whiteframe-1dp" layout="row" layout-align="space-between center">
+    <div class="logo" layout="row" layout-align="start center">
+        <span class="logo-image">
+          <img src="/assets/images/backgrounds/logo.png" width="100%" height="100%">
+        </span>
+        <span class="logo-text">BrillantPay</span>
+    </div>
+
+    <md-icon class="fold-toggle s18" md-font-icon="icon-backburger" hide show-gt-sm
+             ng-click="vm.toggleMsNavigationFolded()"></md-icon>
+</md-toolbar>
+
+<ms-navigation class="scrollable" folded="vm.folded" ms-scroll="vm.msScrollOptions"></ms-navigation>

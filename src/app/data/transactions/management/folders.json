@@ -1,0 +1,28 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "name": "selling",
+        "title": "Selling",
+        "icon": "icon-account-multiple"
+      },
+      {
+        "id": 2,
+        "name": "buying",
+        "title": "Buying",
+        "icon": "icon-account-multiple-outline"
+      },
+      {
+        "id": 3,
+        "name": "brokering",
+        "title": "Brokering",
+        "icon": "icon-account-multiple-plus"
+      },
+      {
+        "id": 4,
+        "name": "trash",
+        "title": "Trash",
+        "icon": "icon-delete"
+      }
+    ]
+}

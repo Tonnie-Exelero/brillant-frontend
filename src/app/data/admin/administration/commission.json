@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Checkout",
+      "rate": 3,
+      "charge_currency": "",
+      "static_charge": "",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "title": "Subscription",
+      "rate": 2.8,
+      "charge_currency": "KES",
+      "static_charge": 50,
+      "notes": ""
+    },
+    {
+      "id": 3,
+      "title": "Escrow",
+      "rate": 4.7,
+      "charge_currency": "",
+      "static_charge": "",
+      "notes": ""
+    }
+  ]
+}

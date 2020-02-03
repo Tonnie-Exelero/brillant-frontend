@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Kenya",
+      "abbreviation": "KE",
+      "country_code": "+254",
+      "time_zone": "EAT",
+      "currency": "Kenya Shillings",
+      "currency_code": "KES",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "title": "Tanzania",
+      "abbreviation": "TZ",
+      "country_code": "+256",
+      "time_zone": "EAT",
+      "currency": "Tanzania Shillings",
+      "currency_code": "TSH",
+      "notes": ""
+    },
+    {
+      "id": 3,
+      "title": "Uganda",
+      "abbreviation": "UG",
+      "country_code": "+255",
+      "time_zone": "EAT",
+      "currency": "Uganda Shillings",
+      "currency_code": "UGS",
+      "notes": ""
+    },
+    {
+      "id": 4,
+      "title": "Rwanda",
+      "abbreviation": "RW",
+      "country_code": "+257",
+      "time_zone": "EAT",
+      "currency": "Rwandan Franc",
+      "currency_code": "RWF",
+      "notes": ""
+    }
+  ]
+}

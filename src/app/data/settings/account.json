@@ -1,0 +1,22 @@
+{
+  "data": {
+    "firstName": "Tonnie",
+    "lastName": "Exelero",
+    "email": "account@brillantpay.com",
+    "accountType": "Business Account",
+    "accountCategory": "Checkout",
+    "industry": "Retail",
+    "activity": "Online Shopping",
+    "country": "Kenya",
+    "currency": "KES",
+    "acc_timezone": "GMT +03:00, East Africa Time",
+    "public": {
+      "organizationName": "Brillant Limited",
+      "organizationEmail": "contact@brillantpay.com",
+      "organizationPhone": "+254711001133",
+      "organizationAddress": "4th Floor, Piedmont Plaza, Ngong Road, Nairobi",
+      "website": "www.brillantpay.com",
+      "logoUrl": "assets/images/logos/android.png"
+    }
+  }
+}

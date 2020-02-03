@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "network": "VISA",
+      "number": "4456 2676 6373 2332",
+      "cvc": "878",
+      "exp_month": "11",
+      "exp_year": "24"
+    },
+    {
+      "id": 2,
+      "network": "MasterCard",
+      "number": "5423 1652 7267 4512",
+      "cvc": "024",
+      "exp_month": "09",
+      "exp_year": "25"
+    }
+  ]
+}

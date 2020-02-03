@@ -1,0 +1,35 @@
+{
+  "data": {
+    "personal": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "john.doe@brillantpay.com",
+      "phoneNumber": 254700112233,
+      "identification": "A2673784",
+      "occupation": "Businessman",
+      "address": {
+        "physicalAddress": "Jaydis Court, Amboseli Rd, Nairobi",
+        "postalAddress": 109,
+        "postalCode": "00603",
+        "city": "Nairobi",
+        "country": "Kenya"
+      }
+    },
+    "organization": {
+      "name": "Brillant Inc",
+      "logoUrl": "/assets/images/logos/android.png",
+      "industry": "ICT",
+      "activity": "Internet Service Provider",
+      "website": "www.brillantpay.com",
+      "emailAddress": "info@brillantinc.com",
+      "phoneNumber": 254711882787,
+      "address": {
+        "physicalAddress": "Fortis Tower, Hospital Rd, UpperHill, Nairobi",
+        "postalAddress": 109,
+        "postalCode": "00603",
+        "city": "Nairobi",
+        "country": "Kenya"
+      }
+    }
+  }
+}

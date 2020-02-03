@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Active",
+      "color": "md-green-500-bg"
+    },
+    {
+      "id": 2,
+      "name": "Suspended",
+      "color": "md-orange-500-bg"
+    },
+    {
+      "id": 3,
+      "name": "Removed",
+      "color": "md-red-500-bg"
+    }
+  ]
+}

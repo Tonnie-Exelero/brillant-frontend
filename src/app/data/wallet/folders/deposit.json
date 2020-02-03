@@ -1,0 +1,187 @@
+{
+  "totals": 26,
+  "data": [
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": false,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Bank",
+      "date": "2 Dec - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "Tonnie Exelero",
+        "acc_number": "654562476545624"
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "",
+        "number": ""
+      },
+      "mobile": {
+        "number": ""
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": true,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Mobile",
+      "date": "4 Dec - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "",
+        "acc_number": ""
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "",
+        "number": ""
+      },
+      "mobile": {
+        "number": "254762565256"
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": false,
+      "important": false,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Bank",
+      "date": "24 Dec - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "Tonnie Exelero",
+        "acc_number": "654562476545624"
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "",
+        "number": ""
+      },
+      "mobile": {
+        "number": ""
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": true,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Card",
+      "date": "7 Jan - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "",
+        "acc_number": ""
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "Dan Warui",
+        "number": "56453526414342512"
+      },
+      "mobile": {
+        "number": ""
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": false,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Bank",
+      "date": "9 Jan - 11.45.34 am",
+      "bank": {
+        "acc_name": "Tonnie Exelero",
+        "acc_number": "654562476545624"
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "read": true,
+      "card": {
+        "holder": "",
+        "number": ""
+      },
+      "mobile": {
+        "number": ""
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": false,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Card",
+      "date": "10 Jan - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "",
+        "acc_number": ""
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "Dan Warui",
+        "number": "56453526414342512"
+      },
+      "mobile": {
+        "number": "254762565256"
+      }
+    },
+    {
+      "subject": "Deposit to brillant",
+      "message": "The amount shown has been deposited to Brillant account",
+      "starred": false,
+      "important": true,
+      "main": {
+        "avatar": "",
+        "name": "Brillant Inc"
+      },
+      "source": "Mobile",
+      "date": "15 Jan - 11.45.34 am",
+      "read": true,
+      "bank": {
+        "acc_name": "",
+        "acc_number": ""
+      },
+      "currency": "USD",
+      "amount": 45678,
+      "card": {
+        "holder": "",
+        "number": ""
+      },
+      "mobile": {
+        "number": "254762565256"
+      }
+    }
+  ]
+}
