@@ -1,0 +1,256 @@
+<div id="transactions" class="page-layout simple fullwidth doc-page" layout="column">
+
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between center">
+
+    <!-- APP TITLE -->
+    <div layout="row" layout-align="start center">
+      <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-cash-multiple" class="s24"></md-icon>
+                </span>
+        <span class="logo-text">Start a transaction</span>
+      </div>
+    </div>
+    <!-- / APP TITLE -->
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div layout="row" class="content">
+
+    <!-- FORM WIZARD -->
+    <ms-form-wizard flex>
+      <md-tabs md-dynamic-height md-selected="msWizard.selectedIndex" md-center-tabs="true">
+        <md-tab>
+          <md-tab-label>
+            <span class="ms-form-wizard-step-label">
+              <span class="ms-form-wizard-step-number md-accent-bg"
+                    ng-if="wizardStep1.$invalid">1</span>
+              <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep1.$valid">
+                <i class="icon-check s16"></i>
+              </span>
+              <span class="ms-form-wizard-step-text">Transaction details</span>
+            </span>
+          </md-tab-label>
+
+          <md-tab-body>
+            <div layout="column">
+              <md-content aria-label="Start Transaction">
+                <md-toolbar>
+                  <div class="md-toolbar-tools">
+                    <h2>Transaction details</h2>
+                    <span flex></span>
+                    <md-switch ng-model="showHints">{{showHints ? "Showing hints" : "Need hints?"}}</md-switch>
+                  </div>
+                </md-toolbar>
+                <form name="wizardStep1" class="md-inline-form" ms-form-wizard-form novalidate>
+                  <md-tabs md-dynamic-height md-border-bottom md-no-pagination md-swipe-content>
+                    <div ng-include="'app/main/products/escrow/transactions/transactions/selling.html'"></div>
+                    <div ng-include="'app/main/products/escrow/transactions/transactions/buying.html'"></div>
+                    <div ng-include="'app/main/products/escrow/transactions/transactions/brokering.html'"></div>
+                  </md-tabs>
+                </form>
+              </md-content>
+            </div>
+          </md-tab-body>
+        </md-tab>
+
+        <md-tab ng-disabled="!vm.transaction.buyer_email && !vm.transaction.seller_email && !vm.transaction.broker_email || !vm.transaction.buyer_phone && !vm.transaction.seller_phone || !vm.transaction.currency || !vm.transaction.amount || !vm.transaction.product"> <!-- ng-disabled="msWizard.currentStepInvalid()" -->>
+          <md-tab-label>
+            <span class="ms-form-wizard-step-label">
+              <span class="ms-form-wizard-step-number md-accent-bg"
+                    ng-if="!vm.transaction.payment.cardholder && !vm.transaction.payment.cardnumber && !vm.transaction.payment.cvc && !vm.transaction.payment.expirationDate || !vm.transaction.payment.bank_name && !vm.transaction.payment.bank_branch && !vm.transaction.payment.bank_address && !vm.transaction.payment.bank_city && !vm.transaction.payment.bank_acc_name && !vm.transaction.payment.bank_acc_no || !vm.transaction.payment.mobile_network_provider && !vm.transaction.payment.phone_no">2</span>
+              <span class="ms-form-wizard-step-number md-accent-bg" ng-if="vm.transaction.payment.cardholder && vm.transaction.payment.cardnumber && vm.transaction.payment.cvc && vm.transaction.payment.expirationDate || vm.transaction.payment.bank_name && vm.transaction.payment.bank_branch && vm.transaction.payment.bank_address && vm.transaction.payment.bank_city && vm.transaction.payment.bank_acc_name && vm.transaction.payment.bank_acc_no || vm.transaction.payment.mobile_network_provider && vm.transaction.payment.phone_no">
+                <i class="icon-check s16"></i>
+              </span>
+              <span class="ms-form-wizard-step-text">Payment</span>
+            </span>
+          </md-tab-label>
+          <md-tab-body>
+            <md-toolbar>
+              <div class="md-toolbar-tools">
+                <h2>Payment details</h2>
+                <span flex></span>
+                <md-switch ng-model="showHints">{{showHints ? "Showing hints" : "Need hints?"}}</md-switch>
+              </div>
+            </md-toolbar>
+            <form name="wizardStep2" ms-form-wizard-form novalidate>
+              <md-tabs md-dynamic-height md-border-bottom>
+                  <md-tab>
+                    <md-tab-label >
+                      <span class="ms-form-wizard-step-label">
+                        <span class="ms-form-wizard-step-text">Bank Transactions</span>
+                      </span>
+                    </md-tab-label>
+                    <md-tab-body>
+                      <p>Pay with your Brillant Wallet</p>
+                      <div id="brillant-wallet">
+                        <div layout="column" layout-gt-xs="row" class="center center">
+                          <md-radio-group ng-model="vm.transaction.payment.brillant_wallet">
+                            <md-radio-button value="pay-with-wallet">Pay with wallet</md-radio-button>
+                          </md-radio-group>
+                        </div>
+                      </div>
+
+                      <p style="font-size:.8em; width: 100%; text-align: center;">
+                        <md-checkbox ng-model="vm.transactions.terms_conditions"></md-checkbox> I agree to <strong>Brillant <a href="/terms">Terms and Conditions</a></strong>.
+                      </p>
+                    </md-tab-body>
+                  </md-tab>
+
+                  <md-tab>
+                    <md-tab-label >
+                      <span class="ms-form-wizard-step-label">
+                        <span class="ms-form-wizard-step-text">Card Transactions</span>
+                      </span>
+                    </md-tab-label>
+                    <md-tab-body>
+                      <div class="md-padding">
+                        <p><strong>Card Information</strong> - for card transactions. <b>(Please fill in everything)</b></p>
+                        <md-input-container class="md-block">
+                          <input type="text" name="cardholder" ng-model="vm.transaction.payment.cardholder"
+                               placeholder="Card Holder" required>
+                          <div class="hint" ng-show="showHints">JOHN DOE</div>
+                          <div ng-messages="wizardStep2.cardholder.$error"
+                             role="alert">
+                            <div ng-message="required">
+                              <span>Card holder field is required.</span>
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                        <div layout="column" layout-gt-xs="row">
+                          <md-input-container flex="100" flex-gt-xs="33">
+                            <input type="text" name="cardnumber" ng-model="vm.transaction.payment.cardnumber"
+                                   placeholder="Card Number" required>
+                            <div class="hint" ng-show="showHints">4012765482176452</div>
+                            <div ng-messages="wizardStep2.cardnumber.$error"
+                                 role="alert">
+                              <div ng-message="required">
+                                <span>Card number field is required.</span>
+                              </div>
+                            </div>
+                          </md-input-container>
+
+                          <md-input-container flex="100" flex-gt-xs="33">
+                            <input type="number" name="cvc" ng-model="vm.transaction.payment.cvc"
+                                   placeholder="CVC" ng-pattern="/^[0-9]{3}$/" required>
+                            <div class="hint" ng-show="showHints">452</div>
+                            <div ng-messages="wizardStep2.cvc.$error"
+                                 ng-show="wizardStep2.cvc.$touched"
+                                 role="alert" multiple>
+                              <div ng-message="required">
+                                <span>CVC field is required. (e.g. 038)</span>
+                              </div>
+                              <div ng-message="pattern">
+                                <span>CVC can't be longer than 3 characters.</span>
+                              </div>
+                            </div>
+                          </md-input-container>
+
+                          <md-input-container flex="100" flex-gt-xs="33">
+                            <input type="text" name="expirationDate" ng-model="vm.transaction.payment.expirationDate"
+                                   placeholder="Expiration Date" ng-pattern="/^[0-9]{2}[/][0-9]{2}$/" required>
+                            <div class="hint" ng-show="showHints">10/25</div>
+                            <div ng-messages="wizardStep2.expirationDate.$error"
+                                 role="alert">
+                              <div ng-message="required">
+                                <span>Expiration date field is required.</span>
+                              </div>
+                              <div ng-message="pattern">
+                                <span>Pattern is MM/YY.</span>
+                              </div>
+                            </div>
+                          </md-input-container>
+                        </div>
+
+                        <p style="font-size:.8em; width: 100%; text-align: center;">
+                          <md-checkbox ng-model="vm.transactions.terms_conditions"></md-checkbox> I agree to <strong>Brillant <a href="/terms">Terms and Conditions</a></strong>.
+                        </p>
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
+
+                  <md-tab>
+                    <md-tab-label >
+                      <span class="ms-form-wizard-step-label">
+                        <span class="ms-form-wizard-step-text">Mobile Transactions</span>
+                      </span>
+                    </md-tab-label>
+                    <md-tab-body>
+                      <div class="md-padding">
+                      <p><strong>Mobile Information</strong> - for mobile transactions. <b>(Please fill in everything)</b></p>
+                      <div layout="column" layout-gt-xs="row" flex>
+                        <md-input-container flex="100" flex-gt-xs="50">
+                          <label>Mobile Network Provider</label>
+                          <md-select required ng-model="vm.transaction.payment.mobile_network_provider" name="mobile_network_provider">
+                            <md-option ng-repeat="state in vm.network_provider" value="{{state.abbrev}}">
+                              {{state.abbrev}}
+                            </md-option>
+                          </md-select>
+                          <div class="hint" ng-show="showHints">SAFARICOM</div>
+                          <div ng-messages="wizardStep2.mobile_network_provider.$error"
+                               ng-show="wizardStep2.mobile_network_provider.$touched"
+                               role="alert">
+                            <div ng-message="required">
+                              <span>Select your mobile network provider.</span>
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                        <md-input-container flex="100" flex-gt-xs="50">
+                          <input name="phone_no" ng-model="vm.transaction.payment.phone_no"
+                                 placeholder="Your phone number" ng-pattern="/^[+][0-9]{3} [0-9]{3} [0-9]{3}-[0-9]{3}$/" required>
+                          <div class="hint" ng-show="showHints">+254 711 722-227</div>
+                          <div ng-messages="wizardStep2.phone_no.$error"
+                               ng-show="wizardStep2.phone_no.$touched"
+                               role="alert" multiple>
+                            <div ng-message="required">
+                              <span>Your organization phone number is important to us.</span>
+                            </div>
+                            <div ng-message="pattern">
+                              <span>Use the right format (+### ### ###-###).</span>
+                            </div>
+                          </div>
+                        </md-input-container>
+                      </div>
+                        <p style="font-size:.8em; width: 100%; text-align: center;">
+                          <md-checkbox ng-model="vm.transactions.terms_conditions"></md-checkbox> I agree to <strong>Brillant <a href="/terms">Terms and Conditions</a></strong>.
+                        </p>
+                    </div>
+                    </md-tab-body>
+                  </md-tab>
+              </md-tabs>
+            </form>
+          </md-tab-body>
+        </md-tab>
+      </md-tabs>
+
+      <div class="navigation" flex layout="row" layout-align="center center">
+        <md-button class="md-raised md-accent" ng-click="msWizard.previousStep()"
+                   ng-disabled="msWizard.isFirstStep()">
+          Previous
+        </md-button>
+        <div class="steps">
+                        <span ng-repeat="form in msWizard.forms"
+                              ng-class="{'selected md-accent-bg':msWizard.selectedIndex === $index}"></span>
+        </div>
+        <md-button class="md-raised md-accent" ng-click="msWizard.nextStep()"
+                   ng-hide="msWizard.isLastStep()"
+                   ng-disabled="!vm.transaction.buyer_email && !vm.transaction.seller_email && !vm.transaction.broker_email || !vm.transaction.buyer_phone && !vm.transaction.seller_phone || !vm.transaction.currency || !vm.transaction.amount || !vm.transaction.product"> <!-- ng-disabled="msWizard.currentStepInvalid()" -->
+          Next
+        </md-button>
+        <md-button class="md-raised md-warn" ng-click="vm.sendForm(); msWizard.resetForm();"
+                   ng-show="msWizard.isLastStep()"
+                   ng-disabled="!vm.transactions.terms_conditions"> <!-- ng-disabled="msWizard.formsIncomplete()" -->
+          Create Transaction
+        </md-button>
+      </div>
+
+    </ms-form-wizard>
+    <!-- / FORM WIZARD -->
+
+  </div>
+</div>

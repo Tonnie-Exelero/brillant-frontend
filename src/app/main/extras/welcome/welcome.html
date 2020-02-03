@@ -1,0 +1,170 @@
+<div id="welcome" layout-align="start">
+
+  <div class="top-bar">
+    <div class="text-center">
+      <div layout="row" layout-align="start center">
+        <div class="logo" layout="row" layout-align="start center">
+          <span class="logo-image">
+            <img src="/assets/images/backgrounds/logo.png" width="100%" height="100%">
+          </span>
+          <span class="logo-text" style="text-transform: none">BrillantPay</span>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <div class="welcome-links">
+          <span class="welcome-link"><a href="" ng-click="vm.goToDashboard()">Dashboard</a></span>
+          <span class="welcome-link"><a href="" ng-click="vm.manageTransactions()">Transactions Summary</a></span>
+          <span class="welcome-link"><a href="" ng-click="vm.goToWallet()">Wallet</a></span>
+        </div>
+
+        <div class="toolbar-separator"></div>
+
+        <span flex></span>
+
+        <div class="right-links">
+          <span class="right-link">
+            <a href="" ui-sref="app.settings">
+              <md-icon md-font-icon="icon-cog" class="s20 cog-color"></md-icon>
+            </a>
+          </span>
+          <span class="right-link"><a href="" ng-click="vm.logout()">Log Out</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="first-row" layout="row">
+    <div class="" flex-gt-xs flex="35">
+      <p class="welcome-name">
+        Welcome <span style="text-transform: uppercase;">{{user.name || "Tonnie"}}</span>!
+      </p>
+      <p class="welcome-message">
+        You can now transact safely and securely
+      </p>
+    </div>
+
+    <span flex></span>
+
+    <div class="text-center" flex-gt-xs flex="20">
+      <a href="" ng-click="vm.manageTransactions()">
+        <p>
+          <md-icon md-font-icon="icon-launch manage" class="s70"></md-icon>
+        </p>
+        <p class="manage">
+          Manage your transactions
+        </p>
+      </a>
+    </div>
+  </div>
+
+  <div class="second-row" layout="row">
+    <div flex="30" flex-gt-xs layout="column">
+      <div class="md-whiteframe-1dp one">
+      <div class="balance-top">
+          <span class="top-left">
+            BrillantPay balance
+          </span>
+      </div>
+
+      <div class="balance-mid">
+          <span class="balance-amount">
+            {{user.currency || "USD"}} {{user.balance_amount || "3575.68"}}
+          </span>
+        <span class="balance-explain"> is your balance</span>
+      </div>
+
+      <div class="balance-bottom">
+          <span class="withdraw">
+            <a href="" ng-click="vm.withdrawFunds()">
+              Withdraw funds
+            </a>
+          </span>
+      </div>
+    </div>
+
+      <div class="md-whiteframe-1dp two">
+        <div class="methods-top">
+          <span class="top-left">
+            Payment methods
+          </span>
+        </div>
+
+        <div class="methods-mid">
+          <span class="methods-explain">
+            Add your bank accounts, cards, and mobile numbers to be able to transact swiftly
+            by any method you choose.
+          </span>
+        </div>
+
+        <div class="balance-bottom text-center">
+          <md-button class="md-raised md-accent" ng-click="vm.addPaymentMethod()">
+            Add Payment Method
+          </md-button>
+        </div>
+      </div>
+    </div>
+
+    <span flex></span>
+
+    <div flex="65" flex-gt-xs layout="column">
+      <div class="simple-table-container md-whiteframe-3dp">
+        <div class="table-title">
+          Successful transactions
+        </div>
+
+        <table class="simple" ms-responsive-table>
+          <thead>
+            <tr></tr>
+          </thead>
+
+          <tfoot>
+          <tr>
+            <td></td>
+          </tr>
+          </tfoot>
+
+          <tbody>
+          <tr ng-repeat="transaction in vm.transactions | limitTo:3">
+            <td class="date">{{transaction.date}}</td>
+            <td class="transaction-details">
+              <span class="main-name">{{transaction.main.name}}</span><br />
+              <span class="to-name">{{transaction.for.name}}</span>
+            </td>
+            <td class="amount text-right">{{transaction.transaction.currency}} {{transaction.transaction.amount}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <md-divider></md-divider>
+
+        <div class="bottom-row text-center">
+          <a href="" ng-click="vm.manageTransactions()">
+            View All Transactions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" layout="row">
+    <div class="footer-row">
+      <div class="left">
+        <span class="links"><a href="">SECURITY</a></span>
+        <span class="links"><a href="">TERMS & CONDITIONS</a></span>
+      </div>
+
+      <md-divider></md-divider>
+
+      <div class="mid">
+        Consumer advisory- Brillant Innovations Ltd., the holder of BrillantPay’s stored value facility, does not
+        require the approval of the Monetary Authority of Ghana. Users are advised to read the
+        terms and conditions carefully.
+      </div>
+
+      <div class="right text-right">
+        Copyright 2017 - All Rights Reserved. Brillant Innovations Ltd
+      </div>
+    </div>
+  </div>
+</div>

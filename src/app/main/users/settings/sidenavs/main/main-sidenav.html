@@ -1,0 +1,76 @@
+<!-- SIDENAV HEADER -->
+<div class="header" layout="column" layout-align="space-between">
+
+  <div class="logo" layout="row" layout-align="start center">
+        <span class="logo-icon">
+            <md-icon md-font-icon="icon-cog" class="s24"></md-icon>
+        </span>
+    <span class="logo-text" translate="SETTINGS.SETTINGS">Settings</span>
+  </div>
+
+  <div>Your Account Settings</div>
+
+</div>
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<md-content class="content" flex ms-scroll>
+
+  <div class="navigation-simple" layout="column">
+    <md-button class="item" aria-label="Starred" translate translate-attr-aria-label="SETTINGS.ACCOUNT_INFO"
+               ng-click="vm.filterChange('acc_info')"
+               ng-class="{'selected':vm.listType ==='acc_info'}">
+      <span class="title" translate="SETTINGS.ACCOUNT_INFO">Account Info</span>
+    </md-button>
+
+    <md-button class="item" aria-label="Priority" translate translate-attr-aria-label="SETTINGS.BANKS"
+               ng-click="vm.filterChange('banks')"
+               ng-class="{'selected':vm.listType ==='banks'}">
+      <span class="title" translate="SETTINGS.BANKS">Banks</span>
+    </md-button>
+
+    <!--<md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.CARDS"
+               ng-click="vm.filterChange('cards')"
+               ng-class="{'selected':vm.listType ==='cards'}">
+      <span class="title" translate="SETTINGS.CARDS">Cards</span>
+    </md-button>-->
+
+    <!--<md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.MOBILE"
+               ng-click="vm.filterChange('mobile')"
+               ng-class="{'selected':vm.listType ==='mobile'}">
+      <span class="title" translate="SETTINGS.MOBILE">Mobile</span>
+    </md-button>-->
+
+    <md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.API_KEYS"
+               ng-click="vm.filterChange('api_keys')"
+               ng-class="{'selected':vm.listType ==='api_keys'}">
+      <span class="title" translate="SETTINGS.API_KEYS">API Keys</span>
+    </md-button>
+
+    <md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.NOTIFICATIONS"
+               ng-click="vm.filterChange('notifications')"
+               ng-class="{'selected':vm.listType ==='notifications'}">
+      <span class="title" translate="SETTINGS.NOTIFICATIONS">Notifications</span>
+    </md-button>
+
+    <md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.REPORTS"
+               ng-click="vm.filterChange('reports')"
+               ng-class="{'selected':vm.listType ==='reports'}">
+      <span class="title" translate="SETTINGS.REPORTS">Reports</span>
+    </md-button>
+
+    <md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.SECURITY"
+               ng-click="vm.filterChange('security')"
+               ng-class="{'selected':vm.listType ==='security'}">
+      <span class="title" translate="SETTINGS.SECURITY">Security</span>
+    </md-button>
+
+    <md-button class="item" aria-label="Scheduled" translate translate-attr-aria-label="SETTINGS.PASSWORD_UPDATE"
+               ng-click="vm.filterChange('password_update')"
+               ng-class="{'selected':vm.listType ==='password_update'}">
+      <span class="title" translate="SETTINGS.PASSWORD_UPDATE">Update password</span>
+    </md-button>
+  </div>
+
+</md-content>
+<!-- / SIDENAV CONTENT -->

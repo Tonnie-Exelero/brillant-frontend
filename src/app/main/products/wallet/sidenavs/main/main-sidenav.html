@@ -1,0 +1,42 @@
+<!-- SIDENAV HEADER -->
+<div class="header" layout="column" layout-align="space-between start">
+
+    <div class="logo" layout="row" layout-align="start center">
+        <span class="logo-icon">
+            <md-icon md-font-icon="icon-wallet" class="icon"></md-icon>
+        </span>
+        <span class="logo-text" translate="WALLET.MAILBOX">Wallet</span>
+    </div>
+
+    <div class="account">
+      <div class="title"><b>Balance:</b> <u>{{vm.account.currency || 'KES'}} {{vm.balance.actualBalance}}</u></div>
+      <div class="description"><b>Minimum withdrawal balance:</b> {{vm.account.currency || 'KES'}}
+        <span ng-if="vm.account.currency == 'KES'">500</span>
+        <span ng-if="vm.account.currency == ''">500</span>
+        <span ng-if="vm.account.currency == 'USD'">5</span>
+        <span ng-if="vm.account.currency == 'GBP'">4</span>
+        <span ng-if="vm.account.currency == 'EUR'">5</span>
+      </div>
+    </div>
+
+</div>
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<md-content ms-scroll class="content" flex>
+
+    <div class="navigation-simple" layout="column">
+
+        <md-button class="item" aria-label="inbox" ng-repeat="folder in vm.folders"
+                   ng-click="vm.loadFolder(folder.name)"
+                   ng-class="{'selected':vm.isFolderActive(folder.name)}">
+            <div layout="row" layout-align="start center">
+                <md-icon md-font-icon="{{folder.icon}}" class="s16"></md-icon>
+                <span class="title">{{folder.title}}</span>
+            </div>
+        </md-button>
+
+    </div>
+
+</md-content>
+<!-- / SIDENAV CONTENT -->

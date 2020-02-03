@@ -1,0 +1,574 @@
+<md-content class="md-padding">
+  <div ng-if="vm.listType ==='acc_info'">
+    <div layout="row" flex="100" layout-wrap>
+      <div layout="column" flex="100" flex-gt-xs="45">
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Owner</div>
+          <span class="info">{{vm.account.firstName}} {{vm.account.lastName}}</span>
+        </div>
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">E-mail/username</div>
+          <span class="info">{{vm.account.email}}</span>
+        </div>
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Type</div>
+          <span class="info">{{vm.account.accountType || "BUSINESS"}}</span>
+        </div>
+
+        <div class="activate-to-view" permission permission-only="'IS_TEST'">
+          Activate account to view more.
+        </div>
+
+        <div permission permission-only="'IS_LIVE'">
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Business Industry</div>
+            <span class="info" editable-text="vm.account.industry">{{vm.account.industry || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.industry">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Main Activity</div>
+            <span class="info" editable-text="vm.account.activity">{{vm.account.activity || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.activity">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Country</div>
+            <span class="info" editable-text="vm.account.country">{{vm.account.country || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.country">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Currency</div>
+            <span class="info" editable-text="vm.account.currency">{{vm.account.currency || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.currency">Edit</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div layout="column" flex="100" flex-gt-xs="45">
+        <div permission permission-only="'IS_LIVE'">
+          <h3 style="margin-bottom: 20px; color: dodgerblue;"><b>Public info</b></h3>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Business name</div>
+            <span class="info" editable-text="vm.account.public.organizationName">{{vm.account.public.organizationName || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.public.organizationName">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Business email</div>
+            <span class="info" editable-text="vm.account.public.organizationEmail">{{vm.account.public.organizationEmail || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.public.organizationEmail">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Phone number</div>
+            <span class="info" editable-text="vm.account.public.organizationPhone">{{vm.account.public.organizationPhone || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.public.organizationPhone">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Business address</div>
+            <span class="info" editable-textarea="vm.account.public.organizationAddress" e-rows="2" e-cols="60">{{vm.account.public.organizationAddress || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.public.organizationAddress">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Company website</div>
+            <span class="info" editable-text="vm.account.public.website">{{vm.account.public.website || "Activate Account"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.account.public.website">Edit</span></span>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold" translate="PROFILE.LOGO">Company Logo</div>
+            <span class="info"><img src="{{vm.account.public.logoUrl}}" width="70px" height="70px"></span>
+            <span flow-init="vm.ngFlowOptions"
+                  flow-name="vm.ngFlow.flow"
+                  flow-files-submitted="vm.upload()"
+                  flow-file-added="vm.fileAdded($file)"
+                  flow-complete="vm.uploadComplete()"
+                  ng-model="vm.org_info.general.org_logo">
+
+                    <md-button flow-btn class="md-icon-button"
+                               ng-click="vm.addFile($event)" aria-label="Add file">
+                      <md-icon md-font-icon="icon-upload" class="md-accent-fg md-hue-1"></md-icon>
+                    </md-button>
+                  </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='banks'">
+    <div layout="row" flex="100" layout-wrap>
+      <div layout="column" flex="100" flex-gt-xs="45">
+        <p>
+          <md-button class="md-raised md-accent" ng-click="showBankForm=true">
+            <md-icon md-font-icon="icon-plus" class="s18"></md-icon>
+            Add Bank Account
+          </md-button>
+          <a href="" ng-show="showBankForm" ng-click="showBankForm=false" style="font-size: 16px; margin-left: 4px; text-decoration: none; color: steelblue;">
+            Hide
+          </a>
+        </p>
+
+        <div ng-show="showBankForm" class="md-whiteframe-1dp">
+          <form name="bankForm" class="md-inline-form" novalidate>
+            <md-content ms-scroll class="md-padding">
+              <div layout="row">
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Bank Name</label>
+                  <input name="name" ng-model="vm.bank.bankName" required md-autofocus>
+                  <div ng-messages="bankForm.name.$error" ng-show="bankForm.name.$touched" role="alert">
+                    <div ng-message="required">
+                      <span>Bank name field is required</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Branch</label>
+                  <input type="text" flex ng-model="vm.bank.bankBranch" md-placeholder="Branch" required>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Acc. Name</label>
+                  <input type="text" flex ng-model="vm.bank.accountName" md-placeholder="Acc. Name" required>
+                </md-input-container>
+
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Acc. Number</label>
+                  <input type="text" flex ng-model="vm.bank.accountNumber" md-placeholder="Acc. Number" required>
+                </md-input-container>
+              </div>
+
+              <!--<div layout="row">
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Bank Code</label>
+                  <input type="text" flex ng-model="vm.bank.bankCode" md-placeholder="Bank Code" required>
+                </md-input-container>
+
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Branch Code</label>
+                  <input type="text" flex ng-model="vm.bank.bankBranchCode" md-placeholder="Branch Code" required>
+                </md-input-container>
+              </div>
+-->
+              <div layout="row">
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>SWIFT/BIC No.</label>
+                  <input type="text" flex ng-model="vm.bank.bankSwiftIdentificationCode" md-placeholder="SWIFT/BIC No." required>
+                </md-input-container>
+
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Routing/ABA Code</label>
+                  <input type="text" flex ng-model="vm.bank.bankRoutingNumber" md-placeholder="Routing/ABA Code" required>
+                </md-input-container>
+              </div>
+
+              <md-button type="submit" ng-click="vm.addBankAccount()"
+                         class="send-button md-accent"
+                         ng-disabled="bankForm.$invalid || bankForm.$pristine"
+                         aria-label="Add Bank Account">
+                ADD ACCOUNT
+              </md-button>
+            </md-content>
+          </form>
+        </div>
+      </div>
+
+      <md-card layout="column" class="md-whiteframe-2dp md-padding" flex="100" flex-gt-xs="50">
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Bank accounts</div><br />
+          <div class="bank-data" style="margin-bottom: 20px;">
+            <table class="simple" ms-responsive-table>
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+
+              <tfoot>
+              <tr>
+                <td></td>
+              </tr>
+              </tfoot>
+
+              <tbody>
+              <tr ng-if="vm.banks.content" ng-repeat="bank in vm.banks.content" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  <div class="info"><b>{{bank.bankName}}</b></div>
+                  <b>Branch:</b> <span class="info">{{bank.bankBranch}}</span><br />
+                  <b>Acc Name:</b> <span class="info">{{bank.accountName}}</span><br />
+                  <b>Acc No.:</b> <span class="info">{{bank.accountNumber}}</span><br />
+                  <b>SWIFT/BIC code:</b> <span class="info">{{bank.bankSwiftIdentificationCode}}</span><br />
+                  <b>RTN/ABA code:</b> <span class="info">{{bank.bankRoutingNumber}}</span>
+                </td>
+                <td class="text-right">
+                  <md-button ng-click="vm.removeBank($event, bank)" class="md-icon-button launch">
+                    <md-icon md-font-icon="icon-close" class="s20 red-fg"></md-icon>
+                  </md-button>
+                </td>
+              </tr>
+              <tr ng-if="vm.banks.content.length === 0" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  Add Bank Account
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </md-card>
+    </div>
+  </div>
+
+<!--
+  <div ng-if="vm.listType ==='cards'">
+    <div layout="row" flex="100" layout-wrap>
+      <div layout="column" flex="100" flex-gt-xs="45">
+        <p>
+          <md-button class="md-raised md-accent" ng-click="showCardForm=true">
+            <md-icon md-font-icon="icon-plus" class="s18"></md-icon>
+            Add Card
+          </md-button>
+          <a href="" ng-show="showCardForm" ng-click="showCardForm=false" style="font-size: 16px; margin-left: 4px; text-decoration: none; color: steelblue;">
+            Hide
+          </a>
+        </p>
+
+        <div ng-show="showCardForm" class="md-whiteframe-1dp">
+          <form name="cardForm" class="md-inline-form" novalidate>
+            <md-content ms-scroll class="md-padding">
+              <md-input-container class="md-block">
+                <label>Card Number</label>
+                <input type="text" name="cardNumber" flex ng-model="vm.card.number" cc-number cc-type="cardType" cc-eager-type md-placeholder="Card Number" required md-autofocus>
+                <p ng-show="cardForm.cardNumber.$invalid && cardForm.cardNumber.$ccEagerType" class="text-right" style="color: #00ACC1; font-size: 15px; font-weight: 400;">
+                  {{cardForm.cardNumber.$ccEagerType}}
+                </p>
+                <input type="hidden" ng-model="vm.card.network" ng-value="$ccEagerType">
+                <p ng-show="cardForm.cardNumber.$valid" class="text-right">
+                            <span style="color: #00ACC1; font-size: 15px; font-weight: 400; margin-right: 3px">
+                              {{cardForm.cardNumber.$ccEagerType}}
+                            </span>
+                  <md-icon md-font-icon="icon-check" class="s13 green-fg" style="font-weight: 600;"></md-icon>
+                </p>
+                <div ng-messages="cardForm.cardNumber.$error" ng-show="cardForm.cardNumber.$touched" role="alert">
+                  <div ng-message="required">
+                    <span>Card Number is required</span>
+                  </div>
+                </div>
+              </md-input-container>
+
+              <div layout="row">
+                <md-input-container flex="35" flex-gt-sm>
+                  <label>CVC
+                    <md-tooltip>The 3-digit number at the back of the card</md-tooltip>
+                  </label>
+                  <input type="text" flex ng-model="vm.card.cvc" cc-cvc cc-type="cardNumber.$ccType" md-placeholder="CVC" required>
+                </md-input-container>
+
+                <div cc-exp flex="65" flex-gt-sm>
+                  <md-input-container flex="45" flex-gt-sm>
+                    <label>Exp. (mm)</label>
+                    <input type="text" flex ng-model="vm.card.expMonth" cc-exp-month cc-type="cardNumber.$ccType" md-placeholder="Expiry" required>
+                  </md-input-container>
+                  /
+                  <md-input-container flex="45" flex-gt-sm>
+                    <label>Exp. (yy)</label>
+                    <input type="text" flex ng-model="vm.card.expYear" cc-exp-year cc-type="cardNumber.$ccType" md-placeholder="Expiry" required>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <md-button type="submit" ng-click="vm.addCard()"
+                         class="send-button md-accent"
+                         ng-disabled="cardForm.$invalid || cardForm.$pristine"
+                         aria-label="Add Card">
+                ADD CARD
+              </md-button>
+            </md-content>
+          </form>
+        </div>
+      </div>
+
+      <md-card layout="column" class="md-whiteframe-2dp md-padding" flex="100" flex-gt-xs="50">
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Cards</div><br />
+          <div class="card-data" style="margin-bottom: 20px;">
+            <table class="simple" ms-responsive-table>
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+
+              <tfoot>
+              <tr>
+                <td></td>
+              </tr>
+              </tfoot>
+
+              <tbody>
+              <tr ng-if="vm.cards" ng-repeat="card in vm.cards" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  <div class="info"><b>{{card.network}}</b></div>
+                  <b>Card No:</b> <span class="info">{{card.number}}</span><br />
+                  <b>CVV:</b> <span class="info">{{card.cvc}}</span><br />
+                  <b>Expiry:</b> <span class="info">{{card.expMonth}}/{{card.expYear}}</span>
+                </td>
+                <td class="text-right">
+                  <md-button ng-click="vm.removeCard($event, card)" class="md-icon-button launch">
+                    <md-icon md-font-icon="icon-close" class="s20 red-fg"></md-icon>
+                  </md-button>
+                </td>
+              </tr>
+              <tr ng-if="!vm.cards" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  Add Card
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </md-card>
+    </div>
+  </div>
+-->
+
+  <div ng-if="vm.listType ==='mobile'">
+    <div layout="row" flex="100" layout-wrap>
+      <div layout="column" flex="100" flex-gt-xs="45">
+        <p>
+          <md-button class="md-raised md-accent" ng-click="showMobileForm=true">
+            <md-icon md-font-icon="icon-plus" class="s18"></md-icon>
+            Add Mobile Number
+          </md-button>
+          <a href="" ng-show="showMobileForm" ng-click="showMobileForm=false" style="font-size: 16px; margin-left: 4px; text-decoration: none; color: steelblue;">
+            Hide
+          </a>
+        </p>
+
+        <div ng-show="showMobileForm" class="md-whiteframe-1dp">
+          <form name="mobileForm" class="md-inline-form" novalidate>
+            <md-content ms-scroll class="md-padding">
+              <div layout="row">
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Mobile Network</label>
+                  <input name="name" ng-model="vm.mobile.network" required md-autofocus>
+                  <div ng-messages="mobileForm.name.$error" ng-show="mobileForm.name.$touched" role="alert">
+                    <div ng-message="required">
+                      <span>Mobile Network is required</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="50" flex-gt-sm>
+                  <label>Mobile Number</label>
+                  <input type="text" flex ng-model="vm.mobile.number" md-placeholder="Mobile Number" required>
+                </md-input-container>
+              </div>
+
+              <md-button type="submit" ng-click="vm.addMobile()"
+                         class="send-button md-accent"
+                         ng-disabled="mobileForm.$invalid || mobileForm.$pristine"
+                         aria-label="Add Mobile">
+                ADD MOBILE
+              </md-button>
+            </md-content>
+          </form>
+        </div>
+      </div>
+
+      <md-card layout="column" class="md-whiteframe-2dp md-padding" flex="100" flex-gt-xs="50">
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Mobile Numbers</div><br />
+          <div class="mobile-data" style="margin-bottom: 20px;">
+            <table class="simple" ms-responsive-table>
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+
+              <tfoot>
+              <tr>
+                <td></td>
+              </tr>
+              </tfoot>
+
+              <tbody>
+              <tr ng-if="vm.mobiles" ng-repeat="mobile in vm.mobiles" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  <div class="info"><b>{{mobile.network}} network</b></div>
+                  <b>Number:</b> <span class="info" editable-text="mobile.number">{{mobile.number}} <span style="font-size: 11px;" class="blue-fg" ng-if="mobile.number">Edit</span></span>
+                </td>
+                <td class="text-right">
+                  <md-button ng-click="vm.removeMobile($event, mobile)" class="md-icon-button launch">
+                    <md-icon md-font-icon="icon-close" class="s20 red-fg"></md-icon>
+                  </md-button>
+                </td>
+              </tr>
+              <tr ng-if="!vm.mobiles" style="padding-left: -20px !important; padding-right: -20px !important;">
+                <td flex>
+                  Add Mobile Number
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </md-card>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='api_keys'">
+    <div layout="row" flex="100">
+      <div layout="column" flex-gt-md="100" flex-gt-sm="100">
+        <h3 style="margin-bottom: 20px; color: dodgerblue;"><b>Test Keys</b></h3>
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Publishable Key</div>
+          <span class="info" id="testPublishable">{{vm.apiKeys.test.publishable | limitTo: 50}}{{vm.apiKeys.test.publishable.length > 50 ? '...' : ''}}</span>
+          <md-button ng-if="vm.apiKeys.test.publishable" class="md-fab md-raised md-mini md-accent" ngclipboard data-clipboard-text="{{vm.apiKeys.test.publishable}}" ng-click="vm.changeTooltipText1()">
+            <md-icon md-font-icon="icon-content-copy" class="icon"></md-icon>
+            <md-tooltip md-delay="2">{{vm.tooltip1.text}}</md-tooltip>
+          </md-button>
+        </div>
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold">Secret Key</div>
+          <span class="info" id="testSecret">{{vm.apiKeys.test.secret | limitTo: 50}}{{vm.apiKeys.test.secret.length > 50 ? '...' : ''}}</span>
+          <md-button ng-if="vm.apiKeys.test.secret" class="md-fab md-raised md-mini md-accent" ngclipboard data-clipboard-text="{{vm.apiKeys.test.secret}}" ng-click="vm.changeTooltipText2()">
+            <md-icon md-font-icon="icon-content-copy" class="icon"></md-icon>
+            <md-tooltip md-delay="2">{{vm.tooltip2.text}}</md-tooltip>
+          </md-button>
+        </div>
+        <br /><br />
+
+        <div permission permission-only="'IS_LIVE'">
+          <h3 style="margin-bottom: 20px; color: dodgerblue;"><b>Live Keys</b></h3>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Publishable Key</div>
+            <span class="info" id="livePublishable">{{vm.apiKeys.live.publishable | limitTo: 50}}{{vm.apiKeys.live.publishable.length > 50 ? '...' : ''}}</span>
+            <md-button ng-if="vm.apiKeys.live.publishable" class="md-fab md-raised md-mini md-accent" ngclipboard data-clipboard-text="{{vm.apiKeys.live.publishable}}" ng-click="vm.changeTooltipText3()">
+              <md-icon md-font-icon="icon-content-copy" class="icon"></md-icon>
+              <md-tooltip md-delay="2">{{vm.tooltip3.text}}</md-tooltip>
+            </md-button>
+          </div>
+
+          <div class="info-line">
+            <div class="title" style="font-weight: bold">Secret Key</div>
+            <span class="info" id="liveSecret">{{vm.apiKeys.live.secret | limitTo: 50}}{{vm.apiKeys.live.secret.length > 50 ? '...' : ''}}</span>
+            <md-button ng-if="vm.apiKeys.live.secret" class="md-fab md-raised md-mini md-accent" ngclipboard data-clipboard-text="{{vm.apiKeys.live.secret}}" ng-click="vm.changeTooltipText4()">
+              <md-icon md-font-icon="icon-content-copy" class="icon"></md-icon>
+              <md-tooltip md-delay="2">{{vm.tooltip4.text}}</md-tooltip>
+            </md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='notifications'">
+    <div class="info-line">
+      <div class="title" style="font-weight: bold">Email notification</div>
+      <span class="info"><md-checkbox ng-model="vm.notifications.paymentNotify"></md-checkbox>
+                Send email on successful/failed payment
+              </span><br />
+      <span class="info"><md-checkbox ng-model="vm.notifications.transferNotify"></md-checkbox>
+                Send email on successful/failed transfer
+              </span><br />
+      <span class="info"><md-checkbox ng-model="vm.notifications.withdrawNotify"></md-checkbox>
+                Send email on successful/failed withdrawal
+              </span><br />
+      <span class="info"><md-checkbox ng-model="vm.notifications.refundNotify"></md-checkbox>
+                Send email on successful/failed refund
+              </span><br />
+      <span class="info"><md-checkbox ng-model="vm.notifications.disputeNotify"></md-checkbox>
+                Send email when involved in a dispute
+              </span>
+    </div>
+
+    <div class="info-line">
+      <div class="title" style="font-weight: bold">Text notification</div>
+      <span class="info"><md-checkbox ng-model="vm.notifications.includeText"></md-checkbox>
+                Also send a text message
+              </span>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='reports'">
+    <div class="info-line">
+      <div class="title" style="font-weight: bold">Send report frequency:</div><br />
+      <span class="info">
+                <md-radio-group ng-model="vm.reports.frequency">
+                  <md-radio-button value="weekly">Weekly</md-radio-button><br/>
+                  <md-radio-button value="monthly">Monthly</md-radio-button><br/>
+                  <md-radio-button value="quaterly">Quaterly</md-radio-button><br/>
+                </md-radio-group>
+              </span>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='security'">
+    <div class="info-line">
+      <div class="title" style="font-weight: bold">Account authentication</div>
+      <span class="info">
+                <md-checkbox ng-model="vm.security.twoFactor"></md-checkbox>
+                Use 2-factor authentication (email + SMS)
+              </span>
+    </div>
+
+    <div class="info-line">
+      <div class="title" style="font-weight: bold">Cookies</div>
+      <span class="info">
+                <md-checkbox ng-model="vm.security.storeCookies"></md-checkbox>
+                Store cookies
+              </span>
+    </div>
+  </div>
+
+  <div ng-if="vm.listType ==='password_update'">
+    <form name="passwordForm" ng-submit="vm.changePassword()" flex="100" flex-gt-md="30" novalidate>
+      <md-input-container class="md-block" md-no-float>
+        <label translate="SETTINGS.CURRENT_PASSWORD">Current Password</label>
+        <input type="password" name="passwordCurrent" ng-model="vm.form.current_password" required>
+        <div ng-messages="passwordForm.passwordCurrent.$error" role="alert">
+          <div ng-message="required">
+            <span translate="SETTINGS.ERRORS.CURRENT_PASSWORD_REQUIRED">Current Password is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" md-no-float>
+        <label translate="SETTINGS.NEW_PASSWORD">New Password</label>
+        <input type="password" name="passwordNew" ng-model="vm.form.password" required>
+        <div ng-messages="passwordForm.passwordNew.$error" role="alert">
+          <div ng-message="required">
+            <span translate="SETTINGS.ERRORS.NEW_PASSWORD_REQUIRED">New Password is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" md-no-float>
+        <label>Confirm New Password</label>
+        <input type="password" name="confirmPassword" match-password="passwordNew" ng-model="vm.form.confirmPassword" required>
+        <div ng-messages="passwordForm.confirmPassword.$error"
+             ng-if="passwordForm.confirmPassword.$submitted || passwordForm.confirmPassword.$dirty"
+             ng-messages-multiple="ng-messages-multiple" role="alert">
+          <div ng-message="required">
+            <span>Confirm your new password</span>
+          </div>
+          <div ng-message="passwordMatch"
+               translate="SETTINGS.ERRORS.NO_MATCH">
+            Your new password did not match
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-button type="submit" class="md-raised md-accent submit-button" aria-label="CHANGE PASSWORD"
+                 ng-disabled="passwordForm.$invalid || passwordForm.$pristine"
+                 translate="SETTINGS.CHANGE_PASSWORD"
+                 translate-attr-aria-label="SETTINGS.CHANGE_PASSWORD">
+        CHANGE PASSWORD
+      </md-button>
+    </form>
+  </div>
+</md-content>

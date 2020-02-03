@@ -1,0 +1,54 @@
+<!-- TOOLBAR -->
+<div class="toolbar" layout="row" layout-align="space-between center">
+
+  <div layout="row" layout-align="start center">
+
+    <!-- ACTIONS MENU -->
+    <!--<md-menu class="actions-menu"
+             ng-show="vm.selectedThreads.length > 0 || vm.currentThread"
+             hide-gt-xs>
+      <md-button class="md-icon-button"
+                 ng-click="$mdOpenMenu($event)"
+                 aria-label="Wallet Actions"
+                 translate translate-attr-aria-label="WALLET.ACTIONS">
+        <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+      </md-button>
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button aria-label="Delete" translate-aria-label="WALLET.DELETE">
+            <md-icon md-font-icon="icon-delete"></md-icon>
+            <span translate="WALLET.DELETE">Delete</span>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>-->
+    <!-- / ACTIONS MENU -->
+  </div>
+
+  <div layout="row" layout-align="start center">
+    <span class="page-info" hide-sm><b>{{vm.threadsTotals.data.length || 'No'}}</b>
+      <span ng-if="vm.currentFilter.filter === 'deposit'"><b>deposits made</b></span>
+      <span ng-if="vm.currentFilter.filter === 'transfer'"><b>transfers made</b></span>
+      <span ng-if="vm.currentFilter.filter === 'withdraw'"><b>withdrawals made</b></span>
+    </span>
+  </div>
+</div>
+<!-- / TOOLBAR -->
+
+<!-- CONTENT WRAPPER -->
+<div class="content-wrapper" layout="row" flex>
+
+  <!-- THREAD LIST -->
+  <div class="content thread-list"
+       ng-include="'app/main/products/wallet/views/outlook/list/list.html'" ms-scroll flex="50">
+  </div>
+  <!-- / THREAD LIST -->
+
+  <!-- THREAD DETAIL -->
+  <div class="content thread-detail"
+       ng-include="'app/main/products/wallet/views/outlook/detail/detail.html'" ms-scroll layout="column" flex="50">
+  </div>
+  <!-- / THREAD DETAIL -->
+
+</div>
+<!-- / CONTENT WRAPPER -->

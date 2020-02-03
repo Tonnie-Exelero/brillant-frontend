@@ -1,0 +1,204 @@
+<div ng-if="!vm.currentThread" class="no-thread-selected" layout="column" layout-align="center center" flex>
+  <md-icon md-font-icon="icon-cash-multiple" class="s120 grey-400-fg"></md-icon>
+  <span class="hint-text" translate="WALLET.SELECT_MESSAGE_TO_READ">Select a transaction to read</span>
+</div>
+
+<div ng-if="vm.currentThread">
+  <div class="thread-header" layout="row" layout-align="space-between center">
+
+    <div class="actions" layout="row" layout-align="start center">
+      <md-button class="md-icon-button" ng-click="vm.toggleThreadStatus('starred')"
+                 aria-label="Toggle starred" translate translate-attr-toogle-starred="WALLET.TOGGLE_STARRED">
+        <md-icon ng-if="vm.currentThread.starred" md-font-icon="icon-star"
+                 class="amber-fg"></md-icon>
+        <md-icon ng-if="!vm.currentThread.starred" md-font-icon="icon-star-outline"></md-icon>
+        <md-tooltip ng-if="vm.currentThread.starred">Starred</md-tooltip>
+        <md-tooltip ng-if="!vm.currentThread.starred">Not starred</md-tooltip>
+      </md-button>
+
+      <md-button class="md-icon-button" ng-click="vm.toggleThreadStatus('important')"
+                 aria-label="Toggle important" translate translate-attr-toogle-starred="WALLET.TOGGLE_IMPORTANT">
+        <md-icon ng-if="vm.currentThread.important" md-font-icon="icon-label"
+                 class="amber-300-fg"></md-icon>
+        <md-icon ng-if="!vm.currentThread.important" md-font-icon="icon-label-outline"></md-icon>
+        <md-tooltip ng-if="vm.currentThread.important">Important</md-tooltip>
+        <md-tooltip ng-if="!vm.currentThread.important">Not important</md-tooltip>
+      </md-button>
+    </div>
+  </div>
+
+  <div class="thread-content">
+    <div class="info" layout="row" layout-align="space-between start">
+
+      <div layout="column" layout-align="start start">
+        <div layout="row" layout-align="start start">
+          <div>
+            <img ng-if="vm.currentThread.main.avatar" alt="{{vm.currentThread.main.name}}"
+                 ng-src="{{vm.currentThread.main.avatar}}" class="avatar"/>
+
+            <div ng-if="!vm.currentThread.main.avatar" class="avatar" ms-random-class="vm.colors">
+              {{vm.currentThread.main.name[0]}}
+            </div>
+          </div>
+
+          <div layout="column" layout-align="start start">
+            <div class="name" style="padding-top: 7.5% !important;">
+              {{vm.currentThread.main.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div ng-if="vm.currentFilter.filter === 'deposit'">
+      <div class="info-line">
+        <div class="title">Source: </div>
+        <div class="info">{{vm.currentThread.source}}</div>
+      </div>
+
+      <div ng-if="vm.currentThread.source === 'Bank'">
+        <div class="info-line">
+          <div class="title">Date and Time deposited: </div>
+          <div class="info">{{vm.currentThread.date}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Account holder name: </div>
+          <div class="info">{{vm.currentThread.bank.acc_name}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Account number: </div>
+          <div class="info">{{vm.currentThread.bank.acc_number}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Amount deposited: </div>
+          <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+        </div>
+      </div>
+
+      <div ng-if="vm.currentThread.source === 'Card'">
+        <div class="info-line">
+          <div class="title">Date and Time deposited: </div>
+          <div class="info">{{vm.currentThread.date}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Card holder: </div>
+          <div class="info">{{vm.currentThread.card.holder}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Card number: </div>
+          <div class="info">{{vm.currentThread.card.number}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Amount deposited: </div>
+          <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+        </div>
+      </div>
+
+      <div ng-if="vm.currentThread.source === 'Mobile'">
+        <div class="info-line">
+          <div class="title">Date and Time deposited: </div>
+          <div class="info">{{vm.currentThread.date}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Mobile number: </div>
+          <div class="info">{{vm.currentThread.mobile.number}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Amount deposited: </div>
+          <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="vm.currentFilter.filter === 'transfer'">
+      <div class="info-line">
+        <div class="title">Date and Time of transfer: </div>
+        <div class="info">{{vm.currentThread.date}}</div>
+      </div>
+
+      <div class="info-line" ng-if="vm.currentThread.recipient.name">
+        <div class="title">Recipient name: </div>
+        <div class="info">{{vm.currentThread.recipient.name}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Recipient email: </div>
+        <div class="info">{{vm.currentThread.recipient.email}}</div>
+      </div>
+
+      <div class="info-line" ng-if="vm.currentThread.recipient.phone">
+        <div class="title">Recipient phone number: </div>
+        <div class="info">{{vm.currentThread.recipient.phone}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Amount transferred: </div>
+        <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+      </div>
+    </div>-->
+
+    <div ng-if="vm.currentFilter.filter === 'withdraw'">
+      <div class="info-line">
+        <div class="title">Withdrawal to: </div>
+        <div class="info">{{vm.currentThread.to}}</div>
+      </div>
+
+      <div ng-if="vm.currentThread.to === 'Bank'">
+        <div class="info-line">
+          <div class="title">Withdrawal date and time: </div>
+          <div class="info">{{vm.currentThread.date}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Bank Name: </div>
+          <div class="info">{{vm.currentThread.bank.name}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Account name: </div>
+          <div class="info">{{vm.currentThread.bank.acc_name}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Account number: </div>
+          <div class="info">{{vm.currentThread.bank.acc_number}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Amount: </div>
+          <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+        </div>
+      </div>
+
+      <div ng-if="vm.currentThread.to === 'Mobile'">
+        <div class="info-line">
+          <div class="title">Withdrawal date and time: </div>
+          <div class="info">{{vm.currentThread.date}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Recipient Name: </div>
+          <div class="info">{{vm.currentThread.mobile.name}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Mobile number: </div>
+          <div class="info">{{vm.currentThread.mobile.number}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Amount: </div>
+          <div class="info">{{vm.currentThread.currency}} {{vm.currentThread.amount}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

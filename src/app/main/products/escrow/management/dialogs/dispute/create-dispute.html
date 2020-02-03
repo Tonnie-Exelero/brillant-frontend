@@ -1,0 +1,68 @@
+<md-dialog class="compose-dialog" aria-label="New Message">
+  <form class="md-inline-form" name="disputeForm">
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title" translate="MANAGEMENT.NEW_DISPUTE">New Dispute</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" tranlate
+                   translate-aria-label="MANAGEMENT.CLOSE_DIALOG">
+          <md-icon md-font-icon="icon-close"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+      <md-input-container class="md-block">
+        <label translate="MANAGEMENT.DISPUTE_WITH">Dispute with (email)</label>
+        <input name="email" ng-model="vm.form.with" type="email" ng-pattern="/^.+@.+\..+$/" required disabled>
+        <div ng-messages="disputeForm.email.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span>Disputee email is required</span>
+          </div>
+          <div ng-message="pattern">
+            <span>Email must be a valid e-mail address</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label translate="MANAGEMENT.DISPUTE_TRANSACTION">Disputed transaction</label>
+        <input ng-model="vm.form.transaction" type="text" name="theName" required disabled>
+        <div ng-messages="disputeForm.theName.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span >Disputed transaction name is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label translate="MANAGEMENT.DISPUTE_SUBJECT">Subject</label>
+        <input ng-model="vm.form.subject" type="text" name="subject" required md-autofocus>
+        <div ng-messages="disputeForm.subject.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span >Dispute subject is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <text-angular ng-model="vm.form.message" required></text-angular>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-click="vm.sendDispute()" class="send-button md-accent md-raised" aria-label="Send"
+                   translate="MANAGEMENT.SEND"
+                   translate-attr-aria-label="MANAGEMENT.SEND" ng-disabled="!vm.form.with || !vm.form.transaction || !vm.form.subject || !vm.form.message">
+          SEND
+        </md-button>
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" aria-label="Delete"
+                   translate-attr-aria-label="MANAGEMENT.DELETE" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="MANAGEMENT.DELETE"></span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

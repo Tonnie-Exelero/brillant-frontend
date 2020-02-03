@@ -1,0 +1,515 @@
+<div ng-if="!vm.currentThread" class="no-thread-selected" layout="column" layout-align="center center" flex>
+  <md-icon md-font-icon="icon-cash-multiple" class="s120 grey-400-fg" ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering' || vm.currentFilter.filter === 'trash' || vm.currentFilter.filter === 'invoices'"></md-icon>
+  <span class="hint-text" translate="MANAGEMENT.SELECT_MESSAGE_TO_READ" ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering' || vm.currentFilter.filter === 'trash'">Select a transaction to read</span>
+  <span class="hint-text" translate="MANAGEMENT.SELECT_DISPUTE_TO_READ" ng-if="vm.currentFilter.filter === 'disputes'">Select a dispute to read</span>
+  <span class="hint-text" translate="MANAGEMENT.SELECT_INVOICE_TO_READ" ng-if="vm.currentFilter.filter === 'invoices'">Select an invoice to read</span>
+</div>
+
+<div ng-if="vm.currentThread">
+  <div class="thread-header" layout="row" layout-align="space-between center">
+    <div>
+      <div class="labels">
+        <div class="label" ng-repeat="labelId in vm.currentThread.labels"
+             ng-class="vm.getLabelColor(labelId)">{{vm.getLabelTitle(labelId)}}
+        </div>
+      </div>
+    </div>
+
+    <div class="actions" layout="row" layout-align="start center">
+      <md-button class="md-icon-button" ng-click="vm.toggleThreadStatus('starred')"
+                 aria-label="Toggle starred" translate translate-attr-toogle-starred="MANAGEMENT.TOGGLE_STARRED">
+        <md-icon ng-if="vm.currentThread.starred" md-font-icon="icon-star"
+                 class="amber-fg"></md-icon>
+        <md-icon ng-if="!vm.currentThread.starred" md-font-icon="icon-star-outline"></md-icon>
+        <md-tooltip ng-if="vm.currentThread.starred">Starred</md-tooltip>
+        <md-tooltip ng-if="!vm.currentThread.starred">Not starred</md-tooltip>
+      </md-button>
+
+      <md-button class="md-icon-button" ng-click="vm.toggleThreadStatus('important')"
+                 aria-label="Toggle important" translate translate-attr-toogle-starred="MANAGEMENT.TOGGLE_IMPORTANT">
+        <md-icon ng-if="vm.currentThread.important" md-font-icon="icon-label"
+                 class="amber-300-fg"></md-icon>
+        <md-icon ng-if="!vm.currentThread.important" md-font-icon="icon-label-outline"></md-icon>
+        <md-tooltip ng-if="vm.currentThread.important">Important</md-tooltip>
+        <md-tooltip ng-if="!vm.currentThread.important">Not important</md-tooltip>
+      </md-button>
+    </div>
+  </div>
+
+  <div class="thread-content">
+    <div class="info" layout="row" layout-align="space-between start">
+
+      <div layout="column" layout-align="start start">
+        <div layout="row" layout-align="start start">
+          <div>
+            <img ng-if="vm.currentThread.main.avatar" alt="{{vm.currentThread.main.name}}"
+                 ng-src="{{vm.currentThread.main.avatar}}" class="avatar"/>
+
+            <div ng-if="!vm.currentThread.main.avatar" class="avatar" ms-random-class="vm.colors">
+              {{vm.currentThread.main.name[0]}}
+            </div>
+          </div>
+
+          <div layout="column" layout-align="start start">
+            <div class="name" style="padding-top: 7.5% !important;">
+              {{vm.currentThread.main.name}}
+            </div>
+          </div>
+        </div>
+
+        <a class="toggle-details md-accent-color" ng-hide="vm.selectedMailShowDetails"
+           ng-click="vm.selectedMailShowDetails = !vm.selectedMailShowDetails" translate="MANAGEMENT.SHOW_DETAILS">
+          Show Details
+        </a>
+        <a class="toggle-details md-accent-color" ng-show="vm.selectedMailShowDetails"
+           ng-click="vm.selectedMailShowDetails = !vm.selectedMailShowDetails" translate="MANAGEMENT.HIDE_DETAILS">
+          Hide Details
+        </a>
+
+        <div ng-show="vm.selectedMailShowDetails" class="details" layout="row" layout-align="start start">
+          <div layout="column">
+            <span class="title" translate="MANAGEMENT.DETAILS.DATE">Date started:</span>
+          </div>
+
+          <div layout="column">
+            <span class="detail">{{vm.currentThread.time}}</span>
+          </div>
+        </div>
+      </div>
+
+      <md-menu ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering' || vm.currentFilter.filter === 'disputes' || vm.currentFilter.filter === 'invoices'">
+        <md-button aria-label="More" class="md-icon-button"
+                   ng-click="$mdOpenMenu($event)"
+                   translate translate-aria-label="MANAGEMENT.MORE">
+          <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+        </md-button>
+
+        <md-menu-content>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering'">
+            <md-button aria-label="Create a Dispute" translate-aria-label="MANAGEMENT.CREATE_DISPUTE" ng-click="vm.createDispute($event)">
+              <span translate="MANAGEMENT.CREATE_DISPUTE">Create a Dispute</span>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'disputes'">
+            <md-button ng-click="[vm.setThreadStatus('resolved', false), vm.markDisputed()]" aria-label="Mark as disputed"
+                       translate="MANAGEMENT.MARK_AS_DISPUTED" translate-attr-aria-label="MANAGEMENT.MARK_AS_DISPUTED">
+              Mark as disputed
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'disputes'">
+            <md-button ng-click="[vm.setThreadStatus('resolved', true), vm.markResolved()]" aria-label="Mark as resolved"
+                       translate="MANAGEMENT.MARK_AS_RESOLVED" translate-attr-aria-label="MANAGEMENT.MARK_AS_RESOLVED">
+              Mark as resolved
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'invoices'">
+            <md-button ng-click="[vm.setThreadStatus('paid', true), vm.markPaid()]">
+              <span translate="MANAGEMENT.MARK_AS_PAID">Mark as paid</span>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'invoices'">
+            <md-button ng-click="[vm.setThreadStatus('paid', false), vm.markUnpaid()]">
+              <span translate="MANAGEMENT.MARK_AS_UNPAID">Mark as unpaid</span>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'invoices'">
+            <md-button ng-click="[vm.setThreadStatus('due', true), vm.pastDue()]">
+              <span translate="MANAGEMENT.MARK_AS_PAST_DUE">Mark as past due</span>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="vm.currentFilter.filter === 'invoices'">
+            <md-button ng-click="[vm.setThreadStatus('due', false), vm.notDue()]">
+              <span translate="MANAGEMENT.MARK_AS_NOT_DUE">Mark as not due</span>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+
+    <div ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering' || vm.currentFilter.filter === 'trash'">
+      <div class="info-line">
+        <div class="title">Type: </div>
+        <div class="info">{{vm.currentThread.transaction.trans_type}}</div>
+      </div>
+
+      <div ng-if="vm.currentThread.transaction.trans_type === 'buying'">
+        <div class="info-line">
+          <div class="title">Seller: </div>
+          <div class="info">{{vm.currentThread.transaction.type.selling.seller_fullName}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Seller email: </div>
+          <div class="info">{{vm.currentThread.transaction.type.selling.seller_email}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Seller phone: </div>
+          <div class="info">{{vm.currentThread.transaction.type.selling.seller_phone}}</div>
+        </div>
+      </div>
+
+      <div ng-if="vm.currentThread.transaction.trans_type === 'selling'">
+        <div class="info-line">
+          <div class="title">Buyer: </div>
+          <div class="info">{{vm.currentThread.transaction.type.buying.buyer_fullName}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Buyer email: </div>
+          <div class="info">{{vm.currentThread.transaction.type.buying.buyer_email}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Buyer phone: </div>
+          <div class="info">{{vm.currentThread.transaction.type.buying.buyer_phone}}</div>
+        </div>
+      </div>
+
+      <div ng-if="vm.currentThread.transaction.trans_type === 'brokering'">
+        <div class="info-line">
+          <div class="title">Seller: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.seller_fullName}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Seller email: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.seller_email}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Seller phone: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.seller_phone}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Buyer: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.buyer_fullName}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Buyer email: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.buyer_email}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Buyer phone: </div>
+          <div class="info">{{vm.currentThread.transaction.type.brokering.buyer_phone}}</div>
+        </div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Transaction category: </div>
+        <div class="info">{{vm.currentThread.transaction.product}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Amount: </div>
+        <div class="info">{{vm.currentThread.transaction.currency}} {{vm.currentThread.transaction.amount}}</div>
+      </div>
+
+      <div class="info-line" ng-if="!vm.currentThread.transaction.product === 'milestone'">
+        <div class="title">Inspection period: </div>
+        <div class="info" editable-text="vm.currentThread.transaction.inspection">{{vm.currentThread.transaction.inspection}} day(s) <span style="font-size: 11px;" class="blue-fg" ng-if="vm.currentThread.transaction.inspection">Edit</span></div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Brillant fee payer: </div>
+        <div class="info">{{vm.currentThread.transaction.brillant_payer}}</div>
+      </div>
+
+      <div ng-if="vm.currentThread.transaction.shipping === 'yes'">
+        <div class="info-line">
+          <div class="title">Shipping payer: </div>
+          <div class="info">{{vm.currentThread.transaction.shipping_payer}}</div>
+        </div>
+
+        <div class="info-line" ng-if="!vm.currentThread.transaction.product === 'milestone'">
+          <div class="title">Shipping amount: </div>
+          <div class="info">{{vm.currentThread.transaction.currency}} {{vm.currentThread.transaction.shipping_amount}}</div>
+        </div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Additional Notes: </div>
+        <div class="info" editable-textarea="vm.currentThread.transaction.notes" e-rows="3" e-cols="70">{{vm.currentThread.transaction.notes || "Click to add additional notes"}}</div>
+      </div>
+
+      <div id="auto" ng-if="vm.currentThread.transaction.product === 'auto'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Auto details</b></p>
+
+        <div class="info-line">
+          <div class="title">Auto description: </div>
+          <div class="info">{{vm.currentThread.transaction.auto.description}}</div>
+        </div>
+
+        <div class="info-line">
+
+          <div class="title">Make: </div>
+          <div class="info">{{vm.currentThread.transaction.auto.make}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Model: </div>
+          <div class="info" >{{vm.currentThread.transaction.auto.model}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Year: </div>
+          <div class="info" editable-text="vm.currentThread.transaction.auto.year">{{vm.currentThread.transaction.auto.year}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">VIN No.: </div>
+          <div class="info">{{vm.currentThread.transaction.auto.vin}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Odometer: </div>
+          <div class="info">{{vm.currentThread.transaction.auto.odometer}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Registration expiry: </div>
+          <div class="info">{{vm.currentThread.transaction.auto.reg_exp}}</div>
+        </div>
+      </div>
+
+      <div id="property" ng-if="vm.currentThread.transaction.product === 'property'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Property details</b></p>
+
+        <div class="info-line">
+          <div class="title">Property description: </div>
+          <div class="info">{{vm.currentThread.transaction.property.description}}</div>
+        </div>
+
+        <div class="info-line">
+          <div class="title">Title deed / property certificate No.: </div>
+          <div class="info">{{vm.currentThread.transaction.property.deed}}</div>
+        </div>
+      </div>
+
+      <div id="service" ng-if="vm.currentThread.transaction.product === 'service'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Service details</b></p>
+
+        <div class="info-line">
+          <div class="title">Service description: </div>
+          <div class="info">{{vm.currentThread.transaction.service.description}}</div>
+        </div>
+      </div>
+
+      <div id="milestone" ng-if="vm.currentThread.transaction.product === 'milestone'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Milestones details</b></p>
+
+        <div class="info-line">
+          <div class="info" ng-repeat="milestone in vm.currentThread.transaction.milestones">
+            <div class="milestone">
+              <b><u>{{milestone.number}}</u></b>
+            </div>
+            <div class="milestone">
+              <div class="title">Name: </div>
+              <div class="detail">{{milestone.name}}</div>
+            </div>
+            <div class="milestone">
+              <div class="title">Inspection: </div>
+              <div class="detail">{{milestone.inspection}} day(s)</div>
+            </div>
+            <div class="milestone" ng-if="milestone.shipping === 'yes'">
+              <div class="title">Delivery cost: </div>
+              <div class="detail">{{vm.currentThread.transaction.currency}} {{milestone.shipping_amount}}</div>
+            </div>
+            <div class="milestone">
+              <div class="title">Milestone cost: </div>
+              <div class="detail">{{vm.currentThread.transaction.currency}} {{milestone.amount}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="jewelry" ng-if="vm.currentThread.transaction.product === 'jewelry'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Jewelry details</b></p>
+
+        <div class="info-line">
+          <div class="title">Jewelry description: </div>
+          <div class="info">{{vm.currentThread.transaction.jewelry.description}}</div>
+        </div>
+      </div>
+
+      <div id="electronic" ng-if="vm.currentThread.transaction.product === 'electronic'">
+        <p><b>Electronic details</b></p>
+
+        <div class="info-line">
+          <div class="title">Electronic description: </div>
+          <div class="info">{{vm.currentThread.transaction.electronic.description}}</div>
+        </div>
+      </div>
+
+      <div id="machinery" ng-if="vm.currentThread.transaction.product === 'machinery'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>Machinery/equipment details</b></p>
+
+        <div class="info-line">
+          <div class="title">Machinery/equipment description: </div>
+          <div class="info">{{vm.currentThread.transaction.machinery.description}}</div>
+        </div>
+      </div>
+
+      <div id="general" ng-if="vm.currentThread.transaction.product === 'general'">
+        <p style="color: #0b3e6f; font-size: 16px"><b>General merchandise details</b></p>
+
+        <div class="info-line">
+          <div class="title">Merchandise description: </div>
+          <div class="info">{{vm.currentThread.transaction.general.description}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="vm.currentFilter.filter === 'disputes'">
+      <div class="info-line">
+        <div class="title">Dispute with: </div>
+        <div class="info">{{vm.currentThread.main.disputee}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Email: </div>
+        <div class="info">{{vm.currentThread.main.email}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Dispute subject: </div>
+        <div class="info" editable-text="vm.currentThread.subject">{{vm.currentThread.subject}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.currentThread.subject">Edit</span></div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Dispute message: </div>
+        <div ng-bind-html="vm.currentThread.message" editable-textarea="vm.currentThread.message" e-rows="8" e-cols="70"> <span style="font-size: 11px;" class="blue-fg" ng-if="vm.currentThread.message">Edit</span></div>
+      </div>
+    </div>
+
+    <div ng-if="vm.currentFilter.filter === 'invoices'">
+      <div class="info-line">
+        <div class="title">Invoice Number: </div>
+        <div class="info">{{vm.currentThread.number}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Invoicee Name: </div>
+        <div class="info">{{vm.currentThread.to.name}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Invoicee email: </div>
+        <div class="info">{{vm.currentThread.to.email}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Invoicee Phone: </div>
+        <div class="info">{{vm.currentThread.to.phone}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Invoicee Address: </div>
+        <div class="info">{{vm.currentThread.to.address}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Due date: </div>
+        <div class="info" editable-bsdate="vm.currentThread.dueDate">{{vm.currentThread.dueDate}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.currentThread.dueDate">Edit</span></div>
+      </div>
+
+      <p style="font-size: 16px; color: #0b3e6f;"><b>Invoiced items/services</b></p>
+      <div class="info-line">
+        <div class="info" ng-repeat="item in vm.currentThread.items">
+          <div class="invoice">
+            <b>{{item.number}}</b>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Name: </div>
+            <div class="detail" editable-text="item.name">{{item.name}} <span style="font-size: 11px;" class="blue-fg" ng-if="item.name">Edit</span></div>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Description: </div>
+            <div class="detail" editable-textarea="item.description" e-rows="3" e-cols="60">{{item.description}} <span style="font-size: 11px;" class="blue-fg" ng-if="item.description">Edit</span></div>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Unit: </div>
+            <div class="detail" editable-text="item.unit">{{item.unit}} <span style="font-size: 11px;" class="blue-fg" ng-if="item.unit">Edit</span></div>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Unit Price: </div>
+            <div class="detail" editable-text="item.unitPrice">{{item.unitPrice}} <span style="font-size: 11px;" class="blue-fg" ng-if="item.unitPrice">Edit</span></div>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Quantity: </div>
+            <div class="detail" editable-text="item.quantity">{{item.quantity}} <span style="font-size: 11px;" class="blue-fg" ng-if="item.quantity">Edit</span></div>
+          </div>
+
+          <div class="invoice">
+            <div class="title">Item total: </div>
+            <div class="detail">{{item.unitPrice * item.quantity}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Subtotal: </div>
+        <div class="info">{{vm.currentThread.subTotal}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Tax: </div>
+        <div class="info">{{vm.currentThread.tax}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title">Discount: </div>
+        <div class="info">{{vm.currentThread.discount}}</div>
+      </div>
+
+      <div class="info-line">
+        <div class="title"><b>Total: </b></div>
+        <div class="info"><b><u>{{vm.currentThread.total}}</u></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="vm.currentThread.attachments" class="thread-attachments">
+  <div class="title">
+    <span translate="MANAGEMENT.ATTACHMENTS">Attachments</span> ({{vm.currentThread.attachments.length}})
+  </div>
+  <div class="attachment-list" layout-wrap layout="row">
+    <div class="attachment" layout="column"
+         ng-repeat="attachment in vm.currentThread.attachments">
+      <img class="preview" ng-src="{{attachment.preview}}">
+
+      <div layout="column">
+        <a href="#" class="md-accent-color link" translate="MANAGEMENT.VIEW">View</a>
+        <a href="#" class="md-accent-color link" translate="MANAGEMENT.DOWNLOAD">Download</a>
+
+        <div class="size">({{attachment.size}})</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="approve_transaction" ng-if="vm.currentFilter.filter === 'selling' || vm.currentFilter.filter === 'buying' || vm.currentFilter.filter === 'brokering'">
+  <form name="approveTransaction">
+    <div layout="row" class="content">
+      <md-input-container flex="50" flex-gt-xs>
+        <md-button translate="MANAGEMENT.APPROVED" class="md-raised" style="background-color: #2E7D32 !important; color: #fff;" ng-model="vm.transaction.approval" value="approved" ng-click="vm.approveTheTransaction($event)">
+          Approve
+        </md-button>
+      </md-input-container>
+      <md-input-container flex="50" flex-gt-xs>
+        <md-button translate="MANAGEMENT.REVIEW" class="md-raised md-primary" ng-model="vm.transaction.decline" value="declined" ng-click="vm.declineTheTransaction($event)">
+          Review
+        </md-button>
+      </md-input-container>
+    </div>
+  </form>
+</div>
+</div>

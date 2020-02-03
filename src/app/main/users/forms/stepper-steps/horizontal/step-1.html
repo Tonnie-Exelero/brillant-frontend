@@ -1,0 +1,113 @@
+<div class="md-inline-form">
+  <p>Fill <span class="text-bold">every starred field</span> to move to the next step!</p>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="phone_number_1" ng-model="vm.horizontalStepper.phoneNumber"
+             placeholder="Personal phone" ng-pattern="/^[+][0-9]{12}$/"
+             required>
+      <div ng-messages="horizontalStep1.phone_number_1.$error"
+           ng-show="horizontalStep1.phone_number_1.$touched"
+           role="alert" multiple>
+        <div ng-message="required">
+          <span>Your personal phone number is important to us.</span>
+        </div>
+        <div ng-message="pattern">
+          <span>Use the right format (+############).</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="identification" ng-model="vm.horizontalStepper.identification"
+             placeholder="ID No./Passport No." required>
+      <div ng-messages="horizontalStep1.identification.$error"
+           ng-show="horizontalStep1.identification.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Your Identification no./Passport no. is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input type="text" name="occupation" ng-model="vm.horizontalStepper.occupation"
+             placeholder="Current Occupation" required>
+      <div ng-messages="horizontalStep1.occupation.$error"
+           ng-show="horizontalStep1.occupation.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Your current occupation is important.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="residence_address" ng-model="vm.horizontalStepper.address.physicalAddress"
+             placeholder="Residence Address" required>
+      <div ng-messages="horizontalStep1.residence_address.$error"
+           ng-show="horizontalStep1.residence_address.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Your residential address is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="postal_address" ng-model="vm.horizontalStepper.address.postalAddress"
+             placeholder="Postal Address" required>
+      <div ng-messages="horizontalStep1.postal_address.$error"
+           ng-show="horizontalStep1.postal_address.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Your postal address is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="postal_code" ng-model="vm.horizontalStepper.address.postalCode"
+             placeholder="Postal Code" required>
+      <div ng-messages="horizontalStep1.postal_code.$error"
+           ng-show="horizontalStep1.postal_code.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Your postal code is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="city" ng-model="vm.horizontalStepper.address.city"
+             placeholder="City/Town" required>
+      <div ng-messages="horizontalStep1.city.$error"
+           ng-show="horizontalStep1.city.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Tell us your home city.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Country</label>
+      <md-select ng-model="vm.horizontalStepper.address.country" name="country" placeholder="Country" required>
+        <md-option ng-repeat="country in vm.countries" value="{{country.countryName}}">{{country.countryName}}</md-option>
+      </md-select>
+      <div ng-messages="horizontalStep1.country.$error"
+           ng-show="horizontalStep1.country.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Tell us your home country.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+</div>

@@ -1,0 +1,588 @@
+#transactions {
+
+  .center {
+
+    .header {
+      height: 136px !important;
+      min-height: 136px !important;
+      max-height: 136px !important;
+      padding: 24px 0;
+
+      .h1 {
+
+        md-icon {
+          margin-right: 12px;
+        }
+      }
+
+      .order-count {
+        margin: 6px 0 0 36px;
+      }
+
+      .search {
+        position: relative;
+        padding-left: 24px;
+        max-width: 480px;
+
+        .search-icon {
+          margin: 0 -24px 0 0;
+        }
+
+        .search-input {
+          margin: 0 0 0 32px;
+          background: none;
+          font-size: 16px;
+          line-height: 40px;
+          height: 40px;
+          color: #FFFFFF;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+          transition: border-color 300ms ease;
+
+          &:focus {
+            border-color: rgba(255, 255, 255, 1);
+          }
+
+          &::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+
+    .content-card {
+
+      .toolbar {
+        padding: 8px;
+      }
+
+      .content {
+        padding: 0;
+
+        div {
+
+          /* Button */
+          .widget {
+            box-shadow:0 2px 3px rgba(0,21,64,.14),0 3px 5px rgba(0,21,64,.05) !important;
+            min-width: 70px !important;
+            max-width: 150px !important;
+            min-height: 10px !important;
+            height: auto !important;
+            background-color: #0091EA !important;
+            color: #f3f3f3 !important;
+            font-size: 14px !important;
+            font-family: Arial !important;
+            font-weight: 500 !important;
+            padding: 5px !important;
+            border-radius: 4px !important;
+            text-transform: uppercase !important;
+            text-align: center !important;
+          }
+
+          .widget:hover {
+            text-decoration: none !important;
+            cursor: pointer !important;
+            background-color: #0083ea !important;
+            box-shadow:0 2px 3px rgba(0,21,64,.3),0 3px 5px rgba(0,21,64,.14) !important;
+          }
+
+          /* The Modal (background) */
+          .brillantpayMyModal {
+            display: none; /* Hidden by default */
+            position: absolute !important; /* Stay in place */
+            z-index: 1000000000 !important; /* Sit on top */
+            padding-top: 50px !important; /* Location of the box */
+            left: 0 !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            width: 100% !important; /* Full width */
+            height: 100% !important; /* Full height */
+            overflow: auto !important; /* Enable scroll if needed */
+            background-color: rgb(0,0,0) !important; /* Fallback color */
+            background-color: rgba(0,0,0,0.4) !important; /* Black w/ opacity */
+
+            /* Modal Content */
+            .brillantpayModalContent {
+              position: relative;
+              background-color: #fefefe !important;
+              margin: auto auto 45px auto !important;
+              padding: 15px !important;
+              border-radius: 4px !important;
+              box-shadow:0 1px 3px rgba(0,21,64,.24),0 4px 18px rgba(0,21,64,.33) !important;
+              border: 1px solid #888 !important;
+              width: 90% !important;
+              height: auto !important;
+              z-index: 100000000000;
+
+              /* The Beta clause */
+              .brillantpayBeta {
+                color: lightgrey !important;
+                float: left !important;
+                font-family: Calibri;
+                font-size: 15px !important;
+                font-weight: normal !important;
+              }
+
+              /* The Close Button */
+              .brillantpayClose {
+                color: #aaaaaa !important;
+                float: right !important;
+                font-size: 28px !important;
+                font-weight: normal !important;
+              }
+
+              .brillantpayClose:hover,
+              .brillantpayClose:focus {
+                color: #000 !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+              }
+
+              /* Payments Content */
+              .brillantpayPaymentsBox {
+                font-family: Calibri, Arial !important;
+                font-size: 16px !important;
+
+                /* Client Data */
+                .brillantpayClientData {
+                  text-align: center !important;
+
+                  .brillantpayClientLogo {
+
+                    .brillantpayClientImage {
+                      border: 1px solid #aaaaaa !important;
+                      width: 70px !important;
+                      height: 70px !important;
+                      border-radius: 50% !important;
+                      margin: -45px auto 10px auto !important;
+                      box-shadow:2px 3px 4px rgba(0,21,64,.3),3px 4px 5px rgba(0,21,64,.14) !important;
+                    }
+                  }
+
+                  .brillantpayCustomerDesc {
+                    font-size: 16px !important;
+                    color: darkslategrey !important;
+                  }
+                }
+
+                .brillantpayPaymentOptions {
+
+                  #paymentMethodSelector {
+                    margin-bottom: 5px;
+
+                    .selectMobileMoney {
+                      color: #1b6d85;
+                      font-size: 16.5px;
+                      padding: 10px auto 10px auto;
+                      text-align: center;
+                      cursor: pointer;
+                    }
+
+                    .separator {
+                      color: grey;
+                      font-weight: 100;
+                      font-size: 18px;
+                      text-align: center;
+                    }
+
+                    .selectBankTransfer {
+                      color: grey;
+                      font-size: 16.5px;
+                      padding: 10px auto 10px auto;
+                      text-align: center;
+                      cursor: pointer;
+                    }
+                  }
+
+                  #brillantpayEquitel {
+                    display: none;
+                  }
+
+                  #brillantpayBankTransfer {
+                    display: none;
+                  }
+
+                  #brillantpayAirtelMoney {
+                    display: none;
+                  }
+
+                  #manyEntriesAlert {
+                    display: none;
+                    text-align: center;
+                    margin-bottom: 3px;
+                    background-color: indianred;
+                    font-size: 15px;
+                    color: #f7f7f7;
+                    padding: 4px 4px 4px 4px;
+                    border: 1px solid darkred;
+                    border-radius: 3px;
+                  }
+
+                  .submitForm {
+                    display: block;
+                    text-align: center !important;
+                    box-shadow:0 2px 3px rgba(0,21,64,.14),0 3px 5px rgba(0,21,64,.05) !important;
+                    min-width: 70px !important;
+                    width: auto;
+                    min-height: 10px !important;
+                    height: auto !important;
+                    background-color: #0091EA !important;
+                    color: #f3f3f3 !important;
+                    font-size: 14px !important;
+                    font-family: Arial !important;
+                    font-weight: 500 !important;
+                    padding:6px 12px !important;
+                    border-radius: 4px !important;
+                    border:1px solid transparent !important;
+                  }
+
+                  .submitForm:hover {
+                    cursor: pointer !important;
+                    background-color: #0083ea !important;
+                    box-shadow:0 2px 3px rgba(0,21,64,.3),0 3px 5px rgba(0,21,64,.14) !important;
+                  }
+
+                  .paySpinner {
+                    display: none;
+                    text-align: center;
+                    box-shadow:0 2px 3px rgba(0,21,64,.14),0 3px 5px rgba(0,21,64,.05) !important;
+                    min-width: 70px !important;
+                    width: auto;
+                    min-height: 10px !important;
+                    background-color: #0091EA !important;
+                    padding: 3px 3px 3px 3px !important;
+                    border-radius: 4px !important;
+                  }
+
+                  .paySuccess {
+                    display: none;
+                    text-align: center;
+                    box-shadow:0 2px 3px rgba(0,21,64,.14),0 3px 5px rgba(0,21,64,.05) !important;
+                    min-width: 70px !important;
+                    width: auto;
+                    min-height: 10px !important;
+                    height: auto !important;
+                    background-color: green !important;
+                    color: #f3f3f3 !important;
+                    font-size: 14px !important;
+                    font-family: Arial !important;
+                    font-weight: 500 !important;
+                    padding: 8px 8px 8px 8px !important;
+                    border-radius: 4px !important;
+                  }
+
+                  .payError {
+                    display: none;
+                    text-align: center;
+                    box-shadow:0 2px 3px rgba(0,21,64,.14),0 3px 5px rgba(0,21,64,.05) !important;
+                    min-width: 70px !important;
+                    width: auto;
+                    min-height: 10px !important;
+                    height: auto !important;
+                    background-color: #990000 !important;
+                    color: #f3f3f3 !important;
+                    font-size: 14px !important;
+                    font-family: Arial !important;
+                    font-weight: 500 !important;
+                    padding: 8px 8px 8px 8px !important;
+                    border-radius: 4px !important;
+                  }
+                }
+              }
+            }
+
+            /* Terms and Privacy */
+            .brillantpayTerms {
+              display: none;
+              background-color: transparent !important;
+              margin: -37px auto auto auto !important;
+              width: 20%;
+              text-align: center;
+              height: auto !important;
+              color: grey !important;
+              font-size: 14px;
+            }
+
+            .brillantpayTerms a {
+              text-decoration: none;
+              color: lightgrey !important;
+            }
+
+            .brillantpayTerms a:hover {
+              text-decoration: none;
+              color: #f4f4f4 !important;
+            }
+          }
+
+          .signature {
+            display: none;
+            position: absolute;
+            text-align: right !important;
+            right: 1.5%;
+            bottom: 2%;
+            font-size: 11px;
+            color: #5f6d64;
+            z-index: 10000000000;
+            border: 1px solid grey;
+            border-radius: 3px;
+            padding: 5px 5px 5px 5px;
+
+            .brillantSignLogo {
+              font-size: 15px;
+              font-weight: 600;
+              font-family: Arial !important;
+            }
+
+            .brillantSignLogo a {
+              text-decoration: none;
+            }
+
+            .brillantSignLogo a:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .dataTables_wrapper {
+
+          .dataTables_scrollHead {
+            min-height: 64px;
+
+            table {
+
+              th {
+                padding-top: 20px;
+                padding-bottom: 20px;
+              }
+            }
+          }
+
+          .dataTables_scrollBody {
+
+            table {
+
+              .status {
+                font-size: 12px;
+                white-space: nowrap;
+                padding: 2px 5px;
+                border-radius: 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width:370px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+
+              .brillantpayModalContent {
+                width: 85% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:470px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 60px !important;
+
+              .brillantpayModalContent {
+                width: 80% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:570px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayTerms {
+              display: block;
+            }
+
+            .brillantpayMyModal {
+              padding-top: 75px !important;
+
+              .brillantpayModalContent {
+                width: 65% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:670px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 90px !important;
+
+              .brillantpayModalContent {
+                width: 55% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:770px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 100px !important;
+
+              .brillantpayModalContent {
+                width: 45% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:870px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 100px !important;
+
+              .brillantpayModalContent {
+                width: 40% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:1100px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 100px !important;
+
+              .brillantpayModalContent {
+                width: 35% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width:1240px){
+  #transactions {
+
+    .center {
+
+      .content-card {
+
+        .content {
+
+          div {
+
+            .brillantpayMyModal {
+              padding-top: 100px !important;
+
+              .brillantpayModalContent {
+                width: 30% !important;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+#forms {
+
+  > .header {
+    height: 76px;
+    min-height: 76px;
+    max-height: 76px;
+
+    .logo {
+
+      .logo-icon {
+        margin: 0 16px 0 0;
+      }
+
+      .logo-text {
+        font-size: 24px;
+      }
+    }
+
+    md-icon {
+      color: #FFFFFF;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+
+      label {
+        padding-right: 4px;
+        cursor: pointer;
+
+        md-icon {
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+      }
+
+      md-input-container {
+
+        .md-errors-spacer {
+          display: none;
+        }
+
+        input {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.8);
+          width: 240px;
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+          }
+
+          &:focus {
+            border-bottom: 1px solid white;
+            color: white;
+          }
+        }
+      }
+    }
+
+    &.selected-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background-image: none;
+      opacity: 1 !important;
+
+      .close-button-wrapper {
+        width: 244px;
+      }
+    }
+
+    .content-card {
+
+      .toolbar {
+        padding: 8px 16px;
+        position: relative;
+      }
+
+      .content {
+        padding: 0;
+        overflow: hidden;
+
+        .milestone-list-pane {
+          background: #FAFAFA;
+        }
+
+      }
+    }
+  }
+
+  .content {
+
+    .form-wrapper {
+
+    }
+
+    .form-data-wrapper {
+      margin-left: 16px;
+
+      .json-data-wrapper {
+        overflow: hidden;
+
+        pre {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

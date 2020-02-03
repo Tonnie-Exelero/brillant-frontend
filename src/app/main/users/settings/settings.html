@@ -1,0 +1,90 @@
+<div id="settings" class="page-layout carded left-sidenav" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- LEFT SIDENAV -->
+  <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav"
+              ng-include="'app/main/users/settings/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
+  </md-sidenav>
+  <!-- / LEFT SIDENAV -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="start center">
+      <div class="search-wrapper md-whiteframe-4dp" flex layout="row" layout-align="start center">
+        <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md
+                   aria-label="Toggle sidenav" translate translate-attr-aria-label="SETTINGS.TOGGLE_SIDENAV">
+          <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+        </md-button>
+      </div>
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- CONTENT TOOLBAR -->
+      <div class="toolbar" layout="row" layout-align="space-between center">
+
+        <span ng-if="vm.listType ==='acc_info'" class="sys-admin-titles">
+          Account Info
+        </span>
+
+        <span ng-if="vm.listType ==='banks'" class="sys-admin-titles">
+          Bank Accounts
+        </span>
+
+        <!--<span ng-if="vm.listType ==='cards'" class="sys-admin-titles">
+          Cards Info
+        </span>-->
+
+        <span ng-if="vm.listType ==='mobile'" class="sys-admin-titles">
+          Mobile Numbers
+        </span>
+
+        <span ng-if="vm.listType ==='api_keys'" class="sys-admin-titles">
+          API Keys
+        </span>
+
+        <span ng-if="vm.listType ==='notifications'" class="sys-admin-titles">
+          Notifications
+        </span>
+
+        <span ng-if="vm.listType ==='reports'" class="sys-admin-titles">
+          Reports
+        </span>
+
+        <span ng-if="vm.listType ==='security'" class="sys-admin-titles">
+          Security
+        </span>
+
+        <span ng-if="vm.listType ==='password_update'" class="sys-admin-titles">
+          Update password
+        </span>
+
+      </div>
+      <!-- / CONTENT TOOLBAR -->
+
+      <!-- CONTENT -->
+      <div class="content" layout="row" flex>
+
+        <!-- Todo list pane -->
+        <md-content class="settings-list-pane" flex
+                    ng-include="'app/main/users/settings/views/list/list-view.html'" ms-scroll="vm.msScrollOptions">
+        </md-content>
+        <!-- / Todo list pane -->
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARDb-->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,735 @@
+<md-tabs md-dynamic-height md-center-tabs="true">
+  <!-- Transaction -->
+  <md-tab>
+    <md-tab-label>
+      <!--<span ng-if="vm.currentFilter.filter === 'deposit'">
+        <i class="icon-arrow-up-bold-circle-outline s16"></i>
+        Deposit funds
+      </span>
+      <span ng-if="vm.currentFilter.filter === 'transfer'">
+        <i class="icon-transfer s16"></i>
+        Transfer funds
+      </span>-->
+
+      <span ng-if="vm.currentFilter.filter === 'withdraw'">
+        <i class="icon-arrow-down-bold-circle-outline s16"></i>
+        Withdraw funds
+      </span>
+    </md-tab-label>
+
+    <md-tab-body>
+      <div class="md-padding">
+        <!--<div ng-if="vm.currentFilter.filter === 'deposit'">
+          <form name="depositForm">
+            <md-radio-group ng-model="vm.deposit.source">
+              <md-radio-button value="bank">Bank deposit</md-radio-button>
+              <md-radio-button value="card">Card deposit</md-radio-button>
+              <md-radio-button value="mobile">Mobile deposit</md-radio-button>
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <div ng-if="vm.deposit.source == 'bank'">
+              <p><b><u>Instructions</u></b></p>
+              <div>
+                <p>1. Transfer funds from your bank to BrillantPay <b>(RTGS/EFT)</b> using these details:</p>
+
+                <table class="simple" ms-responsive-table>
+                  <thead>
+                  </thead>
+
+                  <tfoot>
+                  <tr>
+                    <td></td>
+                  </tr>
+                  </tfoot>
+
+                  <tbody class="bank-table" style="font-size: 15px !important;">
+                  <tr>
+                    <td><b>Bank Name</b></td>
+                    <td>Kenya Commercial Bank (KCB)</td>
+                  </tr>
+                  <tr>
+                    <td><b>Branch</b></td>
+                    <td>Hurlingham</td>
+                  </tr>
+                  <tr>
+                    <td><b>Account Name</b></td>
+                    <td>Brillant Innovations Limited</td>
+                  </tr>
+                  <tr>
+                    <td><b>Account Number</b></td>
+                    <td>1210828820</td>
+                  </tr>
+                  <tr>
+                    <td><b>Bank Code</b></td>
+                    <td>01</td>
+                  </tr>
+                  <tr>
+                    <td><b>Branch Code</b></td>
+                    <td>306</td>
+                  </tr>
+                  <tr>
+                    <td><b>SWIFT Code</b></td>
+                    <td>KCBLKENX</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+
+              <p>2. Enter the RTGS/EFT transaction confirmation code (UTR Code) you received below</p>
+              <p style="font-size: 13px; color: darkslategrey;"><b>NB:</b> This takes between 5 minutes - 2 hours depending with the bank</p>
+
+              <md-input-container class="md-block">
+                <label>Enter RTGS/EFT Transaction confirmation code (UTR Code)</label>
+                <input ng-model="vm.deposit.bank.confirmation" name="bank_confirmation" required>
+                <div ng-messages="depositForm.bank_confirmation.$error"
+                     role="alert">
+                  <div ng-message="required">
+                    <span>RTGS/EFT Transaction confirmation code (UTR Code) is required.</span>
+                  </div>
+                </div>
+              </md-input-container>
+
+              &lt;!&ndash;<div layout="column">
+                <div layout="row">
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Bank Name</label>
+                    <input type="text" ng-model="vm.deposit.bank.name" name="bank_name" required>
+                    <div ng-messages="depositForm.bank_name.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank name is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Bank branch</label>
+                    <input type="text" ng-model="vm.deposit.bank.branch" name="bank_branch" required>
+                    <div ng-messages="depositForm.bank_branch.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank branch is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Account Name</label>
+                  <input type="text" ng-model="vm.deposit.bank.accountName" name="source_name" required>
+                  <div ng-messages="depositForm.source_name.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Account holder name is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Account Number</label>
+                  <input type="text" ng-model="vm.deposit.bank.accountNumber" name="source_number" required>
+                  <div ng-messages="depositForm.source_number.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Account number is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Currency</label>
+                  <md-select ng-model="vm.deposit.currency" name="acc_currency" required>
+                    <md-option value="usd">USD</md-option>
+                    <md-option value="kes">KES</md-option>
+                  </md-select>
+                  <div ng-messages="depositForm.acc_currency.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Currency is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Deposited amount</label>
+                  <input type="number" ng-model="vm.deposit.amount" name="amount" required>
+                  <div ng-messages="depositForm.amount.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>The amount is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Deposit date</label>
+                  <md-datepicker ng-model="vm.deposit.deposit_date" name="deposit_date" required></md-datepicker>
+                  <div ng-messages="depositForm.deposit_date.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>The date of deposit is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>&ndash;&gt;
+
+              <md-button class="md-raised md-accent" ng-click="vm.submitDeposit($event)" aria-label="submit deposit">
+                SUBMIT
+              </md-button>
+            </div>
+
+            <div ng-if="vm.deposit.source == 'card'">
+              <p>Fill in the card data and amount below</p>
+
+              <md-input-container class="md-block">
+                <input type="text" name="cardNumber" cc-number cc-type="cardType" cc-eager-type ng-model="vm.deposit.card.cardNumber"
+                       placeholder="Card Number" required>
+                <p ng-show="depositForm.cardNumber.$invalid && depositForm.cardNumber.$ccEagerType" class="text-right" style="color: #00ACC1; font-size: 15px; font-weight: 400;">
+                  {{depositForm.cardNumber.$ccEagerType}}
+                </p>
+                <p ng-show="depositForm.cardNumber.$valid" class="text-right">
+                            <span style="color: #00ACC1; font-size: 15px; font-weight: 400; margin-right: 3px">
+                              {{depositForm.cardNumber.$ccEagerType}}
+                            </span>
+                  <md-icon md-font-icon="icon-check" class="s13 green-fg" style="font-weight: 600;"></md-icon>
+                </p>
+                <div class="hint" ng-show="showHints">4012765482176452</div>
+                <div ng-messages="depositForm.cardnumber.$error"
+                     role="alert">
+                  <div ng-message="required">
+                    <span>Card number field is required.</span>
+                  </div>
+                </div>
+              </md-input-container>
+
+              <div layout="column" layout-gt-xs="row">
+                <md-input-container flex="100" flex-gt-xs="50">
+                  <md-tooltip>The 3-digit number at the back of the card</md-tooltip>
+                  <input type="text" name="cvc" cc-cvc cc-type="cardNumber.$ccType" ng-model="vm.deposit.card.cvc"
+                         placeholder="CVC" ng-pattern="/^[0-9]{3}$/" required>
+                  <div class="hint" ng-show="showHints">452</div>
+                  <div ng-messages="depositForm.cvc.$error"
+                       ng-show="depositForm.cvc.$touched"
+                       role="alert" multiple>
+                    <div ng-message="required">
+                      <span>CVC field is required. (e.g. 038)</span>
+                    </div>
+                    <div ng-message="pattern">
+                      <span>CVC can't be longer than 3 characters.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <div cc-exp flex="100" flex-gt-xs="50">
+                  <md-input-container flex="45" flex-gt-sm>
+                    <label>Exp. (mm)</label>
+                    <input type="text" name="expMonth" flex ng-model="vm.deposit.card.exp_month" cc-exp-month cc-type="cardNumber.$ccType" md-placeholder="mm" required>
+                    <div class="hint" ng-show="showHints">10</div>
+                    <div ng-messages="depositForm.expMonth.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Expiration month field is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                  /
+                  <md-input-container flex="45" flex-gt-sm>
+                    <label>Exp. (yy)</label>
+                    <input type="text" name="expYear" flex ng-model="vm.deposit.card.exp_year" cc-exp-year cc-type="cardNumber.$ccType" md-placeholder="yy" required>
+                    <div class="hint" ng-show="showHints">25</div>
+                    <div ng-messages="depositForm.expYear.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Expiration date field is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <md-input-container class="md-block">
+                <label>Amount to deposit</label>
+                <input type="number" ng-model="vm.deposit.amount" name="amount" required>
+              </md-input-container>
+
+              <md-button class="md-raised md-accent" ng-click="vm.submitDeposit($event)" aria-label="submit deposit">
+                SUBMIT
+              </md-button>
+            </div>
+
+            <div ng-if="vm.deposit.source == 'mobile'">
+              <div style="margin-left: 20px !important; margin-top: 20px !important; font-size: 14px !important;">
+                <md-radio-group ng-model="vm.deposit.mobile.network">
+                  <md-radio-button value="mpesa">M-Pesa</md-radio-button>
+                  <md-radio-button value="airtel-money">Airtel Money</md-radio-button>
+                </md-radio-group>
+              </div>
+
+              <md-divider></md-divider>
+
+              <div ng-if="vm.deposit.mobile.network == 'mpesa'">
+                <p><b><u>Instructions</u></b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">1. Go to <b>Lipa na M-Pesa</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">2. Choose option <b>'Paybill'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">3. Use Business no. <b>'287374'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">4. Use Account no. <b>'{{vm.mpesaAccountNumber.accountNumber || 'Your phone number'}}'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">5. Enter the <b>amount to deposit</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">6. Enter your <b>pin</b></p>
+
+                <br />
+                <md-button class="md-raised md-accent" ng-click="vm.confirmMpesa(accountNumber)">
+                  Confirm Payment
+                </md-button>
+                &lt;!&ndash;<md-input-container class="md-block">
+                  <label>Enter M-Pesa confirmation code</label>
+                  <input ng-model="vm.deposit.mobile.confirmation" name="mpesa_confirmation" required>
+                  <div ng-messages="depositForm.mpesa_confirmation.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>M-Pesa confirmation code is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-accent" ng-click="vm.submitDeposit($event)" aria-label="submit deposit">
+                  SUBMIT
+                </md-button>&ndash;&gt;
+              </div>
+
+              <div ng-if="vm.deposit.mobile.network == 'airtel-money'">
+                <p><b><u>Instructions</u></b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">1. Go to <b>Airtel Money</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">2. Choose option <b>'make payments'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">3. Choose option <b>'pay bill'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">4. Choose option <b>'Other'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">5. Use Business name. <b>'BRILLANT'</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">6. Enter the <b>amount to deposit</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">7. Enter your <b>pin</b></p>
+                <p style="margin-left: 20px !important; font-size: 15px !important;">8. Enter reference <b>'{{vm.airtelReferenceNumber.referenceNumber || 'Your phone number'}}'</b></p>
+
+                <br />
+                <md-button class="md-raised md-accent" ng-click="vm.confirmAirtelMoney(referenceNumber)">
+                  Confirm Payment
+                </md-button>
+                &lt;!&ndash;<md-input-container class="md-block">
+                  <label>Enter Airtel Money confirmation code</label>
+                  <input ng-model="vm.deposit.mobile.confirmation" name="airtel_confirmation" required>
+                  <div ng-messages="depositForm.airtel_confirmation.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Airtel Money confirmation code is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-accent" ng-click="vm.submitDeposit($event)" aria-label="submit deposit">
+                  SUBMIT
+                </md-button>&ndash;&gt;
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div ng-if="vm.currentFilter.filter === 'transfer'">
+          <form name="transferForm">
+            <p>Enter transfer details.</p>
+
+            <md-input-container class="md-block">
+              <label>Recipient Email</label>
+              <input name="email" ng-model="vm.transfer.recipient_email" type="email" ng-pattern="/^.+@.+\..+$/" required>
+              <div ng-messages="transferForm.email.$error" role="alert" multiple>
+                <div ng-message="required">
+                  <span>Email field is required</span>
+                </div>
+                <div ng-message="pattern">
+                  <span>Email must be a valid e-mail address</span>
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>Currency</label>
+              <md-select ng-model="vm.transfer.currency" name="acc_currency" required>
+                <span ng-if="vm.account.currency === 'USD'"><md-option value="USD">USD</md-option></span>
+                <span ng-if="vm.account.currency === 'KES'"><md-option value="KES">KES</md-option></span>
+              </md-select>
+              <div ng-messages="transferForm.acc_currency.$error"
+                   role="alert">
+                <div ng-message="required">
+                  <span>Currency is required.</span>
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>Amount to transfer</label>
+              <input type="number" ng-model="vm.transfer.amount" name="amount" required>
+              <div ng-messages="transferForm.amount.$error"
+                   role="alert">
+                <div ng-message="required">
+                  <span>The amount is required.</span>
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-button class="md-raised md-accent" ng-click="vm.checkTransferValidity()" aria-label="submit transfer">
+              SUBMIT
+            </md-button>
+          </form>
+        </div>-->
+
+        <div ng-if="vm.currentFilter.filter === 'withdraw'">
+          <form name="withdrawForm" ng-submit="vm.checkWithdrawalValidity()">
+
+            <md-radio-group ng-model="vm.withdraw.to">
+              <md-radio-button value="bank">Bank withdrawal</md-radio-button>
+              <md-radio-button value="mobile">Mobile withdrawal</md-radio-button>
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <div ng-if="vm.withdraw.to == 'bank'">
+              <p><b><u>Select bank account and fill in amount</u></b></p>
+
+<!--
+              <div>
+                <p>1. To transfer funds from BrillantPay to your account, you require these details:</p>
+
+                <table class="simple" ms-responsive-table>
+                  <thead>
+                  </thead>
+
+                  <tfoot>
+                  <tr>
+                    <td></td>
+                  </tr>
+                  </tfoot>
+
+                  <tbody class="bank-table" style="font-size: 15px !important;">
+                  <tr>
+                    <td><b>Bank Name</b></td>
+                    <td><i style="font-size: 15px !important;">"Your bank name"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>Branch</b></td>
+                    <td><i style="font-size: 15px !important;">"Your bank branch"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>Account Name</b></td>
+                    <td><i style="font-size: 15px !important;">"Your account name"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>Account Number</b></td>
+                    <td><i style="font-size: 15px !important;">"Your account number"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>Bank Code</b></td>
+                    <td><i style="font-size: 15px !important;">"Your bank code"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>Branch Code</b></td>
+                    <td><i style="font-size: 15px !important;">"Your bank branch code"</i></td>
+                  </tr>
+                  <tr>
+                    <td><b>SWIFT Code</b></td>
+                    <td><i style="font-size: 15px !important;">"Your bank swift code"</i></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+-->
+
+
+              <div layout="column">
+               <!--<div layout="row">
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Bank Name</label>
+                    <input type="text" ng-model="vm.withdraw.bank.name" name="bank_name" required>
+                    <div ng-messages="withdrawForm.bank_name.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank name is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Bank branch</label>
+                    <input type="text" ng-model="vm.withdraw.bank.branch" name="bank_branch" required>
+                    <div ng-messages="withdrawForm.bank_branch.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank branch is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Account Name</label>
+                  <input type="text" ng-model="vm.withdraw.bank.accountName" name="source_name" required>
+                  <div ng-messages="withdrawForm.source_name.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Account holder name is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>Account Number</label>
+                  <input type="text" ng-model="vm.withdraw.bank.accountNumber" name="source_number" required>
+                  <div ng-messages="withdrawForm.source_number.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Account number is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <div layout="row">
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Bank Code</label>
+                    <input type="text" ng-model="vm.withdraw.bank.bankCode" name="bankCode" required>
+                    <div ng-messages="withdrawForm.bankCode.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank Code for is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Branch Code</label>
+                    <input type="text" ng-model="vm.withdraw.bank.branchCode" name="branchCode" required>
+                    <div ng-messages="withdrawForm.branchCode.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Bank Branch Code is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <md-input-container flex="100" flex-gt-xs="100">
+                  <label>SWIFT/BIC Code</label>
+                  <input type="text" ng-model="vm.withdraw.bank.swift_bic" name="swift_bic" required>
+                  <div ng-messages="withdrawForm.swift_bic.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>SWIFT/BIC Code for is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>-->
+
+                <div layout="row">
+                  <md-input-container flex="100" flex-gt-xs="100">
+                    <div ng-if="vm.banks.numberOfElements === 0">
+                        Add bank account in <span ui-sref="app.settings" style="cursor: pointer; color: #00ACC1">Settings</span>
+                      </div>
+                    <div ng-if="vm.banks.numberOfElements > 0">
+                      <label>Select bank</label>
+                      <md-select ng-model="vm.withdraw.bank" name="acc_bank" required>
+                        <md-option ng-repeat="bank in vm.banks.content" value="{{bank.publicId}}">{{bank.bankName}}</md-option>
+                      </md-select>
+                      <div ng-messages="withdrawForm.acc_bank.$error"
+                           role="alert">
+                        <div ng-message="required">
+                          <span>Bank is required.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <div layout="row">
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Currency</label>
+                    <input ng-model="vm.account.currency" name="acc_currency" disabled required>
+                    <div ng-messages="withdrawForm.acc_currency.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Currency is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container flex="100" flex-gt-xs="50">
+                    <label>Withdraw amount</label>
+                    <input type="number" ng-model="vm.withdraw.amount" name="amount" min="500" required>
+                    <div ng-messages="withdrawForm.amount.$error"
+                         role="alert">
+                      <div ng-message="required">
+                        <span>Minimum amount of KES 500 is required.</span>
+                      </div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <md-button class="md-raised md-accent" type="submit" aria-label="submit withdraw">
+                SUBMIT
+              </md-button>
+            </div>
+
+            <div ng-if="vm.withdraw.to == 'mobile'">
+              <div style="margin-left: 20px !important; margin-top: 20px !important; font-size: 14px !important;">
+                <md-radio-group ng-model="vm.withdraw.mobileNetwork">
+                  <md-radio-button value="safaricom">To M-Pesa</md-radio-button>
+                  <md-radio-button value="airtel">To Airtel Money</md-radio-button>
+                </md-radio-group>
+              </div>
+
+              <md-divider></md-divider>
+
+              <div ng-if="vm.withdraw.mobileNetwork == 'safaricom'">
+                <p>Enter SAFARICOM number to transfer funds to:</p>
+
+                <br />
+                <md-input-container class="md-block">
+                  <label>Enter phone number</label>
+                  <input ng-model="vm.withdraw.mobileNumber" name="mpesa_number" required>
+                  <div ng-messages="withdrawForm.mpesa_number.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Recipient phone number is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label>Withdraw amount</label>
+                  <input type="number" ng-model="vm.withdraw.amount" name="amount" min="500" required>
+                  <div ng-messages="withdrawForm.amount.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Minimum amount of KES 500 is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-accent" ng-disabled="" type="submit" aria-label="submit withdrawal">
+                  SUBMIT
+                </md-button>
+              </div>
+
+              <div ng-if="vm.withdraw.mobileNetwork == 'airtel'">
+                <p>Enter AIRTEL number to transfer funds to:</p>
+
+                <br />
+                <md-input-container class="md-block">
+                  <label>Enter phone number</label>
+                  <input ng-model="vm.withdraw.mobileNumber" name="airtel_number" required>
+                  <div ng-messages="withdrawForm.airtel_number.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Recipient phone number is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label>Withdraw amount</label>
+                  <input type="number" ng-model="vm.withdraw.amount" name="amount" min="500" required>
+                  <div ng-messages="withdrawForm.amount.$error"
+                       role="alert">
+                    <div ng-message="required">
+                      <span>Minimum amount of KES 500 is required.</span>
+                    </div>
+                  </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-accent" type="submit" aria-label="submit withdrawal">
+                  SUBMIT
+                </md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </md-tab-body>
+  </md-tab>
+  <!-- !Transaction -->
+
+  <!-- HISTORY -->
+  <md-tab>
+    <md-tab-label>
+      <!--<span ng-if="vm.currentFilter.filter === 'deposit'">
+        <i class="icon-history s16"></i>
+        Deposit history
+      </span>
+      <span ng-if="vm.currentFilter.filter === 'transfer'">
+        <i class="icon-history s16"></i>
+        Transfer history
+      </span>-->
+      <span ng-if="vm.currentFilter.filter === 'withdraw'">
+        <i class="icon-history s16"></i>
+        Withdraw history
+      </span>
+    </md-tab-label>
+
+    <md-tab-body>
+      <div class="no-threads" ng-if="vm.threads.length === 0">There are no withdrawals to view!</div>
+      <div class="loading-threads" layout="column" layout-align="center center" ng-if="!vm.threads && vm.loadingThreads">
+        <md-progress-circular class="md-accent" md-mode="indeterminate" md-diameter="54"></md-progress-circular>
+        <div>Loading your withdrawals...</div>
+      </div>
+
+      <div class="thread {{thread.status}}" md-ink-ripple
+           ng-if="!vm.loadingThreads"
+           ng-repeat="thread in vm.threads | filter: vm.search | filter: global.search"
+           ng-click="vm.openThread(thread)"
+           ng-class="{'unread': !thread.read, 'current-thread': vm.currentThread === thread, 'selected': vm.isSelected(thread)}">
+
+        <div layout="row" layout-align="start center">
+          <!--<md-checkbox class="no-label"
+                       ng-checked="vm.isSelected(thread)"
+                       ng-click="vm.toggleSelectThread(thread, $event)"
+                       aria-label="{{vm.isSelected(thread) ? 'Deselect' : 'Select'}}">
+          </md-checkbox>-->
+
+          <div class="info" flex layout="column">
+            <div class="name" layout="row" layout-align="start center">
+              <img class="avatar" ng-if="thread.main.avatar" alt="{{thread.main.name}}"
+                   ng-src="{{thread.main.avatar}}"/>
+
+              <div class="avatar" ng-if="!thread.main.avatar" ms-random-class="vm.colors">
+                {{thread.main.name[0]}}
+              </div>
+
+              <span class="text-truncate">{{thread.main.name}}</span>
+
+              <md-icon md-font-icon="icon-paperclip" class="has-attachment s16"
+                       ng-if="thread.hasAttachments"></md-icon>
+            </div>
+
+            <div class="subject text-truncate">
+              {{thread.subject}}
+            </div>
+
+            <div class="message text-truncate">
+              {{thread.message | htmlToPlaintext | limitTo:100}}{{thread.message.length > 90 ? '...' : ''}}
+              <div class="labels">
+                <div class="label" ng-repeat="labelId in thread.labels"
+                     ng-class="vm.getLabelColor(labelId)">{{vm.getLabelTitle(labelId)}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div layout="column" layout-align="space-between end">
+            <div class="time">{{thread.date}}</div>
+          </div>
+        </div>
+      </div>
+    </md-tab-body>
+  </md-tab>
+  <!-- !HISTORY -->
+</md-tabs>
+
+
+

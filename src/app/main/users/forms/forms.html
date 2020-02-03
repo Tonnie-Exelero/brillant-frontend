@@ -1,0 +1,41 @@
+<div id="forms" class="page-layout simple fullwidth doc-page" layout="column">
+
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between center">
+
+    <!-- APP TITLE -->
+    <div layout="row" layout-align="start center">
+      <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-account" class="s24"></md-icon>
+                </span>
+        <span class="logo-text">Account Information</span>
+      </div>
+    </div>
+    <!-- / APP TITLE -->
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content" layout="column">
+
+    <!-- HORIZONTAL STEPPER -->
+    <form name="horizontalStepper" ms-horizontal-stepper ng-submit="vm.sendForm()"
+          ng-model="vm.horizontalStepper" novalidate>
+
+      <ms-horizontal-stepper-step ng-form="horizontalStep1" step="1" step-title="'Personal Information'">
+        <div ng-include="'app/main/users/forms/stepper-steps/horizontal/step-1.html'"></div>
+      </ms-horizontal-stepper-step>
+
+      <ms-horizontal-stepper-step ng-form="horizontalStep2" step="2" step-title="'Organization Information'">
+        <div ng-include="'app/main/users/forms/stepper-steps/horizontal/step-2.html'"></div>
+      </ms-horizontal-stepper-step>
+    </form>
+    <!-- / HORIZONTAL STEPPER -->
+
+    <div class="mv-24"></div>
+
+  </div>
+  <!-- / CONTENT -->
+</div>

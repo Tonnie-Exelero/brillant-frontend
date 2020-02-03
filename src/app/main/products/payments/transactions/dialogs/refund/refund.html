@@ -1,0 +1,49 @@
+<md-dialog class="refund-dialog" aria-label="New Refund">
+    <form name="refundForm" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+                    <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+            <md-input-container class="md-block">
+                <label>Amount to refund</label>
+                <input name="amount" ng-model="vm.refund.amount" type="number" max="{{vm.maxAmount}}" required md-autofocus>
+                <div ng-messages="refundForm.amount.$error" ng-show="refundForm.amount.$touched" role="alert">
+                    <div ng-message="required">
+                        <span>Refund amount is required</span>
+                    </div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-if="!vm.newRefund" ng-click="vm.refundPayment()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="refundForm.$invalid || refundForm.$pristine"
+                           aria-label="Refund">
+                    REFUND
+                </md-button>
+
+                <md-button type="submit" ng-if="vm.newRefund" ng-click="vm.addNewRefund()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="refundForm.$invalid || refundForm.$pristine"
+                           aria-label="Add Refnd">
+                    REFUND PAYMENT
+                </md-button>
+            </div>
+
+            <div layout="row">
+                <md-button class="md-icon-button" ng-click="vm.deleteRefund($event)" aria-label="Delete">
+                    <md-icon md-font-icon="icon-delete"></md-icon>
+                    <md-tooltip><span>Remove</span></md-tooltip>
+                </md-button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,374 @@
+<md-dialog class="compose-dialog" aria-label="New Invoice">
+  <form class="md-inline-form" name="invoiceForm">
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title" translate="MANAGEMENT.NEW_INVOICE">New Invoice</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" tranlate
+                   translate-aria-label="MANAGEMENT.CLOSE_DIALOG">
+          <md-icon md-font-icon="icon-close"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+      <md-input-container class="md-block">
+        <label>Invoicee Name</label>
+        <input type="text" name="name" ng-model="vm.invoice.client.name" required md-autofocus>
+        <div ng-messages="invoiceForm.name.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span >Name of client to invoice is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block to" ng-class="{'hidden-cc': vm.hiddenCC}">
+        <label>Invoicee Email</label>
+        <input name="email" ng-model="vm.invoice.client.email" type="email" ng-pattern="/^.+@.+\..+$/" required>
+        <div ng-messages="invoiceForm.email.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span >Email of client to invoice is required</span>
+          </div>
+          <div ng-message="pattern">
+            <span>Email must be a valid e-mail address</span>
+          </div>
+        </div>
+
+        <div class="cc-bcc" layout="row" layout-align="start center">
+          <div class="show-cc" ng-show="vm.hiddenCC" ng-click="vm.hiddenCC = false">CC</div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Invoicee Phone</label>
+        <input name="phone" ng-model="vm.invoice.client.phone" ng-pattern="/^[+][0-9]{3} [0-9]{3} [0-9]{3}[-][0-9]{3}$/" required>
+        <div ng-messages="invoiceForm.phone.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span >Phone number of client to invoice is required</span>
+          </div>
+          <div ng-message="pattern">
+            <span>Phone number must be of the format: +### ### ###-###</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" ng-hide="vm.hiddenCC">
+        <label translate="MANAGEMENT.CC">Cc</label>
+        <input ng-model="vm.invoice.client.cc" type="email" name="cc" ng-pattern="/^.+@.+\..+$/">
+        <div ng-messages="invoiceForm.cc.$error" role="alert" multiple>
+          <div ng-message="pattern">
+            <span>Email must be a valid email address.</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container>
+        <label>Due date</label>
+        <md-datepicker name="date" ng-model="vm.invoice.dueDate" required></md-datepicker>
+        <div ng-messages="invoiceForm.date.$error" role="alert" multiple>
+          <div ng-message="required">
+            <span>The invoice due date is required.</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <p>Item 1</p>
+      <div layout="row">
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Name</label>
+          <input name="title" ng-model="vm.invoice.service1.title" required>
+          <div ng-messages="invoiceForm.title.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item name is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Description</label>
+          <input name="description" ng-model="vm.invoice.service1.detail" required>
+          <div ng-messages="invoiceForm.description.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item description is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Units</label>
+          <input name="units" ng-model="vm.invoice.service1.unit" required>
+          <div ng-messages="invoiceForm.units.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item units is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Unit Price</label>
+          <input name="unitPrice" ng-model="vm.invoice.service1.unitPrice" type="number" required>
+          <div ng-messages="invoiceForm.unitPrice.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The unit price is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Quantity</label>
+          <input name="quantity" ng-model="vm.invoice.service1.quantity" type="number" required>
+          <div ng-messages="invoiceForm.quantity.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item quantity is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <p>Item 2</p>
+      <div layout="row">
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Name</label>
+          <input name="title" ng-model="vm.invoice.service2.title" >
+          <div ng-messages="invoiceForm.title.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item name is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Description</label>
+          <input name="description" ng-model="vm.invoice.service2.detail" >
+          <div ng-messages="invoiceForm.description.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item description is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Units</label>
+          <input name="units" ng-model="vm.invoice.service2.unit" >
+          <div ng-messages="invoiceForm.units.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item units is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Unit Price</label>
+          <input name="unitPrice" ng-model="vm.invoice.service2.unitPrice" type="number" >
+          <div ng-messages="invoiceForm.unitPrice.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The unit price is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Quantity</label>
+          <input name="quantity" ng-model="vm.invoice.service2.quantity" type="number" >
+          <div ng-messages="invoiceForm.quantity.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item quantity is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <p>Item 3</p>
+      <div layout="row">
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Name</label>
+          <input name="title" ng-model="vm.invoice.service3.title" >
+          <div ng-messages="invoiceForm.title.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item name is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Description</label>
+          <input name="description" ng-model="vm.invoice.service3.detail" >
+          <div ng-messages="invoiceForm.description.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item description is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Units</label>
+          <input name="units" ng-model="vm.invoice.service3.unit" >
+          <div ng-messages="invoiceForm.units.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item units is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Unit Price</label>
+          <input name="unitPrice" ng-model="vm.invoice.service3.unitPrice" type="number" >
+          <div ng-messages="invoiceForm.unitPrice.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The unit price is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Quantity</label>
+          <input name="quantity" ng-model="vm.invoice.service3.quantity" type="number" >
+          <div ng-messages="invoiceForm.quantity.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item quantity is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <p>Item 4</p>
+      <div layout="row">
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Name</label>
+          <input name="title" ng-model="vm.invoice.service4.title" >
+          <div ng-messages="invoiceForm.title.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item name is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Description</label>
+          <input name="description" ng-model="vm.invoice.service4.detail" >
+          <div ng-messages="invoiceForm.description.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item description is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Units</label>
+          <input name="units" ng-model="vm.invoice.service4.unit" >
+          <div ng-messages="invoiceForm.units.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item units is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Unit Price</label>
+          <input name="unitPrice" ng-model="vm.invoice.service4.unitPrice" type="number" >
+          <div ng-messages="invoiceForm.unitPrice.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The unit price is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Quantity</label>
+          <input name="quantity" ng-model="vm.invoice.service14.quantity" type="number" >
+          <div ng-messages="invoiceForm.quantity.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item quantity is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <p>Item 5</p>
+      <div layout="row">
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Name</label>
+          <input name="title" ng-model="vm.invoice.service5.title" >
+          <div ng-messages="invoiceForm.title.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item name is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Description</label>
+          <input name="description" ng-model="vm.invoice.service5.detail" >
+          <div ng-messages="invoiceForm.description.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item description is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="33" flex-gt-xs>
+          <label>Units</label>
+          <input name="units" ng-model="vm.invoice.service5.unit" >
+          <div ng-messages="invoiceForm.units.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item units is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Unit Price</label>
+          <input name="unitPrice" ng-model="vm.invoice.service5.unitPrice" type="number" >
+          <div ng-messages="invoiceForm.unitPrice.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The unit price is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex="50" flex-gt-xs>
+          <label>Quantity</label>
+          <input name="quantity" ng-model="vm.invoice.service5.quantity" type="number" >
+          <div ng-messages="invoiceForm.quantity.$error" role="alert" multiple>
+            <div ng-message="required">
+              <span>The item quantity is required.</span>
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button ng-click="vm.submitInvoice()" class="send-button md-accent md-raised" aria-label="Send"
+                   translate="MANAGEMENT.SEND"
+                   translate-attr-aria-label="MANAGEMENT.SEND" ng-disabled="!vm.invoice.client.name || !vm.invoice.client.email || !vm.invoice.client.phone || !vm.invoice.dueDate || !vm.invoice.service1.title || !vm.invoice.service1.detail || !vm.invoice.service1.unit || !vm.invoice.service1.unitPrice || !vm.invoice.service1.quantity">
+          SEND
+        </md-button>
+
+        <md-button ui-sref="app.pages_invoice_modern" ng-click="vm.closeDialog()" class="send-button md-accent md-raised" aria-label="Preview"
+                   translate="MANAGEMENT.PREVIEW"
+                   translate-attr-aria-label="MANAGEMENT.PREVIEW">
+          PREVIEW SAMPLE
+        </md-button>
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" aria-label="Delete"
+                   translate-attr-aria-label="MANAGEMENT.DELETE">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="MANAGEMENT.DELETE"></span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

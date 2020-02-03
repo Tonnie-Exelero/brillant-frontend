@@ -1,0 +1,250 @@
+<div class="md-inline-form">
+  <p>Fill to the <span class="text-bold">last</span> field to reveal the next step!</p>
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input type="text" name="org_name" ng-model="vm.horizontalStepper.organization.organizationName"
+             placeholder="Organization name" required>
+      <div ng-messages="horizontalStep2.org_name.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Your organization name is required.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Logo</label>
+      <input type="file" name="org_logo" ng-model="vm.horizontalStepper.organization.logoUrl" placeholder="Logo">
+      <div ng-messages="horizontalStep2.org_logo.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Your organization logo is required.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <md-select ng-model="vm.horizontalStepper.organization.industry" name="org_industry" placeholder="Industry" required>
+        <md-option ng-repeat="industry in vm.industries" value="{{industry.industryName}}">{{industry.industryName}}</md-option>
+      </md-select>
+      <div ng-messages="horizontalStep2.org_industry.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Your organization industry is required.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input type="text" name="org_activity" ng-model="vm.horizontalStepper.organization.activity"
+             placeholder="Main activity" required>
+      <div ng-messages="horizontalStep2.org_activity.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Your organization activity is required.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Country</label>
+      <md-select ng-model="vm.horizontalStepper.organization.address.country" name="org_country" placeholder="Country" required>
+        <md-option ng-repeat="country in vm.countries" value="{{country.countryName}}">{{country.countryName}}</md-option>
+      </md-select>
+      <div ng-messages="horizontalStep2.org_country.$error"
+           ng-show="horizontalStep2.org_country.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Tell us your organization office country.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="org_city" ng-model="vm.horizontalStepper.organization.address.city"
+             placeholder="City/Town" required>
+      <div ng-messages="horizontalStep2.org_city.$error"
+           ng-show="horizontalStep2.org_city.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>Tell us your organization office city.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input type="email" name="org_email" ng-model="vm.horizontalStepper.organization.contact.email" placeholder="Organization Email"
+             ng-pattern="/^.+@.+\..+$/" required>
+      <div ng-messages="horizontalStep2.org_email.$error" role="alert" multiple>
+        <div ng-message="required">
+          <span>Email field is required</span>
+        </div>
+        <div ng-message="pattern">
+          <span>Email must be a valid company e-mail address</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+        <input name="org_phone_number" ng-model="vm.horizontalStepper.organization.contact.phoneNumber"
+               placeholder="Organization phone number" ng-pattern="/^[+][0-9]{12}$/" required>
+              <div ng-messages="horizontalStep2.org_phone_number.$error"
+                   ng-show="horizontalStep2.org_phone_number.$touched"
+                   role="alert" multiple>
+        <div ng-message="required">
+          <span>Your organization phone number is important to us.</span>
+        </div>
+        <div ng-message="pattern">
+          <span>Use the right format (+############).</span>
+        </div>
+      </div>
+      </span>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="org_website" ng-model="vm.horizontalStepper.organization.website"
+             placeholder="Organization Website" required>
+      <div ng-messages="horizontalStep2.org_website.$error"
+           ng-show="horizontalStep2.org_website.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>The organization website is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="org_address" ng-model="vm.horizontalStepper.organization.address.physicalAddress"
+             placeholder="Office Address" required>
+      <div ng-messages="horizontalStep2.org_address.$error"
+           ng-show="horizontalStep2.org_address.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>The office address is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="postal_address" ng-model="vm.horizontalStepper.organization.address.postalAddress"
+             placeholder="Postal Address" required>
+      <div ng-messages="horizontalStep1.postal_address.$error"
+           ng-show="horizontalStep1.postal_address.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>The postal address is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <input name="postal_code" ng-model="vm.horizontalStepper.organization.address.postalCode"
+             placeholder="Postal Code" required>
+      <div ng-messages="horizontalStep1.postal_code.$error"
+           ng-show="horizontalStep1.postal_code.$touched"
+           role="alert">
+        <div ng-message="required">
+          <span>The postal code is important to us.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+
+
+  <p>Other <span class="text-bold">important</span> information required!</p>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Registration Certificate Number</label>
+      <input type="text" name="org_cert" ng-model="vm.horizontalStepper.organization.registrationNumber" required>
+      <div ng-messages="horizontalStep2.org_cert.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Input your organization registration certificate number.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>KRA PIN</label>
+      <input type="text" name="org_pin_cert" ng-model="vm.horizontalStepper.organization.kraPin" required>
+      <div ng-messages="horizontalStep2.org_pin_cert.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Input your organization KRA Pin.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <p>For <span class="text-bold">Supporting documents</span>!</p>
+  <div class="text-list">
+    Please scan and send the following documents to this email: <span style="color: #00ACC1">clients@brillantpay.com</span><br /><br />
+
+    <ul style="color: #1b1b1b">
+      <li style="list-style: lower-roman">Organization Registration Certificate</li>
+      <li style="list-style: lower-roman">KRA PIN Certificate</li>
+      <li style="list-style: lower-roman">Voided cheque in the name your organization</li>
+      <li style="list-style: lower-roman">Utility Bill</li>
+    </ul>
+  </div>
+  <!--<div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Voided cheque</label>
+      <input type="file" name="org_cheque" ng-model="vm.horizontalStepper.organization.voidCheque" placeholder="Voided cheque">
+      <div ng-messages="horizontalStep2.org_cheque.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Upload a voided/cancelled cheque in your organization name.<br />
+                NB: Use one cheque leaf from your company's checkbook</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Utility bill</label>
+      <input type="file" name="org_utility" ng-model="vm.horizontalStepper.organization.utilityBill" placeholder="Utility bill">
+      <div ng-messages="horizontalStep2.org_utility.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Upload a scanned copy of a utility bill for the organization (e.g. Electricity, Internet bill).</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div layout="column" layout-gt-xs="row" flex>
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Signed CR1 document</label>
+      <input type="file" name="cr1" ng-model="vm.horizontalStepper.organization.companyRegistration1" placeholder="Signed CR1 document">
+      <div ng-messages="horizontalStep2.cr1.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Upload a scanned copy of the signed CR1 document for the company.</span>
+        </div>
+      </div>
+    </md-input-container>
+
+    <md-input-container flex="100" flex-gt-xs="50">
+      <label>Signed CR8 document</label>
+      <input type="file" name="cr8" ng-model="vm.horizontalStepper.organization.companyRegistration8" placeholder="Signed CR8 document">
+      <div ng-messages="horizontalStep2.cr8.$error"
+           role="alert">
+        <div ng-message="required">
+          <span>Upload a scanned copy of the signed CR8 document for the company.</span>
+        </div>
+      </div>
+    </md-input-container>
+  </div>-->
+</div>

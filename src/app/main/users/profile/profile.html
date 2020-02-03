@@ -1,0 +1,43 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+  <div class="header md-accent-bg" layout="column" layout-align="center center" layout-gt-sm="row" layout-align-gt-sm="space-between end">
+    <div class="user-info" layout="column" layout-align="center center" layout-gt-sm="row" layout-align-gt-sm="start center">
+      <img class="profile-image avatar huge" src="{{vm.profile.organization.logoUrl || '/assets/images/logos/brillantinnovations.png'}}">
+
+      <div class="name">{{vm.fName}} {{vm.lName}}</div>
+    </div>
+
+  </div>
+  <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" flex>
+
+        <md-tabs md-dynamic-height>
+          <md-tab>
+            <md-tab-label>
+              <span translate="PROFILE.ABOUT">About Me</span>
+            </md-tab-label>
+            <md-tab-body>
+              <md-content class="about-tab"
+                          ng-include="'app/main/users/profile/tabs/about/about.html'">
+              </md-content>
+            </md-tab-body>
+          </md-tab>
+          <md-tab>
+            <md-tab-label>
+              <span translate="PROFILE.ORG_INFO">Organization Info</span>
+            </md-tab-label>
+            <md-tab-body>
+              <md-content class="org_info-tab"
+                          ng-include="'app/main/users/profile/tabs/org_info/org_info.html'">
+              </md-content>
+            </md-tab-body>
+          </md-tab>
+        </md-tabs>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

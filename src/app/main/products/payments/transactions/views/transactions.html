@@ -1,0 +1,186 @@
+<div id="transactions" class="page-layout carded fullwidth" layout="row">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center" layout="column" flex>
+
+    <!-- CONTENT HEADER -->
+    <div class="header">
+      <div layout="row" layout-align="space-between center">
+        <div class="white-fg" layout="column" layout-align="start start">
+          <div class="h1" layout="row" layout-align="start center">
+            <md-icon md-font-icon="icon-cash-multiple"></md-icon>
+            <span translate="EC.PAYMENTS">Payments</span>
+          </div>
+          <div class="order-count secondary-text">
+            <span translate="EC.TOTAL_TRANSACTIONS">Total payments:</span>
+            <span>{{vm.transactions.totalElements || "0"}}</span>
+          </div>
+        </div>
+
+        <md-button ng-click="vm.refreshData()" class="md-icon-button"
+                   aria-label="Refresh">
+          <md-icon md-font-icon="icon-reload" class="white-fg"></md-icon>
+          <md-tooltip><span>Refresh transactions</span></md-tooltip>
+        </md-button>
+
+        <div class="search" layout="row" layout-align="start center" ng-show="vm.searchActive" flex>
+          <md-icon md-font-icon="icon-magnify" class="white-text icon search-icon"></md-icon>
+          <input id="e-commerce-products-search" class="search-input" type="text" placeholder="Search"
+                 ng-model="vm.searchQuery" ng-model-options="{ debounce: 1500 }"
+                 translate translate-attr-placeholder="EC.SEARCH" flex>
+        </div>
+      </div>
+
+<!--
+      <div layout="row" layout-align="space-between center">
+        <md-button ng-click="vm.refreshData()" class="md-icon-button"
+                   aria-label="Reload">
+          <md-icon md-font-icon="icon-reload" class="white-fg"></md-icon>
+          <md-tooltip><span>Reload transactions</span></md-tooltip>
+        </md-button>
+
+        <div class="date-filter-box white-fg md-padding" ng-show="vm.dateFilterActive" layout="column"
+             layout-gt-xs="row" layout-align-gt-xs="center center">
+          <div layout="row" layout-align="center center" class="filter from">
+            <span class="label">From:</span>
+            <md-datepicker ms-datepicker-fix ng-model="vm.options.fromDate"
+                           ng-change="vm.reloadData()" md-max-date="vm.maxDate"
+                           md-placeholder="Enter date" class="white-fg"></md-datepicker>
+          </div>
+          <div layout="row" layout-align="center center" class="filter to">
+            <span class="label">To:</span>
+            <md-datepicker ms-datepicker-fix ng-model="vm.options.toDate"
+                           ng-change="vm.reloadData()" md-min-date="vm.options.fromDate" md-max-date="vm.maxDate"
+                           md-placeholder="Enter date" class="white-fg"></md-datepicker>
+          </div>
+        </div>
+      </div>
+-->
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- CONTENT -->
+      <div class="content fullpage-datatable" layout="column" flex>
+
+        <div ng-if="vm.transactions.number === 0" layout="column" layout-align="center center" flex permission permission-only="'IS_TEST'">
+          <span class="test-payment" style="font-size: 15px; margin-bottom: 15px;">You are in Test Mode. Test your payments below and reload page.</span>
+
+          <md-button class="md-raised md-accent" ng-click="vm.submitTestPayment()">SUBMIT PAYMENT</md-button>
+        </div>
+
+        <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance" dtTrigger="vm.dtTrigger"
+               dt-options="vm.dtOptions">
+          <thead>
+          <tr>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">ID</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Customer</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Number</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Option</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Service</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Amount</span>
+              </div>
+            </th>
+
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Status</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Date</span>
+              </div>
+            </th>
+            <th class="secondary-text">
+              <div class="table-header">
+                <span class="column-title">Actions</span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <div ng-if="vm.transactions.content">
+            <tr ng-repeat="transaction in ::vm.transactions.content | orderBy: 'id': reverse">
+              <td>{{transaction.id}}</td>
+              <td>
+                <span ng-if="transaction.customer.fullName && !transaction.customer.email">{{transaction.customer.fullName}}</span>
+                <span ng-if="transaction.customer.fullName && transaction.customer.email">{{transaction.customer.email}}</span>
+                <span ng-if="!transaction.customer.fullName && transaction.customer.email">{{transaction.customer.email}}</span>
+              </td>
+              <td>{{transaction.customer.phoneNumber}}</td>
+              <td>
+                <span ng-if="transaction.transactionOption === 'MOBILEMONEY'">Mobile Money</span>
+                <span ng-if="transaction.transactionOption === 'BANKTRANSFER'">Bank Transfer</span>
+              </td>
+              <td>
+                <span ng-if="transaction.transactionService === 'MPESA'">M-Pesa</span>
+                <span ng-if="transaction.transactionService === 'AIRTELMONEY'">Airtel Money</span>
+                <span ng-if="transaction.transactionService === 'EQUITEL'">Equitel</span>
+                <span ng-if="transaction.transactionOption === 'BANKTRANSFER'">Bank Wire</span>
+              </td>
+              <td>{{transaction.currency}} {{transaction.amount}}</td>
+              <td>{{transaction.status}}</td>
+              <td class="date">{{transaction.createdDate | date:'dd-MMM-yy HH:mm:ss'}}</td>
+              <td>
+              <span ng-if="transaction.status === 'SUCCESS'">
+                <md-menu class="select-menu">
+                  <md-button class="edit-button md-icon-button"
+                             ng-click="$mdOpenMenu($event)"
+                             aria-label="Actions">
+                   <md-icon md-font-icon="icon-dots-horizontal" class="s16"></md-icon>
+                  </md-button>
+                  <md-menu-content>
+                    <md-menu-item>
+                      <md-button ng-click="vm.openRefundDialog($event, transaction)" aria-label="Payment Refund">
+                        Refund
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </span>
+              </td>
+            </tr>
+          </div>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>

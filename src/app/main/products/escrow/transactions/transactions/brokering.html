@@ -1,0 +1,1440 @@
+<md-tab>
+  <md-tab-label >
+    <span class="ms-form-wizard-step-label">
+      <span class="ms-form-wizard-step-text">I'm brokering</span>
+    </span>
+  </md-tab-label>
+  <md-tab-body>
+    <md-content class="md-padding">
+      <md-checkbox ng-model="vm.transaction.type_brokering" value="brokering">Start the brokering transaction</md-checkbox>
+      <div ng-if="vm.transaction.type_brokering">
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Disclosure of Transaction Information</label>
+            <md-select ng-model="vm.transaction.disclosure" name="disclosure" required>
+              <md-option value="confidential">Confidential</md-option>
+              <md-option value="trans_buyer_seller">Transparent to buyer and seller</md-option>
+              <md-option value="trans_buyer">Transparent to buyer</md-option>
+              <md-option value="trans_seller">Transparent to seller</md-option>
+            </md-select>
+            <div class="hint" ng-show="showHints">Confidential</div>
+            <div ng-messages="wizardStep1.disclosure.$error" ng-hide="showHints">
+              <div ng-message="required">You need to select a disclosure agreement.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>Broker Commission (%)</label>
+            <input required name="broker_commission" ng-model="vm.transaction.broker_commission" type="number" />
+            <div class="hint" ng-show="showHints">4</div>
+            <div ng-messages="wizardStep1.broker_commission.$error" ng-hide="showHints">
+              <div ng-message="required">Please input the brokering commission e.g. 4% of transaction amount</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Buyer Email</label>
+            <input required type="email" name="buyer_email" ng-model="vm.transaction.buyer_email"
+                   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+            <div class="hint" ng-show="showHints">buyer@abc.com</div>
+            <div ng-messages="wizardStep1.buyer_email.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                Your email must be between 10 and 100 characters long and look like an e-mail address.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Buyer Phone</label>
+            <input name="buyer_phone" ng-model="vm.transaction.buyer_phone" ng-pattern="/^[+][0-9]{3} [0-9]{3} [0-9]{3}-[0-9]{3}$/" required/>
+            <div class="hint" ng-show="showHints">+254 711 722-227</div>
+            <div ng-messages="wizardStep1.buyer_phone.$error"
+                 ng-show="wizardStep1.buyer_phone.$touched"
+                 role="alert" multiple>
+              <div ng-message="required">
+                <span>The buyer phone number is important.</span>
+              </div>
+              <div ng-message="pattern">
+                <span>Use the right format (+### ### ###-###).</span>
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Seller Email</label>
+            <input required type="email" name="seller_email" ng-model="vm.transaction.seller_email"
+                   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+            <div class="hint" ng-show="showHints">seller@abc.com</div>
+            <div ng-messages="wizardStep1.seller_email.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                Your email must be between 10 and 100 characters long and look like an e-mail address.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Seller Phone</label>
+            <input name="seller_phone" ng-model="vm.transaction.seller_phone" ng-pattern="/^[+][0-9]{3} [0-9]{3} [0-9]{3}-[0-9]{3}$/" required/>
+            <div class="hint" ng-show="showHints">+254 711 722-227</div>
+            <div ng-messages="wizardStep1.seller_phone.$error"
+                 ng-show="wizardStep1.seller_phone.$touched"
+                 role="alert" multiple>
+              <div ng-message="required">
+                <span>The seller phone number is important.</span>
+              </div>
+              <div ng-message="pattern">
+                <span>Use the right format (+### ### ###-###).</span>
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <md-input-container class="md-block">
+          <label>Select transaction:</label>
+          <md-select name="product" ng-model="vm.transaction.product" required>
+            <md-option value="auto">Motor vehicle</md-option>
+            <md-option value="property">Property</md-option>
+            <md-option value="service">Contracted service</md-option>
+            <md-option value="milestone">Milestone transaction</md-option>
+            <md-option value="jewelry">Jewelry</md-option>
+            <md-option value="electronic">Electronic</md-option>
+            <md-option value="machinery">Machinery & equipment</md-option>
+            <md-option value="general">General merchandise</md-option>
+          </md-select>
+          <div class="hint" ng-show="showHints">Contracted services</div>
+          <div ng-messages="wizardStep1.product.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+        <div layout="row">
+          <md-input-container flex="30">
+            <label>Currency:</label>
+            <md-select name="currency" ng-model="vm.transaction.currency" required>
+              <md-option value="kes">KES</md-option>
+              <md-option value="usd">USD</md-option>
+            </md-select>
+            <div class="hint" ng-show="showHints">USD</div>
+            <div ng-messages="wizardStep1.currency.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="70">
+            <label>Amount</label>
+            <input name="amount" ng-model="vm.transaction.amount" type="number" required>
+            <div class="hint" ng-show="showHints">50000</div>
+            <div ng-messages="wizardStep1.amount.$error">
+              <div ng-message="required">The amount is required.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div id="auto" ng-if="vm.transaction.product == 'auto'">
+          <md-input-container class="md-block">
+            <label>Year of manufacture *</label><br />
+            <select class="auto-year-select" name="auto_year" ng-model="vm.transaction.auto.year" ng-options="year for year in Range(1, 30)"
+                    style=" border: none !important;
+                                    border-bottom: solid 1px #cccccc !important;
+                                    width: 100%;
+                                    background-color: transparent !important;
+                                    color: #444444 !important;" required>
+            </select>
+            <div class="hint" ng-show="showHints">2016</div>
+            <div ng-messages="wizardStep1.auto_year.$error">
+              <div ng-message="required">The year is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Make</label>
+              <input required ng-model="vm.transaction.auto.make" name="auto_make" type="text" />
+              <div class="hint" ng-show="showHints">Volkswagen</div>
+              <div ng-messages="wizardStep1.auto_make.$error">
+                <div ng-message="required">The vehicle make is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Model</label>
+              <input required ng-model="vm.transaction.auto.model" name="auto_model" type="text" />
+              <div class="hint" ng-show="showHints">Touareg</div>
+              <div ng-messages="wizardStep1.auto_model.$error">
+                <div ng-message="required">The vehicle model is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>VIN</label>
+              <input ng-model="vm.transaction.auto.vin" name="auto_vin" required />
+              <div class="hint" ng-show="showHints">VIN:1HGCM82633A004352</div>
+              <div ng-messages="wizardStep1.auto_vin.$error">
+                <div ng-message="required">The VIN Number is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Odometer</label>
+              <input ng-model="vm.transaction.auto.odometer" name="auto_odometer" required />
+              <div class="hint" ng-show="showHints">27,976 km</div>
+              <div ng-messages="wizardStep1.auto_odometer.$error">
+                <div ng-message="required">The Odometer reading is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Registration expiry date</label>
+              <md-datepicker ng-model="vm.transaction.auto.reg_exp" name="auto_reg_exp" md-placeholder="Enter date"></md-datepicker>
+              <div class="hint" ng-show="showHints">11/24/2016</div>
+              <div ng-messages="wizardStep1.auto_reg_exp.$error">
+                <div ng-message="required">The Registration expiry date is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Inspection period (Days)</label>
+              <input ng-model="vm.transaction.inspection" name="inspection" required />
+              <div class="hint" ng-show="showHints">3</div>
+              <div ng-messages="wizardStep1.inspection.$error">
+                <div ng-message="required">The inspection days are required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <label style="margin-bottom: 30px !important;">Shipment method</label>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100" ng-if="vm.transaction.shipping == 'yes'">
+              <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" required>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="property" ng-if="vm.transaction.product == 'property'">
+          <md-input-container class="md-block">
+            <label>Property name</label>
+            <input name="property_name" ng-model="vm.transaction.property.name" required />
+            <div class="hint" ng-show="showHints">1/2 acre plot</div>
+            <div ng-messages="wizardStep1.property_name.$error">
+              <div ng-message="required">The property name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Property description</label>
+            <input md-maxlength="300" name="property_description" ng-model="vm.transaction.property.description" required />
+            <div class="hint" ng-show="showHints">Describe the property in brief</div>
+            <div ng-messages="wizardStep1.property_description.$error">
+              <div ng-message="required">The property description is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Title deed number</label>
+              <input name="property_deed" ng-model="vm.transaction.property.title_deed" required />
+              <div class="hint" ng-show="showHints"></div>
+              <div ng-messages="wizardStep1.property_deed.$error">
+                <div ng-message="required">The title deed number is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Inspection period (Days)</label>
+              <input name="inspection" ng-model="vm.transaction.inspection" required />
+              <div class="hint" ng-show="showHints">5</div>
+              <div ng-messages="wizardStep1.inspection.$error">
+                <div ng-message="required">The inspection period is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="service" ng-if="vm.transaction.product == 'service'">
+          <md-input-container class="md-block">
+            <label>Service title</label>
+            <input name="service_name" ng-model="vm.transaction.service.name" type="text" required />
+            <div class="hint" ng-show="showHints">Software design</div>
+            <div ng-messages="wizardStep1.service_name.$error">
+              <div ng-message="required">The service name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Service description</label>
+            <input md-maxlength="300" name="service_description" ng-model="vm.transaction.service.description" required />
+            <div class="hint" ng-show="showHints">Describe the service in brief</div>
+            <div ng-messages="wizardStep1.service_description.$error">
+              <div ng-message="required">The service description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Inspection period (Days)</label>
+            <input name="inspection" ng-model="vm.transaction.inspection" required />
+            <div class="hint" ng-show="showHints">1</div>
+            <div ng-messages="wizardStep1.inspection.$error">
+              <div ng-message="required">The inspection period is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <label style="margin-bottom: 30px !important;">Shipment method</label>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100">
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" ng-if="vm.transaction.shipping == 'yes'" required>
+                <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="milestone" ng-if="vm.transaction.product == 'milestone'">
+          <md-input-container class="md-block">
+            <label>Transaction title</label>
+            <input name="milestone_name" ng-model="vm.transaction.name" type="text" required />
+            <div class="hint" ng-show="showHints">Design and construction of residential building</div>
+            <div ng-messages="wizardStep1.milestone_name.$error">
+              <div ng-message="required">The name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Transaction description</label>
+            <input md-maxlength="300" name="milestone_description" ng-model="vm.transaction.description" required />
+            <div class="hint" ng-show="showHints">Describe the transaction in brief</div>
+            <div ng-messages="wizardStep1.milestone_description.$error">
+              <div ng-message="required">The description is required.</div>
+            </div>
+          </md-input-container>
+
+          <div class="simple-table-container md-whiteframe-4dp" ng-if="vm.milestones">
+            <div class="table-title">
+              Project Milestones
+            </div>
+            <div class="table-title" ng-if="!vm.milestones">
+              Create New Milestone
+            </div>
+
+            <table class="simple" ms-responsive-table>
+              <thead>
+              <tr>
+                <th>Title</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th class="text-right">Shipping Cost</th>
+                <th class="text-right">Milestone Cost</th>
+                <th class="text-right">Remove</th>
+              </tr>
+              </thead>
+
+              <tfoot>
+              <tr>
+                <td></td>
+              </tr>
+              </tfoot>
+
+              <tbody>
+              <tr ng-repeat="milestone in vm.milestones">
+                <td class="name" ng-click="vm.openMilestoneDialog($event, milestone)">
+                  <a href="">{{milestone.title}}
+                    <md-tooltip>Click to view more details</md-tooltip>
+                  </a>
+                </td>
+                <td class="startDate">{{milestone.startDate}}</td>
+                <td class="dueDate">{{milestone.dueDate}}</td>
+                <td class="shipping text-right">{{milestone.shipping_cost}}</td>
+                <td class="milestone text-right">{{milestone.milestone_cost}}</td>
+                <td class="remove text-right">
+                  <md-button class="cancel-button md-icon-button"
+                             ng-click="vm.cancelMilestoneConfirm(milestone, $event)"
+                             aria-label="Actions">
+                    <md-icon md-font-icon="icon-close" class="s16 red-fg md-hue-4"></md-icon>
+                  </md-button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="create-milestones" style="margin-bottom:30px !important;">
+            <md-button class="md-raised md-accent md-hue-4" ng-click="vm.openMilestoneDialog($event)">
+              <md-icon md-font-icon="icon-plus"></md-icon>
+              Add milestone
+            </md-button><br />
+          </div>
+
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.milestone_brillant_payer" name="milestone_brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.milestone_brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+        <!--<div id="milestone" ng-if="vm.transaction.product == 'milestone'">
+          <md-input-container class="md-block">
+            <label>Transaction title</label>
+            <input name="milestone_name" ng-model="vm.transaction.milestone.name" type="text" required />
+            <div class="hint" ng-show="showHints">Design and construction of residential building</div>
+            <div ng-messages="wizardStep1.milestone_name.$error">
+              <div ng-message="required">The name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Transaction description</label>
+            <input md-maxlength="300" name="milestone_description" ng-model="vm.transaction.milestone.description" required />
+            <div class="hint" ng-show="showHints">Describe the transaction in brief</div>
+            <div ng-messages="wizardStep1.milestone_description.$error">
+              <div ng-message="required">The description is required.</div>
+            </div>
+          </md-input-container>
+          <div id="milestones">
+            <div layout="row" id="milestone-1">
+              <md-input-container flex="25">
+                <label>Milestone 1</label>
+                <input name="milestone_1" ng-model="vm.transaction.milestone.milestones_1_name" required />
+                <div class="hint" ng-show="showHints">Logo design</div>
+                <div ng-messages="wizardStep1.milestone_1.$error">
+                  <div ng-message="required">The first milestone name is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>Inspection <br />(Days)</label>
+                <input type="number" name="milestone_1_inspection" ng-model="vm.transaction.milestone.milestones_1_inspection" required />
+                <div class="hint" ng-show="showHints">2</div>
+                <div ng-messages="wizardStep1.milestone_1_inspection.$error">
+                  <div ng-message="required">The inspection period is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Delivery</label>
+                <md-select ng-model="vm.transaction.milestone.milestones_1_shipping" name="milestone_1_shipping" required>
+                  <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                  <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                </md-select>
+                <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                <div ng-messages="wizardStep1.milestone_1_shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_1_shipping == 'yes'">
+                <label>Delivery cost ({{vm.transaction.currency}})</label>
+                <input type="number" ng-model="vm.transaction.milestone.milestones_1_shipping_amount" name="milestone_1_shipping_amount">
+                <div class="hint" ng-show="showHints">200</div>
+                <div ng-messages="wizardStep1.milestone_1_shipping_amount.$error">
+                  <div ng-message="required">The shipping cost is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Unit total ({{vm.transaction.currency}})</label>
+                <input name="milestone_1_total" ng-model="vm.transaction.milestone.milestones_1_total" type="number" value="" >
+                <div class="hint" ng-show="showHints">1000</div>
+                <div ng-messages="wizardStep1.milestone_1_total.$error">
+                  <div ng-message="required">The milestone cost is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" id="milestone-2">
+              <md-input-container flex="25">
+                <label>Milestone 2</label>
+                <input name="milestone_2" ng-model="vm.transaction.milestone.milestones_2_name" required />
+                <div class="hint" ng-show="showHints">Website psd designs</div>
+                <div ng-messages="wizardStep1.milestone_2.$error">
+                  <div ng-message="required">The second milestone name is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>Inspection <br />(Days)</label>
+                <input type="number" name="milestone_2_inspection" ng-model="vm.transaction.milestone.milestones_2_inspection" required />
+                <div class="hint" ng-show="showHints">2</div>
+                <div ng-messages="wizardStep1.milestone_2_inspection.$error">
+                  <div ng-message="required">The inspection period is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Delivery</label>
+                <md-select ng-model="vm.transaction.milestone.milestones_2_shipping" name="milestone_2_shipping" required>
+                  <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                  <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                </md-select>
+                <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                <div ng-messages="wizardStep1.milestone_2_shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_2_shipping == 'yes'">
+                <label>Delivery cost ({{vm.transaction.currency}})</label>
+                <input type="number" ng-model="vm.transaction.milestone.milestones_2_shipping_amount" name="milestone_2_shipping_amount">
+                <div class="hint" ng-show="showHints">200</div>
+                <div ng-messages="wizardStep1.milestone_2_shipping_amount.$error">
+                  <div ng-message="required">The shipping cost is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Unit total ({{vm.transaction.currency}})</label>
+                <input name="milestone_2_total" ng-model="vm.transaction.milestone.milestones_2_total" type="number" value="" >
+                <div class="hint" ng-show="showHints">1000</div>
+                <div ng-messages="wizardStep1.milestone_2_total.$error">
+                  <div ng-message="required">The milestone cost is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" id="milestone-3">
+              <md-input-container flex="25">
+                <label>Milestone 3</label>
+                <input name="milestone_3" ng-model="vm.transaction.milestone.milestones_3_name" required />
+                <div class="hint" ng-show="showHints">Website psd designs</div>
+                <div ng-messages="wizardStep1.milestone_3.$error">
+                  <div ng-message="required">The third milestone name is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>Inspection <br />(Days)</label>
+                <input type="number" name="milestone_3_inspection" ng-model="vm.transaction.milestone.milestones_3_inspection" required />
+                <div class="hint" ng-show="showHints">2</div>
+                <div ng-messages="wizardStep1.milestone_3_inspection.$error">
+                  <div ng-message="required">The inspection period is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Delivery</label>
+                <md-select ng-model="vm.transaction.milestone.milestones_3_shipping" name="milestone_3_shipping" required>
+                  <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                  <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                </md-select>
+                <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                <div ng-messages="wizardStep1.milestone_3_shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_3_shipping == 'yes'">
+                <label>Delivery cost ({{vm.transaction.currency}})</label>
+                <input type="number" ng-model="vm.transaction.milestone.milestones_3_shipping_amount" name="milestone_3_shipping_amount">
+                <div class="hint" ng-show="showHints">200</div>
+                <div ng-messages="wizardStep1.milestone_3_shipping_amount.$error">
+                  <div ng-message="required">The shipping cost is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Unit total ({{vm.transaction.currency}})</label>
+                <input name="milestone_3_total" ng-model="vm.transaction.milestone.milestones_3_total" type="number" value="" >
+                <div class="hint" ng-show="showHints">1000</div>
+                <div ng-messages="wizardStep1.milestone_3_total.$error">
+                  <div ng-message="required">The milestone cost is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" id="milestone-4">
+              <md-input-container flex="25">
+                <label>Milestone 4</label>
+                <input name="milestone_4" ng-model="vm.transaction.milestone.milestones_4_name" />
+                <div class="hint" ng-show="showHints">Website psd designs</div>
+                <div ng-messages="wizardStep1.milestone_4.$error">
+                  <div ng-message="required">The fourth milestone name is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>Inspection <br />(Days)</label>
+                <input type="number" name="milestone_4_inspection" ng-model="vm.transaction.milestone.milestones_4_inspection" />
+                <div class="hint" ng-show="showHints">2</div>
+                <div ng-messages="wizardStep1.milestone_4_inspection.$error">
+                  <div ng-message="required">The inspection period is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Delivery</label>
+                <md-select ng-model="vm.transaction.milestone.milestones_4_shipping" name="milestone_4_shipping">
+                  <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                  <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                </md-select>
+                <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                <div ng-messages="wizardStep1.milestone_4_shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_4_shipping == 'yes'">
+                <label>Delivery cost ({{vm.transaction.currency}})</label>
+                <input type="number" ng-model="vm.transaction.milestone.milestones_4_shipping_amount" name="milestone_4_shipping_amount">
+                <div class="hint" ng-show="showHints">200</div>
+                <div ng-messages="wizardStep1.milestone_4_shipping_amount.$error">
+                  <div ng-message="required">The shipping cost is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Unit total ({{vm.transaction.currency}})</label>
+                <input name="milestone_4_total" ng-model="vm.transaction.milestone.milestones_4_total" type="number" value="" >
+                <div class="hint" ng-show="showHints">1000</div>
+                <div ng-messages="wizardStep1.milestone_4_total.$error">
+                  <div ng-message="required">The milestone cost is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div layout="row" id="milestone-5">
+              <md-input-container flex="25">
+                <label>Milestone 5</label>
+                <input name="milestone_5" ng-model="vm.transaction.milestone.milestones_5_name" />
+                <div class="hint" ng-show="showHints">Website psd designs</div>
+                <div ng-messages="wizardStep1.milestone_5.$error">
+                  <div ng-message="required">The fifth milestone name is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>Inspection <br />(Days)</label>
+                <input type="number" name="milestone_5_inspection" ng-model="vm.transaction.milestone.milestones_5_inspection" />
+                <div class="hint" ng-show="showHints">2</div>
+                <div ng-messages="wizardStep1.milestone_5_inspection.$error">
+                  <div ng-message="required">The inspection period is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Delivery</label>
+                <md-select ng-model="vm.transaction.milestone.milestones_5_shipping" name="milestone_5_shipping">
+                  <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                  <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                </md-select>
+                <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                <div ng-messages="wizardStep1.milestone_5_shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_5_shipping == 'yes'">
+                <label>Delivery cost ({{vm.transaction.currency}})</label>
+                <input type="number" ng-model="vm.transaction.milestone.milestones_5_shipping_amount" name="milestone_5_shipping_amount">
+                <div class="hint" ng-show="showHints">200</div>
+                <div ng-messages="wizardStep1.milestone_5_shipping_amount.$error">
+                  <div ng-message="required">The shipping cost is required.</div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="20">
+                <label>Unit total ({{vm.transaction.currency}})</label>
+                <input name="milestone_5_total" ng-model="vm.transaction.milestone.milestones_5_total" type="number" value="" >
+                <div class="hint" ng-show="showHints">1000</div>
+                <div ng-messages="wizardStep1.milestone_5_total.$error">
+                  <div ng-message="required">The milestone cost is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <md-radio-group ng-model="vm.transaction.add_milestones" layout="row" name="add_milestones">
+              <md-radio-button value="three" class="md-primary" flex="30">Add 3 more milestones</md-radio-button>
+              <md-radio-button value="five" class="md-primary" flex="30">Add 5 more milestones</md-radio-button>
+            </md-radio-group><br />
+            <div id="3-more-milestones" ng-if="vm.transaction.add_milestones == 'three'">
+              <div layout="row" id="milestone-6">
+                <md-input-container flex="25">
+                  <label>Milestone 6</label>
+                  <input name="milestone_6" ng-model="vm.transaction.milestone.milestones_6_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_6.$error">
+                    <div ng-message="required">The sixth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_6_inspection" ng-model="vm.transaction.milestone.milestones_6_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_6_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_6_shipping" name="milestone_6_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_6_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_6_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_6_shipping_amount" name="milestone_6_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_6_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_6_total" ng-model="vm.transaction.milestone.milestones_6_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_6_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-7">
+                <md-input-container flex="25">
+                  <label>Milestone 7</label>
+                  <input name="milestone_7" ng-model="vm.transaction.milestone.milestones_7_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_7.$error">
+                    <div ng-message="required">The seventh milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_7_inspection" ng-model="vm.transaction.milestone.milestones_7_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_7_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_7_shipping" name="milestone_7_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_7_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_7_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_7_shipping_amount" name="milestone_7_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_7_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_7_total" ng-model="vm.transaction.milestone.milestones_7_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_7_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-8">
+                <md-input-container flex="25">
+                  <label>Milestone 8</label>
+                  <input name="milestone_8" ng-model="vm.transaction.milestone.milestones_8_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_8.$error">
+                    <div ng-message="required">The eighth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_8_inspection" ng-model="vm.transaction.milestone.milestones_8_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_8_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_8_shipping" name="milestone_8_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_8_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_8_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_8_shipping_amount" name="milestone_8_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_8_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_8_total" ng-model="vm.transaction.milestone.milestones_8_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_8_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+            <div id="5-more-milestones" ng-if="vm.transaction.add_milestones == 'five'">
+              <div layout="row" id="milestone-9">
+                <md-input-container flex="25">
+                  <label>Milestone 6</label>
+                  <input name="milestone_9" ng-model="vm.transaction.milestone.milestones_9_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_9.$error">
+                    <div ng-message="required">The sixth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_9_inspection" ng-model="vm.transaction.milestone.milestones_9_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_9_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_9_shipping" name="milestone_9_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_9_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_9_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_9_shipping_amount" name="milestone_9_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_9_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_9_total" ng-model="vm.transaction.milestone.milestones_9_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_9_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-10">
+                <md-input-container flex="25">
+                  <label>Milestone 7</label>
+                  <input name="milestone_10" ng-model="vm.transaction.milestone.milestones_10_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_10.$error">
+                    <div ng-message="required">The seventh milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_10_inspection" ng-model="vm.transaction.milestone.milestones_10_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_10_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_10_shipping" name="milestone_10_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_10_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_10_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_10_shipping_amount" name="milestone_10_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_10_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_10_total" ng-model="vm.transaction.milestone.milestones_10_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_10_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-11">
+                <md-input-container flex="25">
+                  <label>Milestone 8</label>
+                  <input name="milestone_11" ng-model="vm.transaction.milestone.milestones_11_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_11.$error">
+                    <div ng-message="required">The eigth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_11_inspection" ng-model="vm.transaction.milestone.milestones_11_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_11_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_11_shipping" name="milestone_11_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_11_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_11_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_11_shipping_amount" name="milestone_11_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_11_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_11_total" ng-model="vm.transaction.milestone.milestones_11_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_11_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-12">
+                <md-input-container flex="25">
+                  <label>Milestone 9</label>
+                  <input name="milestone_12" ng-model="vm.transaction.milestone.milestones_12_name"/>
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_12.$error">
+                    <div ng-message="required">The ninth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_12_inspection" ng-model="vm.transaction.milestone.milestones_12_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_12_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_12_shipping" name="milestone_12_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_12_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_12_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_12_shipping_amount" name="milestone_12_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_12_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_12_total" ng-model="vm.transaction.milestone.milestones_12_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_12_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout="row" id="milestone-13">
+                <md-input-container flex="25">
+                  <label>Milestone 10</label>
+                  <input name="milestone_13" ng-model="vm.transaction.milestone.milestones_13_name" />
+                  <div class="hint" ng-show="showHints">Website psd designs</div>
+                  <div ng-messages="wizardStep1.milestone_13.$error">
+                    <div ng-message="required">The tenth milestone name is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="15">
+                  <label>Inspection <br />(Days)</label>
+                  <input type="number" name="milestone_13_inspection" ng-model="vm.transaction.milestone.milestones_13_inspection" />
+                  <div class="hint" ng-show="showHints">2</div>
+                  <div ng-messages="wizardStep1.milestone_13_inspection.$error">
+                    <div ng-message="required">The inspection period is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Delivery</label>
+                  <md-select ng-model="vm.transaction.milestone.milestones_13_shipping" name="milestone_13_shipping">
+                    <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+                    <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+                  </md-select>
+                  <div class="hint" ng-show="showHints">Shipping/delivery</div>
+                  <div ng-messages="wizardStep1.milestone_13_shipping.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20" ng-if="vm.transaction.milestone.milestones_13_shipping == 'yes'">
+                  <label>Delivery cost ({{vm.transaction.currency}})</label>
+                  <input type="number" ng-model="vm.transaction.milestone.milestones_13_shipping_amount" name="milestone_13_shipping_amount">
+                  <div class="hint" ng-show="showHints">200</div>
+                  <div ng-messages="wizardStep1.milestone_13_shipping_amount.$error">
+                    <div ng-message="required">The shipping cost is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container flex="20">
+                  <label>Unit total ({{vm.transaction.currency}})</label>
+                  <input name="milestone_13_total" ng-model="vm.transaction.milestone.milestones_13_total" type="number" value="" >
+                  <div class="hint" ng-show="showHints">1000</div>
+                  <div ng-messages="wizardStep1.milestone_13_total.$error">
+                    <div ng-message="required">The milestone cost is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+            <div id="milestones-total" layout="row">
+              <md-input-container flex="70"></md-input-container>
+              <md-input-container flex="30">
+                <label>Total amount</label>
+                <p ng-model="vm.transaction.milestones_total" name="milestones_total">
+                <h2><strong>
+                  {{vm.transaction.currency}} {{vm.transaction.milestone.milestones_1_total&#45;&#45;vm.transaction.milestone.milestones_2_total&#45;&#45;vm.transaction.milestone.milestones_3_total&#45;&#45;vm.transaction.milestone.milestones_4_total&#45;&#45;vm.transaction.milestone.milestones_5_total&#45;&#45;vm.transaction.milestone.milestones_6_total&#45;&#45;vm.transaction.milestone.milestones_7_total&#45;&#45;vm.transaction.milestone.milestones_8_total&#45;&#45;vm.transaction.milestone.milestones_9_total&#45;&#45;vm.transaction.milestone.milestones_10_total&#45;&#45;vm.transaction.milestone.milestones_11_total&#45;&#45;vm.transaction.milestone.milestones_12_total&#45;&#45;vm.transaction.milestone.milestones_13_total}}
+                </strong></h2>
+                </p>
+              </md-input-container>
+            </div>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.milestone.milestone_brillant_payer" name="milestone_brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.milestone_brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>-->
+
+        <div id="jewelry" ng-if="vm.transaction.product == 'jewelry'">
+          <md-input-container class="md-block">
+            <label>Jewelry title</label>
+            <input name="jewelry_name" ng-model="vm.transaction.jewelry.name" type="text" required />
+            <div class="hint" ng-show="showHints">Diamond ring</div>
+            <div ng-messages="wizardStep1.jewelry_name.$error">
+              <div ng-message="required">The jewelry name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Jewelry description</label>
+            <input md-maxlength="300" name="jewelry_description" ng-model="vm.transaction.jewelry.description" required />
+            <div class="hint" ng-show="showHints">Describe the jewelry in brief</div>
+            <div ng-messages="wizardStep1.jewelry_description.$error">
+              <div ng-message="required">The jewelry description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Inspection period (Days)</label>
+            <input name="inspection" ng-model="vm.transaction.inspection" required />
+            <div class="hint" ng-show="showHints">1</div>
+            <div ng-messages="wizardStep1.inspection.$error">
+              <div ng-message="required">The inspection period is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <label style="margin-bottom: 30px !important;">Shipment method</label>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100">
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" ng-if="vm.transaction.shipping == 'yes'" required>
+                <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="electronic" ng-if="vm.transaction.product == 'electronic'">
+          <md-input-container class="md-block">
+            <label>Electronic title</label>
+            <input name="electronic_name" ng-model="vm.transaction.electronic.name" type="text" required />
+            <div class="hint" ng-show="showHints">HP server</div>
+            <div ng-messages="wizardStep1.electronic_name.$error">
+              <div ng-message="required">The electronic name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Electronic description</label>
+            <input md-maxlength="300" name="electronic_description" ng-model="vm.transaction.electronic.description" required />
+            <div class="hint" ng-show="showHints">Describe the electronic in brief</div>
+            <div ng-messages="wizardStep1.electronic_description.$error">
+              <div ng-message="required">The electronic description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Inspection period (Days)</label>
+            <input name="inspection" ng-model="vm.transaction.inspection" required />
+            <div class="hint" ng-show="showHints">1</div>
+            <div ng-messages="wizardStep1.inspection.$error">
+              <div ng-message="required">The inspection period is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <label style="margin-bottom: 30px !important;">Shipment method</label>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100">
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" ng-if="vm.transaction.shipping == 'yes'" required>
+                <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="machinery" ng-if="vm.transaction.product == 'machinery'">
+          <md-input-container class="md-block">
+            <label>Machinery/equipment title</label>
+            <input name="machinery_name" ng-model="vm.transaction.machinery.name" type="text" required />
+            <div class="hint" ng-show="showHints">Excavator</div>
+            <div ng-messages="wizardStep1.machinery_name.$error">
+              <div ng-message="required">The machinery/equipment name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Machinery/equipment description</label>
+            <input md-maxlength="300" name="machinery_description" ng-model="vm.transaction.machinery.description" required />
+            <div class="hint" ng-show="showHints">Describe the machinery/equipment in brief</div>
+            <div ng-messages="wizardStep1.machinery_description.$error">
+              <div ng-message="required">The machinery/equipment description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Inspection period (Days)</label>
+            <input name="inspection" ng-model="vm.transaction.inspection" required />
+            <div class="hint" ng-show="showHints">1</div>
+            <div ng-messages="wizardStep1.inspection.$error">
+              <div ng-message="required">The inspection period is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <label style="margin-bottom: 30px !important;">Shipment method</label>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100">
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" ng-if="vm.transaction.shipping == 'yes'" required>
+                <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="vm.transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+
+        <div id="general" ng-if="vm.transaction.product == 'general'">
+          <md-input-container class="md-block">
+            <label>What are you selling?</label>
+            <input name="general_name" ng-model="vm.transaction.general.name" required type="text" />
+            <div class="hint" ng-show="showHints">Office furniture</div>
+            <div ng-messages="wizardStep1.general_name.$error">
+              <div ng-message="required">The name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Description</label>
+            <input md-maxlength="400" name="general_description" ng-model="vm.transaction.general.description" required />
+            <div class="hint" ng-show="showHints">Describe products you're seling</div>
+            <div ng-messages="wizardStep1.general_description.$error">
+              <div ng-message="required">The description is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Inspection period (Days)</label>
+            <input name="inspection" ng-model="vm.transaction.inspection" required />
+            <div class="hint" ng-show="showHints">3</div>
+            <div ng-messages="wizardStep1.inspection.$error">
+              <div ng-message="required">The inspection period is required.</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.brillant_payer" name="brillant_payer" required>
+                <label style="margin-bottom: 30px !important;">Who will pay Brillant fees?</label>
+                <md-radio-button value="seller" class="md-primary">Seller</md-radio-button>
+                <md-radio-button value="buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="sharing" class="md-primary">50% Buyer / 50% Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.brillant_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <md-radio-group ng-model="vm.transaction.shipping" name="shipping" required>
+                <label style="margin-bottom: 30px !important;">Shipment method</label>
+                <md-radio-button value="no" class="md-primary">No shipment required</md-radio-button>
+                <md-radio-button value="yes" class="md-primary" ng-checked="true">Cargo shipping</md-radio-button>
+                <div class="hint" ng-show="showHints">Cargo shipping</div>
+                <div ng-messages="wizardStep1.shipping.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex="100">
+              <md-radio-group ng-model="vm.transaction.shipping_payer" name="shipping_payer" ng-if="vm.transaction.shipping == 'yes'" required>
+                <label style="margin-bottom: 30px !important;">Who will pay for shipping?</label>
+                <md-radio-button value="the_buyer" class="md-primary">Buyer</md-radio-button>
+                <md-radio-button value="the_seller" class="md-primary" ng-checked="true">Seller</md-radio-button>
+                <div class="hint" ng-show="showHints">Buyer</div>
+                <div ng-messages="wizardStep1.shipping_payer.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-radio-group>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block" ng-if="vm.transaction.shipping_payer == 'the_buyer'">
+            <label>Shipping/delivery amount in {{vm.transaction.currency}}</label>
+            <input type="number" ng-model="vm.transaction.shipping_amount" name="shipping_amount">
+            <div class="hint" ng-show="showHints">200</div>
+            <div ng-messages="wizardStep1.shipping_amount.$error">
+              <div ng-message="required">The shipping amount is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Additional Notes</label>
+            <input ng-model="transaction.additional" name="additional" md-maxlength="300" />
+          </md-input-container>
+        </div>
+      </div>
+    </md-content>
+  </md-tab-body>
+</md-tab>

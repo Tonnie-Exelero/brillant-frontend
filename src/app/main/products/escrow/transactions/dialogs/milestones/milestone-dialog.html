@@ -1,0 +1,94 @@
+<md-dialog class="task-dialog" aria-label="New Milestone">
+  <form name="taskForm" class="md-inline-form" novalidate>
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title">{{vm.title}}</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+          <md-icon md-font-icon="icon-close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+      <md-input-container class="md-block">
+        <label>Title</label>
+        <input type="text" name="title" ng-model="vm.milestone.title" required md-autofocus>
+        <div ng-messages="taskForm.title.$error" ng-show="taskForm.title.$touched" role="alert">
+          <div ng-message="required">
+            <span>Title field is required</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <div layout-xs="column" layout="row">
+        <div flex class="date-container">
+          <label>Start Date</label>
+          <md-datepicker flex ng-model="vm.milestone.startDate" md-placeholder="Start Date" required></md-datepicker>
+        </div>
+
+        <div flex class="date-container">
+          <label>Due Date</label>
+          <md-datepicker flex ng-model="vm.milestone.dueDate" md-placeholder="Due Date" required></md-datepicker>
+        </div>
+      </div>
+
+      <div layout="row">
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Inspection Days</label>
+            <input type="number" flex ng-model="vm.milestone.inspection" md-placeholder="Inspection Days" required>
+          </md-input-container>
+
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Shipping</label>
+            <md-select ng-model="vm.milestone.shipping" md-placeholder="Shipping" required>
+              <md-option value="no" class="md-primary">No shipment/delivery required</md-option>
+              <md-option value="yes" class="md-primary" ng-checked="true">Shipping/delivery</md-option>
+            </md-select>
+          </md-input-container>
+      </div>
+
+      <div layout="row">
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Shipping cost</label>
+            <input type="number" flex ng-model="vm.milestone.shipping_cost" md-placeholder="Shipping Cost" required>
+          </md-input-container>
+
+          <md-input-container flex="50" flex-gt-sm>
+            <label>Total Milestone Cost</label>
+            <input type="number" flex ng-model="vm.milestone.milestone_cost" md-placeholder="Milestone Cost" required>
+          </md-input-container>
+      </div>
+
+      <div class="notes">
+        <label>Notes</label>
+        <text-angular ng-model="vm.milestone.notes"></text-angular>
+      </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.newMilestone" ng-click="vm.saveMilestone()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="taskForm.$invalid || taskForm.$pristine"
+                   aria-label="SAVE">
+          SAVE
+        </md-button>
+
+        <md-button type="submit" ng-if="vm.newMilestone" ng-click="vm.addNewMilestone()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="taskForm.$invalid || taskForm.$pristine"
+                   aria-label="Add Milestone">
+          ADD MILESTONE
+        </md-button>
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" ng-click="vm.deleteMilestone($event)" aria-label="Delete">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span>DELETE</span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

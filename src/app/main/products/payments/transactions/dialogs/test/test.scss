@@ -1,0 +1,33 @@
+md-dialog {
+
+    &.task-dialog {
+        max-width: 420px;
+        width: 420px;
+
+        md-dialog-content {
+            display: block;
+            position: relative;
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-md) {
+
+    md-dialog {
+
+        &.task-dialog {
+            width: 50%;
+        }
+    }
+}
+
+@media screen and (max-width: $layout-breakpoint-sm) {
+
+    md-dialog {
+
+        &.task-dialog {
+            width: 80%;
+        }
+    }
+}

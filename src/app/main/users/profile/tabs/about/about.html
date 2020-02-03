@@ -1,0 +1,80 @@
+<div class="about" layout="row" flex="100" layout-wrap>
+  <div class="profile-box info-box general md-whiteframe-1dp" layout="column" flex="100" flex-gt-md="45">
+    <header class="md-accent-bg">
+      <div class="title" translate="PROFILE.GENERAL_INFORMATION">General Information</div>
+    </header>
+
+    <div class="content">
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.FIRSTNAME">First name</div>
+        <span class="info">{{vm.profile.firstName || "Add your first name"}}</span>
+      </div>
+
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.LASTNAME">Last name</div>
+        <span class="info">{{vm.profile.lastName || "Add your last name"}}</span>
+      </div>
+
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.EMAIL">Email address</div>
+        <span class="info">{{vm.profile.email || "Add your email address"}}</span>
+      </div>
+
+      <div class="activate-to-view" permission permission-only="'IS_TEST'">
+        Activate account to view more.
+      </div>
+
+      <div  permission permission-only="'IS_LIVE'">
+        <div class="info-line">
+          <div class="title" style="font-weight: bold" translate="PROFILE.IDENTIFICATION">ID/Passport number</div>
+          <span class="info" editable-text="vm.profile.identification">{{vm.profile.identification || "Add your identification card/passport number"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.identification">Edit</span></span>
+        </div>
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold" translate="PROFILE.PHONE_NUMBER">Phone number</div>
+          <span class="info" editable-text="vm.profile.phoneNumber">{{vm.profile.phoneNumber || "Add your phone number"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.phoneNumber">Edit</span></span>
+        </div>
+
+        <div class="info-line">
+          <div class="title" style="font-weight: bold" translate="PROFILE.OCCUPATION">Occupation</div>
+          <span class="info" editable-text="vm.profile.occupation">{{vm.profile.occupation || "Add your occupation"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.occupation">Edit</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div layout="column" flex-gt-sm="5" flex-gt-md="5"></div>
+
+  <div class="profile-box info-box work md-whiteframe-1dp" layout="column" flex="100" flex-gt-md="45">
+    <header class="md-accent-bg">
+      <div class="title" translate="PROFILE.WORK">Address Information</div>
+    </header>
+
+    <div class="content activate-to-view" permission permission-only="'IS_TEST'">
+      Activate account to view this information.
+    </div>
+
+    <div class="content" permission permission-only="'IS_LIVE'">
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.PHY_ADDRESS">Physical Address</div>
+        <span class="info" editable-textarea="vm.profile.address.physicalAddress" e-rows="2" e-cols="100">{{vm.profile.address.physicalAddress || "Add your physical address"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.address.physicalAddress">Edit</span></span>
+      </div>
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.POST_ADDRESS">Postal Address</div>
+        <span class="info" editable-text="vm.profile.address.postalAddress">{{vm.profile.address.postalAddress || "Add postal address"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.address.postalAddress">Edit</span></span>
+      </div>
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.POST_CODE">Postal Code</div>
+        <span class="info" editable-text="vm.profile.address.postalCode">{{vm.profile.address.postalCode || "Add postal code"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.address.postalCode">Edit</span></span>
+      </div>
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.CITY">City</div>
+        <span class="info" editable-text="vm.profile.address.city">{{vm.profile.address.city || "Add city"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.address.city">Edit</span></span>
+      </div>
+      <div class="info-line">
+        <div class="title" style="font-weight: bold" translate="PROFILE.COUNTRY">Country</div>
+        <span class="info" editable-text="vm.profile.address.country">{{vm.profile.address.country || "Add country"}} <span style="font-size: 11px;" class="blue-fg" ng-if="vm.profile.address.country">Edit</span></span>
+      </div>
+    </div>
+  </div>
+</div>
